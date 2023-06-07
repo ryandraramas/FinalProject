@@ -10,6 +10,7 @@ import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import TabNavigator from './screens/navigators/TabNavigator';
 import MenuScreen from './screens/MenuScreen';
+import WalletScreen from './screens/WalletScreen';
 
 
 const Stack = createNativeStackNavigator();

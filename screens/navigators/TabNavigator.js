@@ -6,12 +6,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../../constants';
 
 import HomeScreen from '../HomeScreen';
-import PaymentsScreen from '../PaymentsScreen'
+import WalletScreen from '../WalletScreen'
 import HistoryScreen from '../HistoryScreen';
 import UserScreen from '../UserScreen';
 
 const homeName = 'Home';
-const paymentsName = 'Wallet';
+const walletName = 'Wallet';
 const userName = 'Profile';
 const historyName = 'History';
 
@@ -27,7 +27,7 @@ function TabNavigator() {
 
           if (route.name === homeName) {
             iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === paymentsName) {
+          } else if (route.name === walletName) {
             iconName = focused ? 'wallet' : 'wallet-outline';
           } else if (route.name === historyName) {
             iconName = focused ? 'time' : 'time-outline';
@@ -46,7 +46,7 @@ function TabNavigator() {
       }}
     >
       <Tab.Screen options={{ headerShown: false }} name={homeName} component={HomeScreen} />
-      <Tab.Screen options={{ headerShown: false }} name={paymentsName} component={PaymentsScreen} />
+      <Tab.Screen options={{ headerShown: false }} name={walletName} component={WalletScreen} />
       <Tab.Screen options={{ headerShown: false }} name={historyName} component={HistoryScreen} />
       <Tab.Screen options={{ headerShown: false }} name={userName} component={UserScreen} />
       
