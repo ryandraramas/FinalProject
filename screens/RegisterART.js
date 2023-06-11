@@ -25,15 +25,14 @@ const RegisterART = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState([]);
   const [items, setItems] = useState([
-    { label: 'Indonesia', value: 'Indonesia' },
-    { label: 'United States', value: 'United States' },
-    { label: 'United Kingdom', value: 'United Kingdom' },
-    { label: 'Austria', value: 'Austria' },
+    { label: 'Cleaning', value: 'Cleaning' },
+    { label: 'Cooking', value: 'Cooking' },
+    { label: 'Childcare', value: 'Childcare' },
+    { label: 'Laundry', value: 'Laundry' },
   ]);
 
   useEffect(() => {
@@ -58,7 +57,7 @@ const RegisterART = () => {
     setShowDatePicker(true);
   };
 
-  const handleCountryChange = (item) => {
+  const handleCategoryChange = (item) => {
     setSelectedItems([...selectedItems, item.value]);
   };
 
@@ -70,7 +69,7 @@ const RegisterART = () => {
       !phoneNumber ||
       !password ||
       !confirmPassword ||
-      selectedItems.length === 5
+      selectedItems.length === 0
     ) {
       Alert.alert('Error', 'Data must be inputted');
       return;
@@ -88,7 +87,7 @@ const RegisterART = () => {
       address,
       phoneNumber,
       password,
-      selectedCountry: selectedItems,
+      selectedCategory: selectedItems,
     };
     console.log('Data before sent!', data);
   };
@@ -182,14 +181,14 @@ const RegisterART = () => {
         <View style={styles.inputWrapper}>
           <Icon name="globe" size={20} color="#9E9E9E" style={styles.inputIcon} />
           <DropDownPicker
-            multiple={false}
-            min={1}
             containerStyle={styles.pickerContainer}
             style={styles.picker}
-            max={2}
+            multiple={false}
+            min={1}
             open={open}
             value={value}
             items={items}
+            mode="BADGE"
             setOpen={setOpen}
             setValue={setValue}
             setItems={setItems}
