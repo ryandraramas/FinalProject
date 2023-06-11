@@ -7,6 +7,7 @@ import user from "../assets/icons/user.png";
 import lock from "../assets/icons/lock.png";
 
 import img from "../assets/images/image1.jpg"
+import card from "../assets/images/card_visa_bg.png"
 import logo from "../assets/images/Logo.png";
 import nft01 from "../assets/images/nft01.png";
 import nft02 from "../assets/images/nft02.png";
@@ -32,6 +33,7 @@ export default {
     search,
 
     logo,
+    card,
     nft01,
     nft02,
     nft03,

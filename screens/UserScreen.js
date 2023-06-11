@@ -25,7 +25,7 @@ const UserScreen = () => {
     // Implement your logout logic here
     // For example, clear user data, navigate to login screen, etc.
     setUserData(null);
-    navigation.navigate('LoginScreen');
+    navigation.navigate('Started');
     // Additional logout actions if needed
   };
 
@@ -92,37 +92,39 @@ const UserScreen = () => {
         <View style={styles.menuWrapper}>
           <TouchableRipple onPress={() => {}}>
             <View style={styles.menuItem}>
-              <Ionicons name="heart-outline" color="#74858C" size={25} />
+              <Ionicons name="heart-outline" color="#74858C" size={20} />
               <Text style={styles.menuItemText}>Your Favorites</Text>
             </View>
           </TouchableRipple>
           <TouchableRipple onPress={() => {}}>
             <View style={styles.menuItem}>
-              <Ionicons name="card-outline" color="#74858C" size={25} />
+              <Ionicons name="card-outline" color="#74858C" size={20} />
               <Text style={styles.menuItemText}>Payment</Text>
             </View>
           </TouchableRipple>
           <TouchableRipple onPress={() => {}}>
             <View style={styles.menuItem}>
-              <Ionicons name="share-social-outline" color="#74858C" size={25} />
+              <Ionicons name="share-social-outline" color="#74858C" size={20} />
               <Text style={styles.menuItemText}>Tell Your Friends</Text>
             </View>
           </TouchableRipple>
           <TouchableRipple onPress={() => {}}>
             <View style={styles.menuItem}>
-              <Ionicons name="people-outline" color="#74858C" size={25} />
+              <Ionicons name="people-outline" color="#74858C" size={20} />
               <Text style={styles.menuItemText}>Support</Text>
             </View>
           </TouchableRipple>
           <TouchableRipple onPress={() => {}}>
             <View style={styles.menuItem}>
-              <Ionicons name="settings-outline" color="#74858C" size={25} />
+              <Ionicons name="settings-outline" color="#74858C" size={20} />
               <Text style={styles.menuItemText}>Settings</Text>
             </View>
           </TouchableRipple>
-          <TouchableRipple onPress={handleLogout}>
-            <View style={[styles.menuItem, {  }]}>
-              <Ionicons name="log-out-outline" color="#f73131" size={25} />
+
+          {/* <TouchableRipple onPress={handleLogout} > */}
+            <TouchableRipple  onPress={() => navigation.navigate("Started")} >
+            <View style={[styles.menuItem, {  }] }>
+              <Ionicons name="log-out-outline" color="#f73131" size={20} />
               <Text style={[styles.menuItemText, { color: 'red' }]}>Logout</Text>
             </View>
           </TouchableRipple>
@@ -170,18 +172,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   menuWrapper: {
-    marginTop: 10,
+    marginTop: 15,
   },
   menuItem: {
     flexDirection: 'row',
-    paddingVertical: 15,
+    paddingVertical: 4,
     paddingHorizontal: 30,
   },
   menuItemText: {
     color: '#777777',
     marginLeft: 20,
     fontWeight: '600',
-    fontSize: 16,
+    fontSize: 14,
     lineHeight: 26,
   },
 });

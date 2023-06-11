@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -49,7 +48,6 @@ function TabNavigator() {
       <Tab.Screen options={{ headerShown: false }} name={walletName} component={WalletScreen} />
       <Tab.Screen options={{ headerShown: false }} name={historyName} component={HistoryScreen} />
       <Tab.Screen options={{ headerShown: false }} name={userName} component={UserScreen} />
-      
     </Tab.Navigator>
   )
 }

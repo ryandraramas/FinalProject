@@ -1,74 +1,90 @@
-import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
-import { COLORS, SIZES, FONTS, assets } from '../constants';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { COLORS } from '../constants';
 
-export const MenuScreen = () => {
+const MenuScreen = ({ navigation }) => {
+  const handleNavigation = (menu) => {
+    // Handle navigation based on the selected menu
+    switch (menu) {
+      case 'LoginART':
+        // Navigate to the menu for "Login Sebagai LoginART"
+        navigation.navigate('LoginART');
+        break;
+      case 'Developer':
+        // Navigate to the menu for "Login Sebagai Developer"
+        navigation.navigate('LoginDeveloper');
+        break;
+      case 'Login':
+        // Navigate to the menu for "Login Sebagai Pelanggan"
+        navigation.navigate('Login');
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
-
-      <TouchableOpacity style={styles.backButton} 
-          onPress={() => navigation.goBack()}>
-        <Icon name="arrow-back" size={24} color={COLORS.primary} />
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Ionicons name="chevron-back" size={24} color="#000" />
       </TouchableOpacity>
-
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-      </View>
-
-
-    </KeyboardAvoidingView>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => handleNavigation('LoginART')}
+      >
+        <Text style={styles.cardText}>Login LoginART</Text>
+        <Ionicons name="chevron-forward" size={20} color="#000" />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => handleNavigation('Developer')}
+      >
+        <Text style={styles.cardText}>Login Developer</Text>
+        <Ionicons name="chevron-forward" size={20} color="#000" />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => handleNavigation('Login')}
+      >
+        <Text style={styles.cardText}>Login Pelanggan</Text>
+        <Ionicons name="chevron-forward" size={20} color="#000" />
+      </TouchableOpacity>
+    </View>
   );
 };
+
+export default MenuScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: '#F7F6F8'
   },
   backButton: {
     position: 'absolute',
-    top: 16,
-    left: 16,
-    zIndex: 1
-  },uttonContainer: {
-    marginTop: 70
+    top: 20,
+    left: 20,
   },
-  button: {
-    backgroundColor: COLORS.primary,
-    borderRadius: 15,
-    padding: SIZES.small,
-    marginTop: 55,
-    minWidth: '79%',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  buttonText: {
-    fontFamily: FONTS.bold,
-    fontSize: 16,
-    color: COLORS.white
-  },
-  registerButton: {
+  card: {
+    flexDirection: 'row',
+    height: 50,
+    marginLeft: '6%',
+    marginRight: '6%',
     backgroundColor: COLORS.white,
-    borderRadius: 15,
-    borderColor: COLORS.primary,
-    borderWidth: 2,
-    padding: SIZES.base,
-    minWidth: '79%',
-    justifyContent: 'center',
+    borderRadius: 10,
+    marginBottom: 20,
     alignItems: 'center',
-    marginTop: 20
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
   },
-  registerButtonText: {
-    fontFamily: FONTS.bold,
+  cardText: {
     fontSize: 16,
-    color: COLORS.primary
-  }
+    fontWeight: 'medium',
+    textAlign: 'center',
+    flex: 1,
+    marginRight: 10,
+  },
 });
-
-export default MenuScreen;

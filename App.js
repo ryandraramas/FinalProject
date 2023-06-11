@@ -11,6 +11,9 @@ import DetailsScreen from './screens/DetailsScreen';
 import TabNavigator from './screens/navigators/TabNavigator';
 import MenuScreen from './screens/MenuScreen';
 import WalletScreen from './screens/WalletScreen';
+import LoginART from './screens/LoginART';
+import RegisterART from './screens/RegisterART';
+import ARTViewScreen from './screens/navigators/ARTViewScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -41,7 +44,10 @@ function App() {
         <Stack.Screen options={{ headerShown: false }} name="Register" component={RegisterScreen}/>
         <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen}/>
         <Stack.Screen options={{ headerShown: false }} name="Details" component={DetailsScreen}/>
+        <Stack.Screen options={{ headerShown: false }} name="LoginART" component={LoginART}/>
+        <Stack.Screen options={{ headerShown: false }} name="RegisterART" component={RegisterART}/>
         <Stack.Screen options={{ headerShown: false }} name="TabNavigator" component={TabNavigator}/>
+        <Stack.Screen options={{ headerShown: false }} name="ARTViewScreen" component={ARTViewScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   )

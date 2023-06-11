@@ -13,9 +13,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS, SIZES, FONTS } from '../constants';
 import DropDownPicker from 'react-native-dropdown-picker';
-import axios from 'axios';
 
-const RegisterScreen = () => {
+const RegisterART = () => {
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
   const [name, setName] = useState('');
@@ -91,19 +90,6 @@ const RegisterScreen = () => {
       password,
       selectedCountry: selectedItems,
     };
-    axios
-    .post('http://localhost:5000/api/register', data) // Ganti URL dengan URL endpoint API register di server Anda
-    .then((response) => {
-      // Tangani respons dari server
-      console.log(response.data);
-      Alert.alert('Success', 'Registration successful!');
-    })
-    .catch((error) => {
-      // Tangani error yang terjadi
-      console.error(error);
-      Alert.alert('Error', 'Registration failed.');
-    });
-
     console.log('Data before sent!', data);
   };
 
@@ -302,4 +288,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+export default RegisterART;

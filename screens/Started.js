@@ -25,7 +25,7 @@ export const Started = ({ minWidth, fontSize, navigation, ...props }) => (
           alignItems: 'center',
           ...props,
         }}
-        onPress={() => navigation.navigate("Login")}
+        onPress={() => navigation.navigate("Menu")}
       >
         <Text style={{
           fontFamily: FONTS.bold,
