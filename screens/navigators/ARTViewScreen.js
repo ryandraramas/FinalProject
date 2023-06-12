@@ -2,12 +2,11 @@ import React from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-
 import { COLORS } from '../../constants';
 
-import StatusBookART from '../StatusBookART';
-import ProfileART from '../ProfileART';
-import NotificationART from '../NotificationART';
+import StatusBookART from '../ARTScreen/StatusBookART';
+import ProfileART from '../ARTScreen/ProfileART';
+import NotificationART from '../ARTScreen/NotificationART';
 
 const StatusBookARTName = 'Status Book';
 const NotificationARTName = 'Notification';
@@ -25,7 +24,6 @@ function TabNavigator() {
           if (route.name === StatusBookARTName) {
             iconName = focused ? 'bookmarks' : 'bookmarks';
           } else if (route.name === NotificationARTName) {
-            // Gunakan 'bell' untuk ikon Notification
             iconName = focused ? 'notifications' : 'notifications-outline';
           } else if (route.name === ProfileARTName) {
             iconName = focused ? 'person' : 'person-outline';
@@ -33,17 +31,16 @@ function TabNavigator() {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
+        tabBarActiveTintColor: COLORS.primary,
+        tabBarInactiveTintColor: 'grey',
+        tabBarLabelStyle: { paddingBottom: 5, fontSize: 10 },
+        tabBarStyle: { padding: 10, height: 70 },
+        headerShown: false,
       })}
-      tabBarOptions={{
-        activeTintColor: COLORS.primary,
-        inactiveTintColor: 'grey',
-        labelStyle: { paddingBottom: 5, fontSize: 10 },
-        style: { padding: 10, height: 70 }
-      }}
     >
-      <Tab.Screen options={{ headerShown: false }} name={StatusBookARTName} component={StatusBookART} />
-      <Tab.Screen options={{ headerShown: false }} name={NotificationARTName} component={NotificationART} />
-      <Tab.Screen options={{ headerShown: false }} name={ProfileARTName} component={ProfileART} />
+      <Tab.Screen name={StatusBookARTName} component={StatusBookART} />
+      <Tab.Screen name={NotificationARTName} component={NotificationART} />
+      <Tab.Screen name={ProfileARTName} component={ProfileART} />
     </Tab.Navigator>
   );
 }

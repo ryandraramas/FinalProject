@@ -35,8 +35,8 @@ const NFTData = [
   },
   {
     id: "NFT-02",
-    name: "Toyota Supra",
-    creator: "Siti Nurhaliza",
+    name: "Siti Nurhaliza",
+    creator: "Baby Sitting",
     price: 500.000,
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis.",
@@ -53,8 +53,8 @@ const NFTData = [
   },
   {
     id: "NFT-03",
-    name: "Cevrolette",
-    creator: "Elisabeth aho",
+    name: "Elisabeth aho",
+    creator: "Laundry",
     price: "650.000",
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis.",

@@ -42,7 +42,6 @@ const WalletScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 40,
     alignItems: 'center',
     backgroundColor: '#F7F6F8',
   },
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    marginTop: 20,
+    marginTop: 35,
   },
   backgroundImage: {
     flex: 1,

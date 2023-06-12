@@ -20,9 +20,9 @@ const DetailsBid = ({ bid }) => {
       />
       <View>
         <Text style={{
-            fontFamily: FONTS.semiBold,
+            fontFamily: FONTS.Bold,
             fontSize: SIZES.small,
-            color: COLORS.primary
+            color: COLORS.dark
         }}>
             Reviewed By {bid.name}
         </Text>
@@ -30,7 +30,7 @@ const DetailsBid = ({ bid }) => {
         <Text style={{
             fontFamily: FONTS.regular,
             fontSize: SIZES.small - 2,
-            color: COLORS.secondary,
+            color: COLORS.darkLight,
             marginTop: 3,
         }}>
             {bid.date}

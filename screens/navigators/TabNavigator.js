@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -36,18 +36,17 @@ function TabNavigator() {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
+        tabBarActiveTintColor: COLORS.primary,
+        tabBarInactiveTintColor: 'grey',
+        tabBarLabelStyle: { paddingBottom: 5, fontSize: 10 },
+        tabBarStyle: { padding: 10, height: 60 },
+        headerShown: false,
       })}
-      tabBarOptions={{
-        activeTintColor: COLORS.primary,
-        inactiveTintColor: 'grey',
-        labelStyle: { paddingBottom: 5, fontSize: 10 },
-        style: { padding: 10, height: 70 }
-      }}
     >
-      <Tab.Screen options={{ headerShown: false }} name={homeName} component={HomeScreen} />
-      <Tab.Screen options={{ headerShown: false }} name={walletName} component={WalletScreen} />
-      <Tab.Screen options={{ headerShown: false }} name={historyName} component={HistoryScreen} />
-      <Tab.Screen options={{ headerShown: false }} name={userName} component={UserScreen} />
+      <Tab.Screen name={homeName} component={HomeScreen} />
+      <Tab.Screen name={walletName} component={WalletScreen} />
+      <Tab.Screen name={historyName} component={HistoryScreen} />
+      <Tab.Screen name={userName} component={UserScreen} />
     </Tab.Navigator>
   )
 }
