@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Avatar, Title, Caption, Text, TouchableRipple } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { COLORS, SIZES, FONTS } from '../constants'
+import { COLORS, SIZES, FONTS } from '../../constants'
 
 
 const ProfileART = () => {

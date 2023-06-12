@@ -11,7 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
-import { COLORS, SIZES, FONTS } from '../constants';
+import { COLORS, SIZES, FONTS } from '../../constants';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const RegisterART = () => {

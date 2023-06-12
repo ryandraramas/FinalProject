@@ -11,8 +11,8 @@ import DetailsScreen from './screens/DetailsScreen';
 import TabNavigator from './screens/navigators/TabNavigator';
 import MenuScreen from './screens/MenuScreen';
 import WalletScreen from './screens/WalletScreen';
-import LoginART from './screens/LoginART';
-import RegisterART from './screens/RegisterART';
+import LoginART from './screens/ARTScreen/LoginART';
+import RegisterART from './screens/ARTScreen/RegisterART';
 import ARTViewScreen from './screens/navigators/ARTViewScreen';
 
 

@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
-import { COLORS, SIZES, FONTS, assets } from '../constants';
+import { COLORS, SIZES, FONTS, assets } from '../../constants';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export const LoginScreen = () => {
