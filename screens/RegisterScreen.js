@@ -71,7 +71,7 @@ const RegisterScreen = () => {
       !phoneNumber ||
       !password ||
       !confirmPassword ||
-      selectedItems.length === 5
+      selectedItems.length === 0
     ) {
       Alert.alert('Error', 'Data must be inputted');
       return;
@@ -91,18 +91,17 @@ const RegisterScreen = () => {
       password,
       selectedCountry: selectedItems,
     };
+
     axios
-    .post('http://localhost:5000/api/register', data) // Ganti URL dengan URL endpoint API register di server Anda
-    .then((response) => {
-      // Tangani respons dari server
-      console.log(response.data);
-      Alert.alert('Success', 'Registration successful!');
-    })
-    .catch((error) => {
-      // Tangani error yang terjadi
-      console.error(error);
-      Alert.alert('Error', 'Registration failed.');
-    });
+      .post('https://ap-southeast-1.aws.data.mongodb-api.com/app/data-mkyfk/endpoint/data/v1', data)
+      .then((response) => {
+        console.log(response.data);
+        Alert.alert('Success', 'Registration successful!');
+      })
+      .catch((error) => {
+        console.error(error);
+        Alert.alert('Error', 'Registration failed.');
+      });
 
     console.log('Data before sent!', data);
   };
