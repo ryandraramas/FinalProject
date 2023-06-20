@@ -1,6 +1,6 @@
 # Final Project "MaidMatch"
 
-I created this project with [Create React Native App] (https://reactnative.dev/)
+I created this project with [Create React Native App](https://reactnative.dev/).
 
 ## Available Scripts
 
