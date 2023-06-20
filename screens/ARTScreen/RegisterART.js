@@ -95,7 +95,7 @@ const RegisterART = () => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Icon name="arrow-back" size={24} color="#2C2C2C" />
+        <Icon name="chevron-back" size={24} color="#2C2C2C" />
       </TouchableOpacity>
 
       <View style={styles.inputContainer}>
@@ -213,8 +213,8 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 16,
-    left: 16,
+    top: 30,
+    left: 20,
     zIndex: 1,
   },
   inputContainer: {

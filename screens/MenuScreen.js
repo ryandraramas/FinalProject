@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../constants';
 
@@ -11,10 +11,6 @@ const MenuScreen = ({ navigation }) => {
         // Navigate to the menu for "Login Sebagai LoginART"
         navigation.navigate('LoginART');
         break;
-      case 'Developer':
-        // Navigate to the menu for "Login Sebagai Developer"
-        navigation.navigate('LoginDeveloper');
-        break;
       case 'Login':
         // Navigate to the menu for "Login Sebagai Pelanggan"
         navigation.navigate('Login');
@@ -24,48 +20,51 @@ const MenuScreen = ({ navigation }) => {
     }
   };
 
+  const handleDeveloperLogin = () => {
+    // Navigate to the LoginDev
+    navigation.navigate('LoginDev');
+  };
+
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={require('../assets/images/bg1.jpg')}
+      style={styles.container}
+    >
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Ionicons name="chevron-back" size={24} color="#000" />
+        <Ionicons name="chevron-back" size={24} color="#fff" />
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.card}
-        onPress={() => handleNavigation('LoginART')}
-      >
-        <Text style={styles.cardText}>Login LoginART</Text>
+
+      <TouchableOpacity style={styles.card} onPress={() => handleNavigation('LoginART')}>
+        <Text style={styles.cardText}>Login Asisten Rumah Tangga</Text>
         <Ionicons name="chevron-forward" size={20} color="#000" />
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.card}
-        onPress={() => handleNavigation('Developer')}
-      >
-        <Text style={styles.cardText}>Login Developer</Text>
-        <Ionicons name="chevron-forward" size={20} color="#000" />
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.card}
-        onPress={() => handleNavigation('Login')}
-      >
+
+      <TouchableOpacity style={styles.card} onPress={() => handleNavigation('Login')}>
         <Text style={styles.cardText}>Login Pelanggan</Text>
         <Ionicons name="chevron-forward" size={20} color="#000" />
       </TouchableOpacity>
-    </View>
+
+      <View style={styles.bottomContainer}>
+        <TouchableOpacity style={styles.developerLoginButton} onPress={handleDeveloperLogin}>
+          <Text style={styles.developerLoginText}>
+            Login as a <Text style={styles.developerText}>Developer</Text>
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 };
-
-export default MenuScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F7F6F8'
+    paddingTop: "100%",
   },
   backButton: {
     position: 'absolute',
-    top: 20,
+    top: 30,
     left: 20,
   },
   card: {
@@ -75,7 +74,7 @@ const styles = StyleSheet.create({
     marginRight: '6%',
     backgroundColor: COLORS.white,
     borderRadius: 10,
-    marginBottom: 20,
+    marginTop: 20,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 10,
@@ -87,4 +86,27 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 10,
   },
+  bottomContainer: {
+    position: 'absolute',
+    bottom: 20,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+  developerLoginButton: {
+    alignItems: 'flex-start',
+    marginLeft: '6%',
+    marginRight: '6%',
+    marginTop: 20,
+  },
+  developerLoginText: {
+    fontSize: 12,
+    textAlign: 'left',
+    color: COLORS.white,
+  },
+  developerText: {
+    color: '#F9F871',
+  },
 });
+
+export default MenuScreen;

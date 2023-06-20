@@ -24,7 +24,7 @@ const CreatePostART = () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -45,15 +45,20 @@ const CreatePostART = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.backButton} onPress={handleBackButtonPress}>
-        <Ionicons name="arrow-back" size={24} color="black" />
+        <Ionicons name="chevron-back" size={24} color="black" />
       </TouchableOpacity>
       <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
-        <View style={styles.imagePickerContent}>
-          <Ionicons name="image-outline" size={64} style={styles.imagePickerIcon} />
-          <Text style={styles.imagePickerText}>Add Your Image</Text>
-        </View>
+        {selectedImage ? (
+          <View style={styles.selectedImageContainer}>
+            <Image source={{ uri: selectedImage }} style={styles.selectedImage} resizeMode="contain" />
+          </View>
+        ) : (
+          <View style={styles.imagePickerContent}>
+            <Ionicons name="image-outline" size={64} style={styles.imagePickerIcon} />
+            <Text style={styles.imagePickerText}>Add Your Image</Text>
+          </View>
+        )}
       </TouchableOpacity>
-      {selectedImage && <Image source={{ uri: selectedImage }} style={styles.image} />}
       <TouchableOpacity style={styles.submitButton} onPress={handleSubmitButtonPress}>
         <Text style={styles.submitButtonText}>Submit</Text>
       </TouchableOpacity>
@@ -66,16 +71,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: '80%',
   },
   backButton: {
     position: 'absolute',
-    top: 20,
+    top: 30,
     left: 20,
     zIndex: 1,
   },
   imagePickerButton: {
-    marginBottom: -75,
-    marginTop: 450,
+    marginTop: 5,
     borderWidth: 2,
     width: '80%',
     borderStyle: 'dashed',
@@ -97,10 +102,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: COLORS.darkLight,
   },
-  image: {
-    width: 200,
+  selectedImageContainer: {
+    width: '100%',
     height: 200,
-    marginBottom: 20,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  selectedImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    borderRadius: 8,
+    height: undefined,
+    aspectRatio: 1,
   },
   submitButton: {
     backgroundColor: COLORS.primary,
@@ -109,8 +125,7 @@ const styles = StyleSheet.create({
     minWidth: '90%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 15,
-    marginTop: 100,
+    marginTop: '5%',
   },
   submitButtonText: {
     color: 'white',

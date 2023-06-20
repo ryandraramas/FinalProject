@@ -29,6 +29,7 @@ export const Started = ({ minWidth, fontSize, navigation, ...props }) => (
       >
         <Text style={{
           fontSize: fontSize,
+          fontWeight: 'bold',
           color: COLORS.primary,
         }}>
           Get Started
@@ -43,10 +44,11 @@ export const Started = ({ minWidth, fontSize, navigation, ...props }) => (
           fontSize: 20,
           marginLeft: '6%',
           marginRight: '6%',
+          fontWeight: 'bold',
           color: COLORS.white,
-          textShadowColor: 'rgba(0, 0, 0, 0.5)',
-          textShadowOffset: { width: 1, height: 1 },
-          textShadowRadius: 0.5,
+          // textShadowColor: 'rgba(0, 0, 0, 0.5)',
+          // textShadowOffset: { width: 1, height: 1 },
+          // textShadowRadius: 0.5,
         }}>
           Expert cleaners will make your home sparkle. Single and recurring cleanings available!
         </Text>

@@ -13,6 +13,8 @@ import LoginART from './screens/ARTScreen/LoginART';
 import RegisterART from './screens/ARTScreen/RegisterART';
 import CreatePostART from './screens/ARTScreen/CreatePostART';
 import ARTViewScreen from './screens/navigators/ARTViewScreen';
+import DevScreen from './screens/DevScreen/DevScreen';
+import LoginDev from './screens/DevScreen/LoginDev';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +51,8 @@ function App() {
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
         <Stack.Screen name="CreatePostART" component={CreatePostART} />
         <Stack.Screen name="ARTViewScreen" component={ARTViewScreen} />
+        <Stack.Screen name="DevScreen" component={DevScreen}/>
+        <Stack.Screen name="LoginDev" component={LoginDev}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

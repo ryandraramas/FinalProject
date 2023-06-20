@@ -70,7 +70,7 @@ const RegisterScreen = () => {
       !phoneNumber ||
       !password ||
       !confirmPassword ||
-      selectedItems.length === 1
+      selectedItems.length === 0
     ) {
       Alert.alert('Error', 'Data must be inputted');
       return;
@@ -108,11 +108,11 @@ const RegisterScreen = () => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Icon name="arrow-back" size={24} color="#2C2C2C" />
+        <Icon name="chevron-back" size={24} color="#2C2C2C" />
       </TouchableOpacity>
 
       <View style={styles.inputContainer}>
-        <Text style={styles.title}>Sign Up</Text>
+        <Text style={styles.title}>Login Pelanggan</Text>
 
         <View style={styles.inputWrapper}>
           <Icon name="person" size={20} color="#9E9E9E" style={styles.inputIcon} />
@@ -226,8 +226,8 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 16,
-    left: 16,
+    top: 30,
+    left: 20,
     zIndex: 1,
   },
   inputContainer: {
