@@ -1,6 +1,6 @@
 import { View, Text, Image, TextInput } from 'react-native'
 
-import { COLORS, FONTS, SIZES, assets } from '../constants'
+import { COLORS, SIZES, assets } from '../constants'
 
 const HomeHeader = ({ onSearch }) => {
   return (
@@ -39,14 +39,12 @@ const HomeHeader = ({ onSearch }) => {
         <View style={{ marginVertical: SIZES.font }}>
 
           <Text style={{
-          fontFamily: FONTS.regular, 
           fontSize: SIZES.small,
           color: COLORS.white
           }}>
           Hello, Victoria 👋
           </Text>
-          <Text style={{
-          fontFamily: FONTS.bold, 
+          <Text style={{ 
           fontSize: SIZES.large,
           color: COLORS.white,
           marginTop: SIZES.base / 2

@@ -1,6 +1,6 @@
 import React from "react";
 import { ImageBackground, TouchableOpacity, Text, View, Image } from "react-native";
-import { COLORS, SIZES, FONTS, assets } from '../constants';
+import { COLORS, SIZES, assets } from '../constants';
 
 export const Started = ({ minWidth, fontSize, navigation, ...props }) => (
   <View style={{ flex: 1 }}>
@@ -28,7 +28,6 @@ export const Started = ({ minWidth, fontSize, navigation, ...props }) => (
         onPress={() => navigation.navigate("Menu")}
       >
         <Text style={{
-          fontFamily: FONTS.bold,
           fontSize: fontSize,
           color: COLORS.primary,
         }}>
@@ -39,7 +38,6 @@ export const Started = ({ minWidth, fontSize, navigation, ...props }) => (
       
       <View>
         <Text style={{
-          fontFamily: FONTS.semiBold,
           marginTop: 300,
           marginLeft: 17,
           fontSize: 20,
@@ -60,7 +58,6 @@ export const Started = ({ minWidth, fontSize, navigation, ...props }) => (
         marginLeft: '6%',
         marginRight: '6%',}}>
         <Text style={{
-          fontFamily: FONTS.regular,
           fontSize: 12,
           textAlign: 'left',
           color: COLORS.white,

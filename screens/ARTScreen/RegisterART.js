@@ -11,7 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
-import { COLORS, SIZES, FONTS } from '../../constants';
+import { COLORS, SIZES } from '../../constants';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const RegisterART = () => {
@@ -29,10 +29,10 @@ const RegisterART = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState([]);
   const [items, setItems] = useState([
-    { label: 'Cleaning', value: 'Cleaning' },
-    { label: 'Cooking', value: 'Cooking' },
-    { label: 'Childcare', value: 'Childcare' },
-    { label: 'Laundry', value: 'Laundry' },
+    { label: 'Indonesia', value: 'Indonesia' },
+    { label: 'United States', value: 'United States' },
+    { label: 'United Kingdom', value: 'United Kingdom' },
+    { label: 'Austria', value: 'Austria' },
   ]);
 
   useEffect(() => {
@@ -221,7 +221,6 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   title: {
-    fontFamily: FONTS.bold,
     fontSize: SIZES.extraLarge,
     color: COLORS.dark,
     textAlign: 'center',
@@ -275,12 +274,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    fontFamily: FONTS.bold,
     fontSize: 16,
     color: COLORS.white,
   },
   errorText: {
-    fontFamily: FONTS.regular,
     fontSize: 12,
     color: 'red',
     marginTop: 5,

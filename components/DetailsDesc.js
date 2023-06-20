@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import { useState } from 'react'
 
 import { EthPrice, NFTTitle } from './SubInfo'
-import { COLORS, SIZES, FONTS } from '../constants'
+import { COLORS, SIZES } from '../constants'
 
 const DetailsDesc = ({ data }) => {
     const [text, setText] = useState(data.description.slice(0, 100));
@@ -32,7 +32,6 @@ const DetailsDesc = ({ data }) => {
           <Text
             style={{
               fontSize: SIZES.font,
-              fontFamily: FONTS.bold,
               color: COLORS.dark,
             }}
           >
@@ -47,7 +46,6 @@ const DetailsDesc = ({ data }) => {
               style={{
                 color: COLORS.dark,
                 fontSize: SIZES.small,
-                fontFamily: FONTS.regular,
                 lineHeight: SIZES.large,
               }}
             >
@@ -57,7 +55,6 @@ const DetailsDesc = ({ data }) => {
                 style={{
                   color: COLORS.primary,
                   fontSize: SIZES.small,
-                  fontFamily: FONTS.semiBold,
                 }}
                 onPress={() => {
                   if (!readMore) {

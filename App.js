@@ -1,56 +1,57 @@
 import * as React from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useFonts } from 'expo-font'
+import { useFonts } from 'expo-font';
 
-import Started from './screens/Started'
+import Started from './screens/Started';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import TabNavigator from './screens/navigators/TabNavigator';
 import MenuScreen from './screens/MenuScreen';
-import WalletScreen from './screens/WalletScreen';
 import LoginART from './screens/ARTScreen/LoginART';
 import RegisterART from './screens/ARTScreen/RegisterART';
+import CreatePostART from './screens/ARTScreen/CreatePostART';
 import ARTViewScreen from './screens/navigators/ARTViewScreen';
-
 
 const Stack = createNativeStackNavigator();
 
 const theme = {
   ...DefaultTheme,
-  colors:{
+  colors: {
     ...DefaultTheme.colors,
-      background: "transparent"
+    background: "transparent"
   }
-}
+};
 
 function App() {
   const [loaded] = useFonts({
-    IBMPlexSansBold     : require("./assets/fonts/IBMPlexSans-Bold.ttf"),
-    IBMPlexSansSemiBold : require("./assets/fonts/IBMPlexSans-SemiBold.ttf"),
-    IBMPlexSansMedium   : require("./assets/fonts/IBMPlexSans-Medium.ttf"),
-    IBMPlexSansRegular  : require("./assets/fonts/IBMPlexSans-Regular.ttf"),
-  })
+    // IBMPlexSansSemiBold: require("./assets/fonts/IBMPlexSans-SemiBold.ttf"),
+    // IBMPlexSansMedium: require("./assets/fonts/IBMPlexSans-Medium.ttf"),
+    // IBMPlexSansRegular: require("./assets/fonts/IBMPlexSans-Regular.ttf"),
+    // IBMPlexSansBold: require("./assets/fonts/IBMPlexSans-Bold.ttf"),
+  });
 
-  if( !loaded ) return null 
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <NavigationContainer theme={theme}>
-      <Stack.Navigator>
-        <Stack.Screen options={{ headerShown: false }} name="Started" component={Started} />
-        <Stack.Screen options={{ headerShown: false }} name="Menu" component={MenuScreen}/>
-        <Stack.Screen options={{ headerShown: false }} name="Register" component={RegisterScreen}/>
-        <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen}/>
-        <Stack.Screen options={{ headerShown: false }} name="Details" component={DetailsScreen}/>
-        <Stack.Screen options={{ headerShown: false }} name="LoginART" component={LoginART}/>
-        <Stack.Screen options={{ headerShown: false }} name="RegisterART" component={RegisterART}/>
-        <Stack.Screen options={{ headerShown: false }} name="TabNavigator" component={TabNavigator}/>
-        <Stack.Screen options={{ headerShown: false }} name="ARTViewScreen" component={ARTViewScreen}/>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Started" component={Started} />
+        <Stack.Screen name="Menu" component={MenuScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name="LoginART" component={LoginART} />
+        <Stack.Screen name="RegisterART" component={RegisterART} />
+        <Stack.Screen name="TabNavigator" component={TabNavigator} />
+        <Stack.Screen name="CreatePostART" component={CreatePostART} />
+        <Stack.Screen name="ARTViewScreen" component={ARTViewScreen} />
       </Stack.Navigator>
     </NavigationContainer>
-  )
+  );
 }
 
 export default App;

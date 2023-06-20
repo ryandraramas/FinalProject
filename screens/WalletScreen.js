@@ -9,7 +9,7 @@ const WalletScreen = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.card}>
         <ImageBackground
-          source={assets.card} // Replace with the path to your image
+          source={assets.card}
           style={styles.backgroundImage}
           resizeMode="cover"
           imageStyle={styles.backgroundImageStyle}
@@ -112,7 +112,6 @@ const styles = StyleSheet.create({
   history: {
     fontWeight: 'bold',
     color: COLORS.dark,
-    fontSize: SIZES.large,
   },
   time: {
     justifyContent: 'space-between',

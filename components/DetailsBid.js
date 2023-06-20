@@ -1,6 +1,6 @@
 import { View, Text, Image } from 'react-native'
 import { EthPrice } from './SubInfo'
-import { COLORS, SIZES, FONTS } from '../constants'
+import { COLORS, SIZES } from '../constants'
 
 
 const DetailsBid = ({ bid }) => {
@@ -20,16 +20,12 @@ const DetailsBid = ({ bid }) => {
       />
       <View>
         <Text style={{
-            fontFamily: FONTS.Bold,
-            fontSize: SIZES.small,
             color: COLORS.dark
         }}>
             Reviewed By {bid.name}
         </Text>
 
         <Text style={{
-            fontFamily: FONTS.regular,
-            fontSize: SIZES.small - 2,
             color: COLORS.darkLight,
             marginTop: 3,
         }}>

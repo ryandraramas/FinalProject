@@ -21,12 +21,12 @@ export const SIZES = {
   extraLarge: 24,
 };
 
-export const FONTS = {
-  bold      : 'IBMPlexSansBold',
-  semiBold  : 'IBMPlexSansSemiBold ',
-  medium    : "IBMPlexSansMedium",
-  regular   : "IBMPlexSansRegular",
-};
+// export const FONTS = {
+//   bold      : 'IBMPlexSansBold',
+//   semiBold  : 'IBMPlexSansSemiBold ',
+//   medium    : "IBMPlexSansMedium",
+//   regular   : "IBMPlexSansRegular",
+// };
 
 export const SHADOWS = {
   light: {

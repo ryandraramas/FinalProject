@@ -1,5 +1,5 @@
 import {Text, View, SafeAreaView, Image, StatusBar, FlatList} from 'react-native'
-import {COLORS, SIZES, SHADOWS, FONTS, assets} from '../constants'
+import {COLORS, SIZES, SHADOWS, assets} from '../constants'
 import {CircleButton, RectButton, SubInfo, FocusedStatusBar, DetailsDesc, DetailsBid} from '../components'
 import React from 'react'
 
@@ -56,14 +56,14 @@ const Details = ({ route, navigation }) => {
       zIndex: 1,
 
     }}>
-      <RectButton minWidth={170} fontSize={SIZES.large} {...SHADOWS.dark}/>
+      <RectButton minWidth={170} {...SHADOWS.dark}/>
     </View>
 
     <FlatList
       data={data.bids}
       renderItem={({ item }) => <DetailsBid bid={item}/> }
       keyExtractor={(item) => item.id}
-      showsVerticalScrollIndicator={false}
+      showsVerticalScrollIndicator={true}
       contentContainerStyle={{ paddingBottom: SIZES.extraLarge }}
       ListHeaderComponent={() => (
         <React.Fragment>
@@ -75,7 +75,6 @@ const Details = ({ route, navigation }) => {
             {data.bids.length > 0 &&(
               <Text style={{
                 fontSize: SIZES.font,
-                fontFamily: FONTS.bold,
                 color:COLORS.primary
               }}>
                 Review

@@ -1,5 +1,5 @@
 import { TouchableOpacity, View, Text, Image } from 'react-native'
-import { COLORS, SIZES, FONTS, SHADOW, SHADOWS } from '../constants'
+import { COLORS, SIZES, SHADOW, SHADOWS } from '../constants'
 
 
 export const CircleButton = ({ imgUrl, handlePress, ...props }) => {
@@ -41,7 +41,6 @@ export const RectButton = ({ minWidth, fontSize, handlePress, ...props }) => {
       onPress={handlePress}
       >
         <Text style={{
-          fontFamily: FONTS.semiBold,
           fontSize: fontSize,
           color: COLORS.white,
           textAlign:'center'

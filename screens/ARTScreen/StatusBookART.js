@@ -1,14 +1,21 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 import { COLORS } from '../../constants';
 
 const StatusBookART = () => {
+  const navigation = useNavigation();
+
+  const handleAddButtonPress = () => {
+    navigation.navigate('CreatePostART');
+  };
+
   return (
     <View style={styles.container}>
       <Text>StatusBookART</Text>
       <View style={styles.cardView} />
-      <TouchableOpacity style={styles.addButton}>
+      <TouchableOpacity style={styles.addButton} onPress={handleAddButtonPress}>
         <Ionicons name="add" size={34} style={styles.plusIcon} />
       </TouchableOpacity>
     </View>
@@ -29,7 +36,7 @@ const styles = StyleSheet.create({
     height: 200,
     marginTop: 20,
     backgroundColor: COLORS.primary,
-    borderRadius: 20
+    borderRadius: 20,
   },
   addButton: {
     position: 'absolute',

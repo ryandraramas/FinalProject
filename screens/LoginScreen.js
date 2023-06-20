@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
-import { COLORS, SIZES, FONTS, assets } from '../constants';
+import { COLORS, SIZES, assets } from '../constants';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export const LoginScreen = () => {
@@ -48,7 +48,6 @@ export const LoginScreen = () => {
       <View style={styles.inputContainer}>
         <Text
           style={{
-            fontFamily: FONTS.bold,
             fontSize: SIZES.extraLarge,
             color: COLORS.dark,
             textAlign: 'center',
@@ -153,7 +152,6 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   forgetPasswordButtonText: {
-    fontFamily: FONTS.regular,
     fontSize: 14,
     color: '#000'
   },
@@ -173,7 +171,6 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   buttonText: {
-    fontFamily: FONTS.bold,
     fontSize: 16,
     color: COLORS.white
   },
@@ -188,7 +185,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   registerButtonText: {
-    fontFamily: FONTS.bold,
     fontSize: 16,
     color: COLORS.primary
   }

@@ -1,13 +1,12 @@
 import { View, Image, Text } from "react-native";
 
-import { SIZES, FONTS, COLORS, SHADOWS, assets } from "../constants";
+import { SIZES, assets } from "../constants";
 
 export const NFTTitle   = ({ title, subTitle, titleSize, subTitleSize }) => {
  return(
     <View>
         <Text 
-        style= {{ 
-            fontFamily: FONTS.bold, 
+        style= {{  
             fontSize: titleSize, 
             color: '#000000',
             marginTop:30,
@@ -16,8 +15,7 @@ export const NFTTitle   = ({ title, subTitle, titleSize, subTitleSize }) => {
         </Text>
 
         <Text 
-        style= {{ 
-            fontFamily: FONTS.regular, 
+        style= {{  
             fontSize: subTitleSize, 
             color: '#000000', 
             }}>
@@ -36,7 +34,6 @@ export const EthPrice   = ({ price }) => {
         style={{ width: 20, height: 20, marginRight: 2 }}
         />
         <Text style={{
-            fontFamily: FONTS.medium,
             fontSize: SIZES.font,
             color: '#000000',
         }}>{price}

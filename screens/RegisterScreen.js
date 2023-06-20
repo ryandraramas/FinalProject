@@ -11,7 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
-import { COLORS, SIZES, FONTS } from '../constants';
+import { COLORS, SIZES } from '../constants';
 import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios';
 
@@ -26,7 +26,6 @@ const RegisterScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState([]);
@@ -71,7 +70,7 @@ const RegisterScreen = () => {
       !phoneNumber ||
       !password ||
       !confirmPassword ||
-      selectedItems.length === 0
+      selectedItems.length === 1
     ) {
       Alert.alert('Error', 'Data must be inputted');
       return;
@@ -235,7 +234,6 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   title: {
-    fontFamily: FONTS.bold,
     fontSize: SIZES.extraLarge,
     color: COLORS.dark,
     textAlign: 'center',
@@ -289,16 +287,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    fontFamily: FONTS.bold,
     fontSize: 16,
     color: COLORS.white,
   },
   errorText: {
-    fontFamily: FONTS.regular,
     fontSize: 12,
     color: 'red',
     marginTop: 5,
   },
 });
+
 
 export default RegisterScreen;
