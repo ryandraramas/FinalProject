@@ -1,4 +1,5 @@
 {
+  "proxy":"http://localhost:4000",
   "name": "maidmatch",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
@@ -9,6 +10,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/webpack-config": "^18.0.1",
     "@react-native-async-storage/async-storage": "1.17.11",
     "@react-native-community/datetimepicker": "6.7.3",
     "@react-native-community/masked-view": "^0.1.11",
@@ -38,9 +40,9 @@
     "react-native-ionicons": "^4.6.5",
     "react-native-paper": "^5.8.0",
     "react-native-share": "^8.2.2",
+    "react-native-tailwindcss": "^1.1.11",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-web": "~0.18.11",
-    "@expo/webpack-config": "^18.0.1"
+    "react-native-web": "~0.18.11"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

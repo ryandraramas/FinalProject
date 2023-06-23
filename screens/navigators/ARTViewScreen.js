@@ -34,7 +34,7 @@ function TabNavigator() {
         tabBarActiveTintColor: COLORS.primary,
         tabBarInactiveTintColor: 'grey',
         tabBarLabelStyle: { paddingBottom: 5, fontSize: 10 },
-        tabBarStyle: { padding: 10, height: 70 },
+        tabBarStyle: { padding: 10, height: 60 },
         headerShown: false,
       })}
     >
