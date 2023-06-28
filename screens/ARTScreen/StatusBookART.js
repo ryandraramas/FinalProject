@@ -50,6 +50,7 @@ const StatusBookART = () => {
           <View style={styles.cardDetails}>
             <Text style={styles.cardTitle}>{item.name}</Text>
             <Text style={styles.cardEmail}>{item.email}</Text>
+            {/* <Text styles={styles.cardAddress}>{item.adress.street}</Text> */}
             <Text style={styles.cardAddress}>{`${item.address.street}, ${item.address.suite}, ${item.address.city}, ${item.address.zipcode}`}</Text>
           </View>
 
@@ -133,6 +134,8 @@ const styles = StyleSheet.create({
   },
   cardAddress: {
     marginBottom: 4,
+    color: COLORS.gray,
+    fontSize: 10
   },
   statusContainer: {
     position: 'absolute',

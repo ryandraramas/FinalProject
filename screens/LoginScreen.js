@@ -18,18 +18,46 @@ export const LoginScreen = () => {
       return;
     }
 
-    // Perform your login logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // Navigasi ke halaman berikutnya setelah login berhasil
-    navigation.navigate('Register');
-  };
+    // Validate email format
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!emailRegex.test(email)) {
+      // Display error message for invalid email format
+      console.log('Please enter a valid email');
+      return;
+    }
 
-  const handleForgetPassword = () => {
-    // Logika untuk reset password
-    console.log('Reset Password:', email);
-    // Navigasi ke halaman reset password
-    navigation.navigate('ResetPassword');
+    // Validate password strength
+    if (password.length < 8 || !/\d/.test(password) || !/[a-zA-Z]/.test(password)) {
+      // Display error message for weak password
+      console.log('Password must be at least 8 characters long and contain at least one letter and one number');
+      return;
+    }
+
+    // Perform API call to verify credentials
+    fetch('http://192.168.1.7/api/pelanggan/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the API
+        if (data.success) {
+          // Login successful, navigate to the next page
+          navigation.navigate('Home');
+        } else {
+          // Login failed, display error message
+          console.log('Login failed:', data.error);
+        }
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
   };
 
   const toggleShowPassword = () => {
@@ -84,18 +112,11 @@ export const LoginScreen = () => {
             />
           </TouchableOpacity>
         </View>
-
-        <TouchableOpacity
-          style={styles.forgetPasswordButton}
-          onPress={handleForgetPassword}
-        >
-          <Text style={styles.forgetPasswordButtonText}>Forgot Password?</Text>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.buttonContainer}>
-        {/* <TouchableOpacity style={styles.button} onPress={handleLogin} > */}
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TabNavigator')} >
+        {/* <TouchableOpacity style={styles.button} onPress={handleLogin} */}
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TabNavigator')}> 
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
@@ -140,7 +161,9 @@ const styles = StyleSheet.create({
     marginLeft: -10
   },
   input: {
-    marginLeft: 10
+    marginLeft: 10,
+    flex: 1,
+    backgroundColor: 'transparent'
   },
   passwordToggle: {
     position: 'absolute',

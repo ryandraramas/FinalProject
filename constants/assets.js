@@ -1,10 +1,11 @@
 import badge from "../assets/icons/badge.png";
-import eth from "../assets/icons/eth.png";
+import rp from "../assets/icons/rp.png";
 import heart from "../assets/icons/heart.png";
 import left from "../assets/icons/left.png";
 import search from "../assets/icons/search.png";
 import user from "../assets/icons/user.png";
 import lock from "../assets/icons/lock.png";
+import star from "../assets/icons/icons8-star-96.png"
 
 import img from "../assets/images/image1.jpg"
 import card from "../assets/images/card_visa_bg.png"
@@ -27,10 +28,11 @@ export default {
     user,
     img,
     badge,
-    eth,
+    rp,
     heart,
     left,
     search,
+    star,
 
     logo,
     card,

@@ -12,8 +12,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS, SIZES } from '../constants';
-import DropDownPicker from 'react-native-dropdown-picker';
+
 import axios from 'axios';
+import decamelize from 'decamelize';
 
 const RegisterScreen = () => {
   const navigation = useNavigation();
@@ -25,16 +26,10 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
-  const [selectedItems, setSelectedItems] = useState([]);
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState([]);
-  const [items, setItems] = useState([
-    { label: 'Indonesia', value: 'Indonesia' },
-    { label: 'United States', value: 'United States' },
-    { label: 'United Kingdom', value: 'United Kingdom' },
-    { label: 'Austria', value: 'Austria' },
-  ]);
+  const [cancelToken, setCancelToken] = useState(null);
+  const [value, setValue] = useState();
+  // const apiUrl = 'http://192.168.1.7:3000/api/pelanggan/';
 
   useEffect(() => {
     console.log(value);
@@ -58,8 +53,26 @@ const RegisterScreen = () => {
     setShowDatePicker(true);
   };
 
-  const handleCountryChange = (item) => {
-    setSelectedItems([...selectedItems, item.value]);
+  useEffect(() => {
+    // Cleanup the cancel token when the component unmounts
+    return () => {
+      if (cancelToken) {
+        cancelToken.cancel('Request canceled');
+      }
+    };
+  }, []);
+
+  const createFormData = (payload) => {
+    const formData = new FormData();
+    Object.entries(payload).forEach(([key, value]) => {
+      if (key === 'date') {
+        const formattedDate = value.toISOString().split('T')[0];
+        formData.append(decamelize(key), formattedDate);
+      } else {
+        formData.append(decamelize(key), value);
+      }
+    });
+    return formData;
   };
 
   const submit = () => {
@@ -69,18 +82,17 @@ const RegisterScreen = () => {
       !address ||
       !phoneNumber ||
       !password ||
-      !confirmPassword ||
-      selectedItems.length === 0
+      !confirmPassword 
     ) {
-      Alert.alert('Error', 'Data must be inputted');
+      Alert.alert('Error', 'All fields must be filled');
       return;
     }
-
+  
     if (password !== confirmPassword) {
       Alert.alert('Error', 'Password and confirmation password do not match.');
       return;
     }
-
+  
     const data = {
       date,
       name,
@@ -88,25 +100,38 @@ const RegisterScreen = () => {
       address,
       phoneNumber,
       password,
-      selectedCountry: selectedItems,
     };
-
-    axios
-      .post('https://ap-southeast-1.aws.data.mongodb-api.com/app/data-mkyfk/endpoint/data/v1', data)
-      .then((response) => {
-        console.log(response.data);
+  
+    const formData = createFormData(data);
+  
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://192.168.1.7/api/pelanggan/');
+    xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+  
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        console.log(xhr.responseText);
         Alert.alert('Success', 'Registration successful!');
-      })
-      .catch((error) => {
-        console.error(error);
+        navigation.navigate('Login');
+      } else {
+        console.error(xhr.responseText);
         Alert.alert('Error', 'Registration failed.');
-      });
-
+      }
+    };
+  
+    xhr.onerror = function () {
+      console.error(xhr.responseText);
+      Alert.alert('Error', 'Registration failed.');
+    };
+  
+    xhr.send(formData);
+  
     console.log('Data before sent!', data);
   };
 
+
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container} behavior="fixed">
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
         <Icon name="chevron-back" size={24} color="#2C2C2C" />
       </TouchableOpacity>
@@ -190,24 +215,6 @@ const RegisterScreen = () => {
         {showDatePicker && (
           <DateTimePicker value={date} mode="date" display="default" onChange={handleDateChange} />
         )}
-
-        <View style={styles.inputWrapper}>
-          <Icon name="globe" size={20} color="#9E9E9E" style={styles.inputIcon} />
-          <DropDownPicker
-            multiple={false}
-            min={1}
-            containerStyle={styles.pickerContainer}
-            style={styles.picker}
-            max={2}
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-            onChangeItem={(item) => setSelectedItems(item)}
-          />
-        </View>
       </View>
 
       <TouchableOpacity style={styles.button} onPress={submit}>
@@ -259,23 +266,6 @@ const styles = StyleSheet.create({
   passwordIcon: {
     position: 'absolute',
     right: 10,
-  },
-  pickerContainer: {
-    flex: 1,
-    height: 40,
-    borderBottomWidth: 2,
-    borderBottomColor: '#9E9E9E',
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  picker: {
-    backgroundColor: 'transparent',
-    paddingHorizontal: 15,
-    justifyContent: 'center',
-    borderColor: 'white',
-  },
-  pickerDropdown: {
-    backgroundColor: '#fafafa',
   },
   button: {
     backgroundColor: COLORS.primary,

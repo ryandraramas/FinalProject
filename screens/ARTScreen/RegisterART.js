@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -12,7 +12,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS, SIZES } from '../../constants';
-import DropDownPicker from 'react-native-dropdown-picker';
+
+import axios from 'axios';
 
 const RegisterART = () => {
   const navigation = useNavigation();
@@ -24,20 +25,7 @@ const RegisterART = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
-  const [selectedItems, setSelectedItems] = useState([]);
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState([]);
-  const [items, setItems] = useState([
-    { label: 'Indonesia', value: 'Indonesia' },
-    { label: 'United States', value: 'United States' },
-    { label: 'United Kingdom', value: 'United Kingdom' },
-    { label: 'Austria', value: 'Austria' },
-  ]);
-
-  useEffect(() => {
-    console.log(value);
-  }, [value]);
 
   const togglePasswordVisibility = () => {
     setHidePassword(!hidePassword);
@@ -45,20 +33,12 @@ const RegisterART = () => {
 
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-
-    if (selectedDate !== null) {
-      setShowDatePicker(true);
-    }
-
+    setShowDatePicker(false);
     setDate(currentDate);
   };
 
   const showDatePickerModal = () => {
     setShowDatePicker(true);
-  };
-
-  const handleCategoryChange = (item) => {
-    setSelectedItems([...selectedItems, item.value]);
   };
 
   const submit = () => {
@@ -68,8 +48,7 @@ const RegisterART = () => {
       !address ||
       !phoneNumber ||
       !password ||
-      !confirmPassword ||
-      selectedItems.length === 0
+      !confirmPassword
     ) {
       Alert.alert('Error', 'Data must be inputted');
       return;
@@ -87,13 +66,23 @@ const RegisterART = () => {
       address,
       phoneNumber,
       password,
-      selectedCategory: selectedItems,
     };
-    console.log('Data before sent!', data);
+
+    axios
+      .post('http://192.168.1.7/api/pelanggan/', data)
+      .then((response) => {
+        console.log(response.data);
+        Alert.alert('Success', 'Registration successful!');
+        // Navigate to another screen
+      })
+      .catch((error) => {
+        console.error(error);
+        Alert.alert('Error', 'Registration failed.');
+      });
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container} behavior="fixed">
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
         <Icon name="chevron-back" size={24} color="#2C2C2C" />
       </TouchableOpacity>
@@ -104,7 +93,7 @@ const RegisterART = () => {
         <View style={styles.inputWrapper}>
           <Icon name="person" size={20} color="#9E9E9E" style={styles.inputIcon} />
           <TextInput
-            placeholder="Nama"
+            placeholder="Name"
             value={name}
             onChangeText={(value) => setName(value)}
             style={styles.input}
@@ -124,7 +113,7 @@ const RegisterART = () => {
         <View style={styles.inputWrapper}>
           <Icon name="location" size={20} color="#9E9E9E" style={styles.inputIcon} />
           <TextInput
-            placeholder="Alamat"
+            placeholder="Address"
             value={address}
             onChangeText={(value) => setAddress(value)}
             style={styles.input}
@@ -134,7 +123,7 @@ const RegisterART = () => {
         <View style={styles.inputWrapper}>
           <Icon name="call" size={20} color="#9E9E9E" style={styles.inputIcon} />
           <TextInput
-            placeholder="Nomor HP"
+            placeholder="Phone Number"
             value={phoneNumber}
             onChangeText={(value) => setPhoneNumber(value)}
             style={styles.input}
@@ -177,24 +166,6 @@ const RegisterART = () => {
         {showDatePicker && (
           <DateTimePicker value={date} mode="date" display="default" onChange={handleDateChange} />
         )}
-
-        <View style={styles.inputWrapper}>
-          <Icon name="globe" size={20} color="#9E9E9E" style={styles.inputIcon} />
-          <DropDownPicker
-            containerStyle={styles.pickerContainer}
-            style={styles.picker}
-            multiple={false}
-            min={1}
-            open={open}
-            value={value}
-            items={items}
-            mode="BADGE"
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-            onChangeItem={(item) => setSelectedItems(item)}
-          />
-        </View>
       </View>
 
       <TouchableOpacity style={styles.button} onPress={submit}>
@@ -209,7 +180,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // marginBottom: 70,
   },
   backButton: {
     position: 'absolute',
@@ -246,23 +216,6 @@ const styles = StyleSheet.create({
   passwordIcon: {
     position: 'absolute',
     right: 10,
-  },
-  pickerContainer: {
-    flex: 1,
-    height: 40,
-    borderBottomWidth: 2,
-    borderBottomColor: '#9E9E9E',
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  picker: {
-    backgroundColor: 'transparent',
-    paddingHorizontal: 15,
-    justifyContent: 'center',
-    borderColor: 'white',
-  },
-  pickerDropdown: {
-    backgroundColor: '#fafafa',
   },
   button: {
     backgroundColor: COLORS.primary,

@@ -25,22 +25,39 @@ export const NFTTitle   = ({ title, subTitle, titleSize, subTitleSize }) => {
  )
 }
 
-export const EthPrice   = ({ price }) => {
+export const Salary   = ({ salary }) => {
  return(
     <View style= {{ flexDirection: 'row', alignItems: 'center' }}>
         <Image
-        source={assets.eth}
+        source={assets.rp}
         resizeMode='contain'
         style={{ width: 20, height: 20, marginRight: 2 }}
         />
         <Text style={{
             fontSize: SIZES.font,
             color: '#000000',
-        }}>{price}
+        }}>{salary}
         </Text>
     </View>
  )
 }
+
+export const Reviewed   = ({ salary }) => {
+    return(
+       <View style= {{ flexDirection: 'row', alignItems: 'center' }}>
+           <Image
+           source={assets.star}
+           resizeMode='contain'
+           style={{ width: 15, height: 15, marginRight: 2 }}
+           />
+           <Text style={{
+               fontSize: SIZES.font,
+               color: '#000000',
+           }}>{salary}
+           </Text>
+       </View>
+    )
+   }
 
 export const ImageCmp   = ({imgUrl, index}) => {
     return(

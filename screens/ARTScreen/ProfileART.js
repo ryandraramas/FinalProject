@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Avatar, Title, Caption, Text, TouchableRipple } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { COLORS, SIZES, FONTS } from '../../constants'
 
-
-const ProfileART = () => {
+const UserScreen = () => {
+  const navigation = useNavigation();
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -32,111 +32,70 @@ const ProfileART = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <ScrollView>
-      <View style={styles.userInfoSection}>
-        <View style={{ flexDirection: 'row', marginTop: 15 }}>
-          <Avatar.Image
-            source={{
-              uri: userData?.avatar || 'https://api.adorable.io/avatars/80/abott@adorable.png',
-            }}
-            size={80}
-          />
-          <View style={{ marginLeft: 20 }}>
-            <Title style={[styles.title, { marginTop: 15, marginBottom: 5 }]}>
-              {userData?.name || 'John Doe'}
-            </Title>
-            <Caption style={styles.caption}>@{userData?.username || 'j_doe'}</Caption>
+      <ScrollView>
+        <View style={styles.userInfoSection}>
+          <View style={{ flexDirection: 'row', marginTop: 15 }}>
+            <Avatar.Image
+              source={{
+                uri: userData?.avatar || 'https://api.adorable.io/avatars/80/abott@adorable.png',
+              }}
+              size={80}
+            />
+            <View style={{ marginLeft: 20 }}>
+              <Title style={[styles.title, { marginTop: 15, marginBottom: 5 }]}>
+                {userData?.name || 'John Doe'}
+              </Title>
+              <Caption style={styles.caption}>@{userData?.username || 'j_doe'}</Caption>
+            </View>
           </View>
         </View>
-      </View>
 
-      <View style={styles.userInfoSection}>
-        <View style={styles.row}>
-          <Ionicons name="location" color="#777777" size={20} />
-          <Text style={{ color: '#777777', marginLeft: 20 }}>
-            {userData?.location || 'Surabaya, Rungkut'}
-          </Text>
+        <View style={styles.userInfoSection}>
+          <View style={styles.row}>
+            <Ionicons name="location-outline" color="#777777" size={20} />
+            <Text style={{ color: '#777777', marginLeft: 20 }}>
+              {userData?.location || 'Surabaya, Rungkut'}
+            </Text>
+          </View>
+
+          <View style={styles.row}>
+            <Ionicons name="call-outline" color="#777777" size={20} />
+            <Text style={{ color: '#777777', marginLeft: 20 }}>
+              {userData?.phone || '+62 821 4260 4907'}
+            </Text>
+          </View>
+
+          <View style={styles.row}>
+            <Ionicons name="mail-outline" color="#777777" size={20} />
+            <Text style={{ color: '#777777', marginLeft: 20 }}>
+              {userData?.email || 'john_doe@email.com'}
+            </Text>
+          </View>          
         </View>
-        <View style={styles.row}>
-          <Ionicons name="call" color="#777777" size={20} />
-          <Text style={{ color: '#777777', marginLeft: 20 }}>
-            {userData?.phone || '+62 821 4260 4907'}
-          </Text>
+
+        <View style={styles.menuWrapper}>
+          <TouchableRipple onPress={() => {}}>
+            <View style={styles.menuItem}>
+              <Ionicons name="card-outline" color="#777777" size={20} />
+              <Text style={styles.menuItemText}>Payment</Text>
+            </View>
+          </TouchableRipple>
+
+          {/* <TouchableRipple onPress={handleLogout} > */}
+            <TouchableRipple  onPress={() => navigation.navigate("Started")} >
+            <View style={[styles.menuItem, {  }] }>
+              <Ionicons name="log-out-outline" color="#f73131" size={20} />
+              <Text style={[styles.menuItemText, { color: 'red', fontWeight: '600', }]}>Logout</Text>
+            </View>
+          </TouchableRipple>
+
         </View>
-        <View style={styles.row}>
-          <Ionicons name="mail" color="#777777" size={20} />
-          <Text style={{ color: '#777777', marginLeft: 20 }}>
-            {userData?.email || 'john_doe@email.com'}
-          </Text>
-        </View>
-      </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
-      <View style={styles.infoBoxWrapper}>
-        <View
-          style={[
-            styles.infoBox,
-            {
-              borderRightColor: '#dddddd',
-              borderRightWidth: 1,
-            },
-          ]}
-        >
-          <Title>Rp1.400.000</Title>
-          <Caption>Wallet</Caption>
-        </View>
-        <View style={styles.infoBox}>
-          <Title>12</Title>
-          <Caption>Orders</Caption>
-        </View>
-      </View>
-
-      <View style={styles.menuWrapper}>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Ionicons name="heart-outline" color="#74858C" size={20} />
-            <Text style={styles.menuItemText}>Your Favorites</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Ionicons name="card-outline" color="#74858C" size={20} />
-            <Text style={styles.menuItemText}>Payment</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Ionicons name="share-social-outline" color="#74858C" size={20} />
-            <Text style={styles.menuItemText}>Tell Your Friends</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Ionicons name="people-outline" color="#74858C" size={20} />
-            <Text style={styles.menuItemText}>Support</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Ionicons name="settings-outline" color="#74858C" size={20} />
-            <Text style={styles.menuItemText}>Settings</Text>
-          </View>
-        </TouchableRipple>
-
-        {/* <TouchableRipple onPress={handleLogout} > */}
-          <TouchableRipple  onPress={() => navigation.navigate("Started")} >
-          <View style={[styles.menuItem, {  }] }>
-            <Ionicons name="log-out-outline" color="#f73131" size={20} />
-            <Text style={[styles.menuItemText, { color: 'red' }]}>Logout</Text>
-          </View>
-        </TouchableRipple>
-
-      </View>
-    </ScrollView>
-  </SafeAreaView>
-  )
-}
-
-export default ProfileART
+export default UserScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -159,32 +118,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 10,
   },
-  infoBoxWrapper: {
-    borderBottomColor: '#dddddd',
-    borderBottomWidth: 1,
-    borderTopColor: '#dddddd',
-    borderTopWidth: 1,
-    flexDirection: 'row',
-    height: 100,
-  },
-  infoBox: {
-    width: '50%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   menuWrapper: {
-    marginTop: 15,
+    marginTop: -28
   },
   menuItem: {
     flexDirection: 'row',
-    paddingVertical: 4,
+    paddingVertical: 1,
     paddingHorizontal: 30,
   },
   menuItemText: {
     color: '#777777',
     marginLeft: 20,
-    fontWeight: '600',
     fontSize: 14,
     lineHeight: 26,
   },
-})
+});

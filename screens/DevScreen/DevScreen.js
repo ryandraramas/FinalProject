@@ -4,8 +4,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const DevScreen = ({navigation}) => {
     
-
-
   return (
     <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
         <Ionicons name="chevron-back" size={24} color="#000" />

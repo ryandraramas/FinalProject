@@ -4,8 +4,8 @@ const NFTData = [
   {
     id: "NFT-01",
     name: "Putri Intan",
-    creator: "Cleaning Service, ",
-    price: "250.000",
+    category: "Cleaning Service, ",
+    salary: "250.000",
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural.",
     image: assets.nft01,
@@ -13,21 +13,21 @@ const NFTData = [
       {
         id: "BID-11",
         name: "Jessica Tan",
-        price: 4.25,
+        reviews: 4.25,
         image: assets.person02,
         date: "December 12, 2019 at 12:10 PM",
       },
       {
         id: "BID-12",
         name: "Jennifer Sia",
-        price: 4.5,
+        reviews: 4.5,
         image: assets.person03,
         date: "December 27, 2019 at 1:50 PM",
       },
       {
         id: "BID-13",
         name: "Rosie Wong",
-        price: 4.75,
+        reviews: 4.75,
         image: assets.person04,
         date: "December 31, 2019 at 3:50 PM",
       },
@@ -36,8 +36,8 @@ const NFTData = [
   {
     id: "NFT-02",
     name: "Siti Nurhaliza",
-    creator: "Baby Sitting",
-    price: 500.000,
+    category: "Baby Sitting",
+    salary: '450,000',
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis.",
     image: assets.nft02,
@@ -45,7 +45,7 @@ const NFTData = [
       {
         id: "BID-21",
         name: "Jessica Tan",
-        price: 7.05,
+        reviews: 4.5,
         image: assets.person04,
         date: "December 12, 2019 at 12:10 PM",
       },
@@ -54,8 +54,8 @@ const NFTData = [
   {
     id: "NFT-03",
     name: "Elisabeth aho",
-    creator: "Laundry",
-    price: "650.000",
+    category: "Laundry",
+    salary: "650.000",
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis.",
     image: assets.nft03,
@@ -63,14 +63,14 @@ const NFTData = [
       {
         id: "BID-31",
         name: "Jessica Tan",
-        price: 95.25,
+        reviews: 4,
         image: assets.person02,
         date: "December 12, 2019 at 12:10 PM",
       },
       {
         id: "BID-32",
         name: "Jennifer Sia",
-        price: 95.5,
+        reviews: 3.5,
         image: assets.person03,
         date: "December 27, 2019 at 1:50 PM",
       },
@@ -78,9 +78,9 @@ const NFTData = [
   },
   {
     id: "NFT-04",
-    name: "Hyundai",
-    creator: "Putri Intan",
-    price: 54.25,
+    name: "John Doe",
+    category: "Cooking",
+    salary: '250.000',
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural.Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur.",
     image: assets.nft04,
@@ -88,28 +88,28 @@ const NFTData = [
       {
         id: "BID-41",
         name: "Jessica Tan",
-        price: 56.25,
+        reviews: 4,
         image: assets.person02,
         date: "December 12, 2019 at 12:10 PM",
       },
       {
         id: "BID-42",
         name: "Jennifer Sia",
-        price: 54.25,
+        reviews: 3,
         image: assets.person03,
         date: "December 27, 2019 at 1:50 PM",
       },
       {
         id: "BID-43",
         name: "Rosie Wong",
-        price: 55.15,
+        reviews: 2.5,
         image: assets.person04,
         date: "December 31, 2019 at 3:50 PM",
       },
       {
         id: "BID-44",
         name: "Vincent Swift",
-        price: 54.15,
+        reviews: 3,
         image: assets.person02,
         date: "December 31, 2019 at 3:50 PM",
       },
@@ -117,9 +117,9 @@ const NFTData = [
   },
   {
     id: "NFT-05",
-    name: "Toyota Fortuner",
-    creator: "David doe",
-    price: 10.25,
+    name: "David Doe",
+    category: "Gardening",
+    salary: '100.000',
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural.",
     image: assets.nft05,
@@ -127,7 +127,7 @@ const NFTData = [
       {
         id: "BID-51",
         name: "Jessica Tan",
-        price: 10.25,
+        reviews: 5,
         image: assets.person02,
         date: "December 12, 2019 at 12:10 PM",
       },
@@ -135,9 +135,9 @@ const NFTData = [
   },
   {
     id: "NFT-06",
-    name: "Mitsubishi Xpander",
-    creator: "Leo Messi",
-    price: 20.25,
+    name: "Leo Messi",
+    category: "Personal Assistant",
+    salary: '350,000',
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis.",
     image: assets.nft06,
@@ -145,35 +145,35 @@ const NFTData = [
       {
         id: "BID-61",
         name: "Jessica Tan",
-        price: 20.25,
+        reviews: 5,
         image: assets.person02,
         date: "December 12, 2019 at 12:10 PM",
       },
       {
         id: "BID-62",
         name: "Jennifer Sia",
-        price: 20.5,
+        reviews: 2,
         image: assets.person03,
         date: "December 27, 2019 at 1:50 PM",
       },
       {
         id: "BID-63",
         name: "Rosie Wong",
-        price: 20.75,
+        reviews: 3.5,
         image: assets.person04,
         date: "December 31, 2019 at 3:50 PM",
       },
       {
         id: "BID-64",
         name: "Siti Nurhaliza",
-        price: 21.25,
+        reviews: 4,
         image: assets.person02,
         date: "December 31, 2019 at 3:50 PM",
       },
       {
         id: "BID-65",
         name: "Kaitlyn Lee",
-        price: 7.25,
+        reviews: 4.5,
         image: assets.person02,
         date: "December 31, 2019 at 3:50 PM",
       },
@@ -181,9 +181,9 @@ const NFTData = [
   },
   {
     id: "NFT-07",
-    name: "Abstracto soulful art",
-    creator: "Victor de la Cruz",
-    price: 18.25,
+    name: "Victor de la Cruz",
+    category: "Cleaning Service",
+    salary: '250,000',
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis. Ullamcorper platea penatibus ornare egestas nulla ligula hendrerit nisl suscipit sociosqu maximus, tincidunt aptent habitant purus pharetra ultrices dapibus laoreet nisi lacinia. Porta malesuada netus vel sapien conubia porttitor aliquam ut pretium ante litora molestie senectus magna egestas sociosqu, eget aliquet fames pharetra felis posuere varius fringilla quisque in arcu montes eu ullamcorper.",
     image: assets.nft07,

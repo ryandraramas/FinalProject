@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import { useState } from 'react'
 
-import { EthPrice, NFTTitle } from './SubInfo'
+import { Salary, NFTTitle } from './SubInfo'
 import { COLORS, SIZES } from '../constants'
 
 const DetailsDesc = ({ data }) => {
@@ -24,8 +24,10 @@ const DetailsDesc = ({ data }) => {
             titleSize={SIZES.extraLarge}
             subTitleSize={SIZES.font}
           />
-  
-          <EthPrice price={data.price} />
+              
+          {/* harga salary mengambil dari data JobPost Database */}
+
+          <Salary salary={data.salary} /> 
         </View>
   
         <View style={{ marginVertical: SIZES.extraLarge * 1.5 }}>

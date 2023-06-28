@@ -1,10 +1,44 @@
-import React from 'react';
-import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS, SIZES, assets } from '../constants';
+import { COLORS, assets } from '../constants';
 
-const WalletScreen = () => {
+const WalletScreen = ({ navigation }) => {
+  const [customerData, setCustomerData] = useState(null);
+
+  useEffect(() => {
+    fetchCustomerData().then((data) => {
+      setCustomerData(data);
+    });
+  }, []);
+
+  const goToTopUpScreen = () => {
+    navigation.navigate('TopUpScreen');
+  };
+
+  const fetchCustomerData = () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const customer = {
+          name: 'John Doe',
+          accountNumber: Math.floor(Math.random() * 900000000000) + 100000,
+          balance: 1400000,
+        };
+        resolve(customer);
+      }, 1000);
+    });
+  };
+
+  if (!customerData) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#000000" />
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.card}>
@@ -16,10 +50,18 @@ const WalletScreen = () => {
         >
           <View style={styles.cardContent}>
             <Text style={styles.cardBalance}>Balance</Text>
-            <Text style={styles.cardBalance1}>Rp. 1,400,000,-</Text>
-            <Text style={styles.cardAccNum}>Account Number</Text>
-            <Text style={styles.cardNumber}>•••• •••• 9012 3456</Text>
+            <Text style={styles.cardBalance1}>Rp. {customerData.balance.toLocaleString()},-</Text>
           </View>
+
+          <View style={styles.cardContent1}>
+            <Text style={styles.cardAccNum}>Account Number</Text>
+            <Text style={styles.cardNumber}>{customerData.accountNumber}</Text>
+          </View>
+
+          <TouchableOpacity style={styles.transferButton} onPress={goToTopUpScreen}>
+            <Ionicons name="push-outline" size={24} color={COLORS.white} />
+            <Text style={styles.transferButtonText}>Transfer</Text>
+          </TouchableOpacity>
         </ImageBackground>
       </View>
 
@@ -27,6 +69,7 @@ const WalletScreen = () => {
         <View style={styles.historyTextContainer}>
           <Text style={styles.history}>History Payment</Text>
         </View>
+
         <Ionicons name="time-outline" size={24} color={COLORS.dark} style={styles.time} />
       </View>
 
@@ -73,13 +116,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginLeft: -80,
-    padding: 16,
+    marginRight: 80,
   },
   cardBalance: {
     fontSize: 16,
+    fontWeight: 'bold',
     color: COLORS.white,
-    marginTop: 3,
+    marginTop: '8%',
   },
   cardBalance1: {
     fontSize: 33,
@@ -89,14 +132,29 @@ const styles = StyleSheet.create({
   },
   cardAccNum: {
     fontSize: 16,
-    marginTop: 20,
+    marginTop: 65,
     color: COLORS.white,
   },
   cardNumber: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginTop: -35,
+    marginTop: 5,
     color: COLORS.white,
+  },
+  transferButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: '80%',
+    marginBottom: 20,
+    shadowColor: 'grey',
+    shadowOpacity: 0.5,
+    shadowOffset: { width: -1, height: 0 },
+  },
+  transferButtonText: {
+    fontSize: 10,
+    color: COLORS.white,
+    top: 18,
+    right: 32.5,
   },
   historyContent: {
     flexDirection: 'row',
@@ -105,17 +163,17 @@ const styles = StyleSheet.create({
   },
   historyTextContainer: {
     marginLeft: 10,
-    justifyContent: 'left',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
   },
   history: {
     fontWeight: 'bold',
     color: COLORS.dark,
+    fontSize: 16,
   },
   time: {
-    justifyContent: 'space-between',
-    marginLeft: 170,
+    marginLeft: 180,
+    bottom: 5,
   },
   cardTitle: {
     fontSize: 13,
@@ -125,10 +183,10 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   historyCard: {
-    marginTop: 20,
+    marginTop: 16,
     width: 350,
     height: 57,
-    borderRadius:10,
+    borderRadius: 10,
     backgroundColor: COLORS.white,
   },
   cardTitleDate: {
@@ -141,9 +199,19 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: 'light',
     color: '#D73737',
-    textAlign: 'right', // Menjajarkan teks ke kanan
-    marginRight: 16, // Menambahkan margin kanan
+    textAlign: 'right',
+    marginRight: 16,
     marginTop: -20,
+  },
+  cardContent1: {
+    flex: 1,
+    justifyContent: 'space-between',
+    marginRight: '56%',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

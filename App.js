@@ -6,6 +6,7 @@ import { useFonts } from 'expo-font';
 import Started from './screens/Started';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
+import PaymentsScreen from './screens/PaymentsScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import TabNavigator from './screens/navigators/TabNavigator';
 import MenuScreen from './screens/MenuScreen';
@@ -16,6 +17,7 @@ import ARTViewScreen from './screens/navigators/ARTViewScreen';
 import DevScreen from './screens/DevScreen/DevScreen';
 import LoginDev from './screens/DevScreen/LoginDev';
 
+
 const Stack = createNativeStackNavigator();
 
 const theme = {
@@ -25,6 +27,7 @@ const theme = {
     background: "transparent"
   }
 };
+
 
 function App() {
   const [loaded] = useFonts({
@@ -45,6 +48,7 @@ function App() {
         <Stack.Screen name="Menu" component={MenuScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Payments" component ={PaymentsScreen}/>
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="LoginART" component={LoginART} />
         <Stack.Screen name="RegisterART" component={RegisterART} />
@@ -53,6 +57,7 @@ function App() {
         <Stack.Screen name="ARTViewScreen" component={ARTViewScreen} />
         <Stack.Screen name="DevScreen" component={DevScreen}/>
         <Stack.Screen name="LoginDev" component={LoginDev}/>
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

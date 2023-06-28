@@ -6,15 +6,14 @@ import React from 'react'
 const DetailsHeader = ({ data, navigation }) => (
     <View style={{ width: '100%', height: 373 }}>
 
-      <Image
+      <Image       // Render Dari DataBase Foto Asisten RUmah Tangga
         source={data.image}
         resizeMode='center'
         style={{ 
           width: '100%',
           height: '90%',
           justifyContent: 'center'
-          }}
-      />
+          }}/>     
 
       <CircleButton
       imgUrl={assets.left}
@@ -33,11 +32,6 @@ const DetailsHeader = ({ data, navigation }) => (
 
 const Details = ({ route, navigation }) => {
   const { data } = route.params
-
-    console.log(`--------------------------------------------------------`)
-    console.log(data)
-    console.log(`--------------------------------------------------------`)
-
   return (
     <SafeAreaView style={{ flex:1 }}>
       <FocusedStatusBar
@@ -52,14 +46,13 @@ const Details = ({ route, navigation }) => {
       paddingVertical: SIZES.font,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'rgba(255,255,255,0.5)',
-      zIndex: 1,
+      zIndex: 1,}}>
+      <RectButton minWidth={170} {...SHADOWS.dark}
+        handlePress={() => navigation.navigate('Payments')}
+      />
+    </View> 
 
-    }}>
-      <RectButton minWidth={170} {...SHADOWS.dark}/>
-    </View>
-
-    <FlatList
+    <FlatList     // Render Deskripsi From Database JobPost.js
       data={data.bids}
       renderItem={({ item }) => <DetailsBid bid={item}/> }
       keyExtractor={(item) => item.id}
@@ -70,6 +63,7 @@ const Details = ({ route, navigation }) => {
           <DetailsHeader data={data} navigation={navigation}/>
           <SubInfo/>
           <View style={{ padding: SIZES.font}}>
+
             <DetailsDesc data={data}/>
 
             {data.bids.length > 0 &&(

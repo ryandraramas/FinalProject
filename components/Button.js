@@ -1,5 +1,5 @@
-import { TouchableOpacity, View, Text, Image } from 'react-native'
-import { COLORS, SIZES, SHADOW, SHADOWS } from '../constants'
+import { TouchableOpacity, Text, Image } from 'react-native'
+import { COLORS, SIZES, SHADOWS } from '../constants'
 
 
 export const CircleButton = ({ imgUrl, handlePress, ...props }) => {
@@ -47,6 +47,7 @@ export const RectButton = ({ minWidth, fontSize, handlePress, ...props }) => {
         }}>
           Booking now
         </Text>
+
   </TouchableOpacity>
     )
   }

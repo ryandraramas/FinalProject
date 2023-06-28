@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native'
-import { EthPrice } from './SubInfo'
+import { Reviewed } from './SubInfo'
 import { COLORS, SIZES } from '../constants'
 
 
@@ -12,6 +12,7 @@ const DetailsBid = ({ bid }) => {
         alignItems: 'center',
         marginVertical:SIZES.base,
         paddingHorizontal:SIZES.base * 2,
+        bottom: 60,
     }}>
       <Image
         source={bid.image}
@@ -33,7 +34,7 @@ const DetailsBid = ({ bid }) => {
         </Text>
       </View>
 
-      <EthPrice price={bid.price}/>
+      <Reviewed reviews={bid.reviews}/>
     </View>
   )
 }

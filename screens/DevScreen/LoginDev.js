@@ -32,8 +32,7 @@ export const LoginDev = () => {
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <TouchableOpacity
         style={styles.backButton}
-        onPress={() => navigation.goBack()}
-      >
+        onPress={() => navigation.goBack()}>
         <Icon name="chevron-back" size={24} color="#2C2C2C" />
       </TouchableOpacity>
 
