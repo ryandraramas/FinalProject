@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import { useState } from 'react'
 
-import { Salary, NFTTitle } from './SubInfo'
+import { Salary, ArtTitle } from './SubInfo'
 import { COLORS, SIZES } from '../constants'
 
 const DetailsDesc = ({ data }) => {
@@ -18,7 +18,7 @@ const DetailsDesc = ({ data }) => {
             alignItems: "center",
           }}
         >
-          <NFTTitle
+          <ArtTitle
             title={data.name}
             subTitle={data.creator}
             titleSize={SIZES.extraLarge}

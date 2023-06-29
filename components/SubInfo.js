@@ -2,7 +2,7 @@ import { View, Image, Text } from "react-native";
 
 import { SIZES, assets } from "../constants";
 
-export const NFTTitle   = ({ title, subTitle, titleSize, subTitleSize }) => {
+export const ARTTitle   = ({ title, subTitle, titleSize, subTitleSize }) => {
  return(
     <View>
         <Text 
@@ -24,6 +24,29 @@ export const NFTTitle   = ({ title, subTitle, titleSize, subTitleSize }) => {
     </View>
  )
 }
+
+export const NFTTitle  = ({ title, subTitle, titleSize, subTitleSize }) => {
+    return(
+       <View>
+           <Text 
+           style= {{  
+               fontSize: titleSize, 
+               color: '#000000',
+               marginTop:30,
+               }}>
+               {title}
+           </Text>
+   
+           <Text 
+           style= {{  
+               fontSize: subTitleSize, 
+               color: '#000000', 
+               }}>
+               {subTitle}
+           </Text>
+       </View>
+    )
+   }
 
 export const Salary   = ({ salary }) => {
  return(
