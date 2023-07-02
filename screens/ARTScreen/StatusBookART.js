@@ -1,184 +1,162 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, VirtualizedList, Image } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-import { COLORS, SHADOWS, assets } from '../../constants';
+import React from 'react'
+import { COLORS } from '../../constants';
 
 const StatusBookART = () => {
-  const navigation = useNavigation();
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/AsistenRumahTangga');
-        const json = await response.json();
-        setData(json);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleAddButtonPress = () => {
-    navigation.navigate('CreatePostART');
-  };
-
-  const renderCardItem = ({ item }) => {
-    const profileImageUrl = `https://randomuser.me/api/portraits/men/${item.id}.jpg`;
-
-    let statusColor;
-    let statusText;
-    if (item.status === 'accepted') {
-      statusColor = '#018E5F';
-      statusText = 'Accepted';
-    } else if (item.status === 'rejected') {
-      statusColor = '#D73737';
-      statusText = 'Rejected';
-    } else {
-      // statusColor = '#F9C851';
-      statusColor = COLORS.gray;
-      statusText = 'Pending';
-    }
-
-    return (
-      <View style={styles.cardItem}>
-        <View style={styles.cardContent}>
-          <Image source={{ uri: profileImageUrl }} style={styles.cardImage} />
-          <View style={styles.cardDetails}>
-            <Text style={styles.cardTitle}>{item.name}</Text>
-            <Text style={styles.cardEmail}>{item.email}</Text>
-            {/* <Text styles={styles.cardAddress}>{item.adress.street}</Text> */}
-            <Text style={styles.cardAddress}>{`${item.address.street}, ${item.address.suite}, ${item.address.city}, ${item.address.zipcode}`}</Text>
-          </View>
-
-          <View style={styles.statusContainer}>
-            <Text style={[styles.statusText, { color: statusColor }]}>{statusText}</Text>
-          </View>
-        </View>
-      </View>
-    );
-  };
-
-  const getItemCount = () => data.length;
-
-  const getItem = (data, index) => data[index];
-
-  const ListEmptyComponent = () => (
-    <View style={styles.emptyContainer}>
-      <Text style={styles.emptyText}>No data available</Text>
-    </View>
-  );
-
+    const navigation = useNavigation();
+    const handleAddButtonPress = () => {
+        navigation.navigate('CreatePostART');
+      };
   return (
     <View style={styles.container}>
-      <VirtualizedList
-        data={data}
-        renderItem={renderCardItem}
-        keyExtractor={(item) => item.id.toString()}
-        getItemCount={getItemCount}
-        getItem={getItem}
-        contentContainerStyle={styles.cardView}
-        showsVerticalScrollIndicator={false}
-        ListEmptyComponent={ListEmptyComponent}
-      />
-      <TouchableOpacity style={styles.addButton} onPress={handleAddButtonPress}>
-        <Ionicons name="add" size={34} style={styles.plusIcon} />
-      </TouchableOpacity>
+
+        <View style={styles.card1}>
+            <View style={styles.textStyle}>
+                <Text style={styles.Name}>Hi Melisa!</Text>
+                <Text style={styles.Name1}>Welcome to Maid Match</Text>
+             <View style={styles.inform}>
+                <Text style={styles.saldo}>Saldo Anda : </Text>
+                <Text style={styles.saldo1}>Rp650.000</Text>
+             </View>
+            </View>
+            
+            <View style={styles.card2}>
+
+                <View style={styles.iconCard}>
+                    <TouchableOpacity style={styles.addButton} onPress={handleAddButtonPress}>
+                        <Ionicons name="add" size={28} style={styles.plusIcon} />
+                        <Text style={styles.title}>Buat Post</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.addButton} >
+                        <Ionicons name="download-outline" size={26} style={styles.plusIcon} />
+                        <Text style={styles.title1}>Tarik Tunai</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.addButton}  >
+                        <Ionicons name="time-outline" size={25} style={styles.plusIcon} />
+                        <Text style={styles.title2}>History</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+
+            <View style={styles.statusBook}>
+                <Text style={styles.textStatus}>Status Postingan Anda </Text>
+            </View>
+
+            <View style={styles.cardItem}>
+                <View style={styles.card3}>
+                    <Text>
+                        Nama
+                    </Text>
+                </View>
+            </View>
+
+        </View>
     </View>
-  );
-};
+  )
+}
+
+export default StatusBookART
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardView: {
-    marginTop: 20,
-    width: 350,
-  },
-  cardItem: {
-    height: 150,
-    backgroundColor: COLORS.white,
-    borderRadius: 20,
-    marginBottom: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    ...SHADOWS.dark,
-  },
-  cardContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  cardImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
-    marginRight: 10,
-    marginLeft: 10,
-  },
-  cardDetails: {
-    flex: 1,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  cardEmail: {
-    marginBottom: 4,
-  },
-  cardAddress: {
-    marginBottom: 4,
-    color: COLORS.gray,
-    fontSize: 10
-  },
-  statusContainer: {
-    position: 'absolute',
-    bottom: -14,
-    right: 15,
-  },
-  statusText: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 10,
-    fontSize: 12,
-  },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  emptyText: {
-    fontSize: 16,
-    color: COLORS.gray,
-  },
-  addButton: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: COLORS.white,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
+    container: {
+        flex: 1,
+        // backgroundColor: '#F5F5F5',
+        backgroundColor:'#e1e1e1'
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  plusIcon: {
-    color: COLORS.primary,
-  },
-});
-
-export default StatusBookART;
+    card1: {
+        backgroundColor: COLORS.primary,
+        height: 200,
+        borderBottomRightRadius: 30,
+        borderBottomLeftRadius: 30,
+    },
+    textStyle: {
+        marginTop: 35,
+        marginLeft: 20,
+    },
+    Name: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginBottom: 7
+    },
+    Name1: {
+        color: '#fff',
+        fontWeight: '500',
+        fontSize: 20,
+    },
+    inform: {
+        rowGap: 0,
+        flexDirection: 'row',
+        marginTop: 20
+    },
+    saldo: {
+        color: COLORS.white,
+        fontWeight: '400',
+        fontSize: 16
+    },
+    saldo1: {
+        fontWeight: '400',
+        fontSize: 16,
+        color: '#e6d02e'
+    },
+    card2: {
+        height: 80,
+        width: '90%',
+        backgroundColor: '#fff',
+        marginLeft: 20,
+        marginTop: 20,
+        borderRadius: 20,
+    },
+    iconCard : {
+        justifyContent: 'space-evenly',
+        flexDirection: 'row',
+    },
+    addButton: {
+        marginHorizontal: 40,
+        marginTop: 20,
+    },
+    plusIcon: {
+        color: COLORS.primary
+    },
+    title : {
+        fontSize: 10,
+        marginLeft: -9,
+        color: COLORS.primary
+    },
+    title1 : {
+        fontSize: 10,
+        marginLeft: -13,
+        marginTop: 3,
+        color: COLORS.primary
+    },
+    title2: {
+        fontSize: 10,
+        marginLeft: -4,
+        color: COLORS.primary,
+        marginTop: 3
+    },
+    statusBook: {
+        marginLeft: 16,
+        marginTop: 14
+    },
+    textStatus: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        color: '#525252'
+    },
+    cardItem:{
+        height: 110,
+        width:'90%',
+        backgroundColor: COLORS.white,
+        marginTop: 20,
+        borderRadius: 15,
+        marginLeft: 20
+    },
+    card3: {  
+    }
+})

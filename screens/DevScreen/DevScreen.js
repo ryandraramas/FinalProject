@@ -1,22 +1,50 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React from 'react';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-const DevScreen = ({navigation}) => {
-    
+import { COLORS } from '../../constants';
+
+import HomeScreenDev from './HomeScreenDev';
+import NotificationDev from './NotificationDev'
+import AccountDev from './AccountDev';
+
+
+const HomeScreenDevName = 'Home';
+const NotificationDevName = 'Notif';
+const AccountDevName = 'Account'
+
+const Tab = createBottomTabNavigator();
+
+function TabNavigator() {
   return (
-    <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Ionicons name="chevron-back" size={24} color="#000" />
-      </TouchableOpacity>
+    <Tab.Navigator
+      initialRouteName={HomeScreenDevName}
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === HomeScreenDevName) {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === NotificationDevName) {
+            iconName = focused ? 'notifications' : 'notifications-outline';
+          } else if (route.name == AccountDevName) {
+            iconName = focused ? 'person' : 'person-outline'
+          }
+          
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: COLORS.primary,
+        tabBarInactiveTintColor: 'grey',
+        tabBarLabelStyle: { paddingBottom: 5, fontSize: 10 },
+        tabBarStyle: { padding: 10, height: 60 },
+        headerShown: false,
+      })}
+    >
+      <Tab.Screen name={HomeScreenDevName} component={HomeScreenDev} />
+      <Tab.Screen name={NotificationDevName} component={NotificationDev} />
+      <Tab.Screen name={AccountDevName} component={AccountDev}/>
+    </Tab.Navigator>
   )
 }
 
-export default DevScreen
-
-const styles = StyleSheet.create({
-    backButton: {
-    position: 'absolute',
-    top: 20,
-    left: 20,
-  },
-})
+export default TabNavigator;

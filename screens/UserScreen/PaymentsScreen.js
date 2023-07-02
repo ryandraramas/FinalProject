@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
-import { COLORS, SIZES } from '../constants';
+import { COLORS, SIZES } from '../../constants';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 
@@ -82,7 +82,6 @@ const PaymentsScreen = () => {
               <Ionicons name="chevron-back-outline" size={24} color='black'  />
           </TouchableOpacity>
             <Text style={styles.titleScreen}>Checkout</Text>
-
         </View>
 
         <View style={styles.itemWrapper}>

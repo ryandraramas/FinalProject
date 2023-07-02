@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Avatar, Title, Caption, Text, TouchableRipple } from 'react-native-paper';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Avatar, Title, Text, TouchableRipple } from 'react-native-paper';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const UserScreen = () => {
   const navigation = useNavigation();
@@ -11,7 +11,7 @@ const UserScreen = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('API_ENDPOINT_URL');
+        const response = await fetch('http://192.168.1.7/api/pelanggan/');
         const data = await response.json();
         setUserData(data);
       } catch (error) {
@@ -81,8 +81,8 @@ const UserScreen = () => {
             </View>
           </TouchableRipple>
 
-          {/* <TouchableRipple onPress={handleLogout} > */}
-            <TouchableRipple  onPress={() => navigation.navigate("Started")} >
+          <TouchableRipple onPress={handleLogout} >
+            {/* <TouchableRipple  onPress={() => navigation.navigate("Started")} > */}
             <View style={[styles.menuItem, {  }] }>
               <Ionicons name="log-out-outline" color="#f73131" size={20} />
               <Text style={[styles.menuItemText, { color: 'red', fontWeight: '600', }]}>Logout</Text>

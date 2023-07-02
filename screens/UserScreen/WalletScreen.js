@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS, assets } from '../constants';
+import { COLORS, assets } from '../../constants';
 
 const WalletScreen = ({ navigation }) => {
   const [customerData, setCustomerData] = useState(null);
@@ -14,7 +14,7 @@ const WalletScreen = ({ navigation }) => {
   }, []);
 
   const goToTopUpScreen = () => {
-    navigation.navigate('TopUpScreen');
+    navigation.navigate('TopUp');
   };
 
   const fetchCustomerData = () => {
@@ -60,8 +60,9 @@ const WalletScreen = ({ navigation }) => {
 
           <TouchableOpacity style={styles.transferButton} onPress={goToTopUpScreen}>
             <Ionicons name="push-outline" size={24} color={COLORS.white} />
-            <Text style={styles.transferButtonText}>Transfer</Text>
+            <Text style={styles.transferButtonText}>TopUp</Text>
           </TouchableOpacity>
+
         </ImageBackground>
       </View>
 
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: COLORS.white,
     top: 18,
-    right: 32.5,
+    right: 29,
   },
   historyContent: {
     flexDirection: 'row',

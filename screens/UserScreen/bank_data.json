@@ -1,0 +1,26 @@
+[
+  {
+    "label": "BCA OneKlik",
+    "localAsset": "bca"
+  },
+  {
+    "label": "Alfamart, AlfaMidi",
+    "localAsset": "alfamart"
+  },
+  {
+    "label": "Indomaret",
+    "localAsset": "indomart"
+  },
+  {
+    "label": "Debit Visa / Mastercard",
+    "iconName": "card-outline"
+  },
+  {
+    "label": "Internet / Mobile Banking",
+    "iconName": "globe-outline"
+  },
+  {
+    "label": "ATM",
+    "iconName": "cash-outline"
+  }
+]

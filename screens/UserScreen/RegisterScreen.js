@@ -8,10 +8,10 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
-import { COLORS, SIZES } from '../constants';
+import { COLORS, SIZES } from '../../constants';
 
 import axios from 'axios';
 import decamelize from 'decamelize';
@@ -133,14 +133,14 @@ const RegisterScreen = () => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="fixed">
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Icon name="chevron-back" size={24} color="#2C2C2C" />
+        <Ionicons name="chevron-back" size={24} color="#2C2C2C" />
       </TouchableOpacity>
 
       <View style={styles.inputContainer}>
         <Text style={styles.title}>Login Pelanggan</Text>
 
         <View style={styles.inputWrapper}>
-          <Icon name="person" size={20} color="#9E9E9E" style={styles.inputIcon} />
+          <Ionicons name="person" size={20} color="#9E9E9E" style={styles.inputIcon} />
           <TextInput
             placeholder="Nama"
             value={name}
@@ -150,7 +150,7 @@ const RegisterScreen = () => {
         </View>
 
         <View style={styles.inputWrapper}>
-          <Icon name="mail" size={19} color="#9E9E9E" style={styles.inputIcon} />
+          <Ionicons name="mail" size={19} color="#9E9E9E" style={styles.inputIcon} />
           <TextInput
             placeholder="Email"
             value={email}
@@ -160,7 +160,7 @@ const RegisterScreen = () => {
         </View>
 
         <View style={styles.inputWrapper}>
-          <Icon name="location" size={20} color="#9E9E9E" style={styles.inputIcon} />
+          <Ionicons name="location" size={20} color="#9E9E9E" style={styles.inputIcon} />
           <TextInput
             placeholder="Alamat"
             value={address}
@@ -170,7 +170,7 @@ const RegisterScreen = () => {
         </View>
 
         <View style={styles.inputWrapper}>
-          <Icon name="call" size={20} color="#9E9E9E" style={styles.inputIcon} />
+          <Ionicons name="call" size={20} color="#9E9E9E" style={styles.inputIcon} />
           <TextInput
             placeholder="Nomor HP"
             value={phoneNumber}
@@ -180,7 +180,7 @@ const RegisterScreen = () => {
         </View>
 
         <View style={styles.inputWrapper}>
-          <Icon name="lock-closed" size={20} color="#9E9E9E" style={styles.inputIcon} />
+          <Ionicons name="lock-closed" size={20} color="#9E9E9E" style={styles.inputIcon} />
           <TextInput
             placeholder="Password"
             value={password}
@@ -189,12 +189,12 @@ const RegisterScreen = () => {
             secureTextEntry={hidePassword}
           />
           <TouchableOpacity onPress={togglePasswordVisibility} style={styles.passwordIcon}>
-            <Icon name={hidePassword ? 'eye-off' : 'eye'} size={20} color="#9E9E9E" />
+            <Ionicons name={hidePassword ? 'eye-off' : 'eye'} size={20} color="#9E9E9E" />
           </TouchableOpacity>
         </View>
 
         <View style={styles.inputWrapper}>
-          <Icon name="lock-closed" size={20} color="#9E9E9E" style={styles.inputIcon} />
+          <Ionicons name="lock-closed" size={20} color="#9E9E9E" style={styles.inputIcon} />
           <TextInput
             placeholder="Confirm Password"
             value={confirmPassword}
@@ -203,12 +203,12 @@ const RegisterScreen = () => {
             secureTextEntry={hidePassword}
           />
           <TouchableOpacity onPress={togglePasswordVisibility} style={styles.passwordIcon}>
-            <Icon name={hidePassword ? 'eye-off' : 'eye'} size={20} color="#9E9E9E" />
+            <Ionicons name={hidePassword ? 'eye-off' : 'eye'} size={20} color="#9E9E9E" />
           </TouchableOpacity>
         </View>
 
         <TouchableOpacity onPress={showDatePickerModal} style={styles.inputWrapper}>
-          <Icon name="calendar" size={20} color="#9E9E9E" style={styles.inputIcon} />
+          <Ionicons name="calendar" size={20} color="#9E9E9E" style={styles.inputIcon} />
           <Text style={styles.input}>{date.toDateString()}</Text>
         </TouchableOpacity>
 

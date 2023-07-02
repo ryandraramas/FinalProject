@@ -1,6 +1,6 @@
 import {Text, View, SafeAreaView, Image, StatusBar, FlatList} from 'react-native'
-import {COLORS, SIZES, SHADOWS, assets} from '../constants'
-import {CircleButton, RectButton, SubInfo, FocusedStatusBar, DetailsDesc, DetailsBid} from '../components'
+import {COLORS, SIZES, SHADOWS, assets} from '../../constants'
+import {CircleButton, RectButton, SubInfo, FocusedStatusBar, DetailsDesc, DetailsBid} from '../../components'
 import React from 'react'
 
 const DetailsHeader = ({ data, navigation }) => (

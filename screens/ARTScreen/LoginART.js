@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { COLORS, SIZES, assets } from '../../constants';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export const LoginScreen = () => {
   const navigation = useNavigation();
@@ -42,7 +43,7 @@ export const LoginScreen = () => {
         style={styles.backButton}
         onPress={() => navigation.goBack()}
       >
-        <Icon name="chevron-back" size={24} color="#2C2C2C" />
+        <Ionicons name="chevron-back" size={24} color="#2C2C2C" />
       </TouchableOpacity>
 
       <View style={styles.inputContainer}>
@@ -54,7 +55,7 @@ export const LoginScreen = () => {
             height: 100
           }}
         >
-          Login
+          Login Mitra 
         </Text>
 
         <View style={styles.inputWrapper}>
@@ -77,8 +78,8 @@ export const LoginScreen = () => {
             secureTextEntry={!showPassword}
           />
           <TouchableOpacity style={styles.passwordToggle} onPress={toggleShowPassword}>
-            <Icon
-              name={showPassword ? 'eye-off' : 'eye'}
+            <Ionicons
+              name={showPassword ? 'eye-off-outline' : 'eye-outline'}
               size={20}
               color='#000'
             />

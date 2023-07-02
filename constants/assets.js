@@ -7,8 +7,12 @@ import user from "../assets/icons/user.png";
 import lock from "../assets/icons/lock.png";
 import star from "../assets/icons/icons8-star-96.png"
 
+import alfamart from "../assets/images/alfamart.png"
+import indomart from "../assets/images/indomart.jpg"
+import bca from "../assets/images/bca.png"
 import img from "../assets/images/image1.jpg"
 import card from "../assets/images/card_visa_bg.png"
+import spectrum from "../assets/images/spectrum.png"
 import logo from "../assets/images/Logo.png";
 import nft01 from "../assets/images/nft01.png";
 import nft02 from "../assets/images/nft02.png";
@@ -34,8 +38,12 @@ export default {
     search,
     star,
 
+    alfamart,
+    indomart,
+    bca,
     logo,
     card,
+    spectrum,
     nft01,
     nft02,
     nft03,

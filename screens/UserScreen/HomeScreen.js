@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { View, SafeAreaView, FlatList } from 'react-native'
 
-import { COLORS, NFTData } from '../constants'
-import { HomeHeader, FocusedStatusBar, ArtCard } from '../components'
+import { COLORS, NFTData } from '../../constants'
+import { HomeHeader, FocusedStatusBar, ArtCard } from '../../components'
 
 const HomeScreen = () => {
     const [nftData, setNftData] = useState(NFTData)

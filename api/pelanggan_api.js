@@ -6,9 +6,11 @@ export const pelanggan_login = async data => {
             method:'POST',
             headers:{
                 'Content-Type': "application/json"
-            }
+            },
+            data:data
         })
+        return result
     } catch (error) {
-        
+        return error.response.data
     }
 }

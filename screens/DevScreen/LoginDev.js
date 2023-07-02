@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { COLORS, SIZES, assets } from '../../constants';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export const LoginDev = () => {
     const navigation = useNavigation();
@@ -33,7 +33,7 @@ export const LoginDev = () => {
       <TouchableOpacity
         style={styles.backButton}
         onPress={() => navigation.goBack()}>
-        <Icon name="chevron-back" size={24} color="#2C2C2C" />
+        <Ionicons name="chevron-back" size={24} color="#2C2C2C" />
       </TouchableOpacity>
 
       <View style={styles.inputContainer}>
@@ -68,8 +68,8 @@ export const LoginDev = () => {
             secureTextEntry={!showPassword}
           />
           <TouchableOpacity style={styles.passwordToggle} onPress={toggleShowPassword}>
-            <Icon
-              name={showPassword ? 'eye-off' : 'eye'}
+            <Ionicons
+              name={showPassword ? 'eye-off-outline' : 'eye-outline'}
               size={20}
               color='#000'
             />

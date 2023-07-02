@@ -1,13 +1,13 @@
 import React from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { COLORS } from '../../constants';
 
-import HomeScreen from '../HomeScreen';
-import WalletScreen from '../WalletScreen'
-import HistoryScreen from '../HistoryScreen';
-import UserScreen from '../UserScreen';
+import HomeScreen from '../UserScreen/HomeScreen';
+import WalletScreen from '../UserScreen/WalletScreen'
+import HistoryScreen from '../UserScreen/HistoryScreen';
+import UserScreen from '../UserScreen/UserScreen';
 
 const homeName = 'Home';
 const walletName = 'Wallet';
