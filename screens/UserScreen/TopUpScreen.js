@@ -32,28 +32,7 @@ const TopUpScreen = () => {
 
   const handleCardPress = (index) => {
     // Handle card press logic
-    switch (index) {
-      case 0:
-        navigation.navigate('ScreenA');
-        break;
-      case 1:
-        navigation.navigate('ScreenB');
-        break;
-      case 2:
-        navigation.navigate('ScreenC');
-        break;
-      case 3:
-        navigation.navigate('ScreenD');
-        break;
-      case 4:
-        navigation.navigate('ScreenE');
-        break;
-      case 5:
-        navigation.navigate('ScreenF');
-        break;
-      default:
-        break;
-    }
+    navigation.navigate('BCATopUp');
   };
 
   return (
@@ -62,13 +41,12 @@ const TopUpScreen = () => {
         source={assets.spectrum}
         resizeMode='cover'
         imageStyle={styles.backgroundImageStyle}
-        style={styles.backgroundImage}
-      >
+        style={styles.backgroundImage}>
+          
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.backButton}
-            onPress={() => navigation.goBack()}
-          >
+            onPress={() => navigation.goBack()}>
             <Ionicons name="chevron-back-outline" size={24} color="black" />
           </TouchableOpacity>
 

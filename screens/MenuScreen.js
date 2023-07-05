@@ -35,7 +35,7 @@ const MenuScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.card} onPress={() => handleNavigation('LoginART')}>
-        <Text style={styles.cardText}>Login Asisten Rumah Tangga</Text>
+        <Text style={styles.cardText}>Login Mitra</Text>
         <Ionicons name="chevron-forward" size={20} color="#000" />
       </TouchableOpacity>
 

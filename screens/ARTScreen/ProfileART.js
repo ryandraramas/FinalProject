@@ -43,9 +43,8 @@ const UserScreen = () => {
             />
             <View style={{ marginLeft: 20 }}>
               <Title style={[styles.title, { marginTop: 15, marginBottom: 5 }]}>
-                {userData?.name || 'John Doe'}
+                {userData?.name || 'Melisa Cahyani'}
               </Title>
-              <Caption style={styles.caption}>@{userData?.username || 'j_doe'}</Caption>
             </View>
           </View>
         </View>
@@ -68,19 +67,12 @@ const UserScreen = () => {
           <View style={styles.row}>
             <Ionicons name="mail-outline" color="#777777" size={20} />
             <Text style={{ color: '#777777', marginLeft: 20 }}>
-              {userData?.email || 'john_doe@email.com'}
+              {userData?.email || 'Melisa_Cahyani@gmail.com'}
             </Text>
           </View>          
         </View>
 
         <View style={styles.menuWrapper}>
-          <TouchableRipple onPress={() => {}}>
-            <View style={styles.menuItem}>
-              <Ionicons name="card-outline" color="#777777" size={20} />
-              <Text style={styles.menuItemText}>Payment</Text>
-            </View>
-          </TouchableRipple>
-
           {/* <TouchableRipple onPress={handleLogout} > */}
             <TouchableRipple  onPress={() => navigation.navigate("Started")} >
             <View style={[styles.menuItem, {  }] }>

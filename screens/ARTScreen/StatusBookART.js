@@ -1,26 +1,75 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react'
-import { COLORS } from '../../constants';
+import { COLORS, assets } from '../../constants';
 
 const StatusBookART = () => {
     const navigation = useNavigation();
+    const [userData, setUserData] = useState(null);
+    const [jobPostData, setJobPostData] = useState(null);
+
+    useEffect(() => {
+        // Fetch user data from the database
+        const fetchUserData = async () => {
+          try {
+            // Make an API request to fetch user data based on the logged-in user
+            const response = await fetch('your_api_endpoint_for_user_data');
+            const userData = await response.json();
+            setUserData(userData);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+    
+        // Fetch job post data from the database
+        const fetchJobPostData = async () => {
+          try {
+            // Make an API request to fetch job post data for the logged-in user
+            const response = await fetch('your_api_endpoint_for_job_post_data');
+            const jobPostData = await response.json();
+            setJobPostData(jobPostData);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+    
+        fetchUserData();
+        fetchJobPostData();
+      }, []);
+    
+      const getStatusColor = (status) => {
+        if (status === 'accepted') {
+          return '#018E5F';
+        } else if (status === 'rejected') {
+          return '#D73737';
+        } else {
+          return COLORS.gray;
+        }
+      };
+
     const handleAddButtonPress = () => {
         navigation.navigate('CreatePostART');
       };
   return (
     <View style={styles.container}>
+        
+        <ImageBackground 
+        style={{height: 200}} 
+        source={assets.cardBg} 
+        resizeMode='cover' 
+        borderBottomLeftRadius={20} 
+        borderBottomRightRadius={20}>
 
-        <View style={styles.card1}>
-            <View style={styles.textStyle}>
-                <Text style={styles.Name}>Hi Melisa!</Text>
-                <Text style={styles.Name1}>Welcome to Maid Match</Text>
-             <View style={styles.inform}>
-                <Text style={styles.saldo}>Saldo Anda : </Text>
-                <Text style={styles.saldo1}>Rp650.000</Text>
-             </View>
-            </View>
+                <View style={styles.textStyle}>
+                    <Text style={styles.Name}>Hi Melisa Cahyani!</Text>
+                    <Text style={styles.Name1}>Welcome to Maid Match</Text>
+                <View style={styles.inform}>
+                    <Text style={styles.saldo}>Saldo Anda : </Text>
+                    <Text style={styles.saldo1}>Rp650.000</Text>
+                </View>
+                </View>
+
             
             <View style={styles.card2}>
 
@@ -49,13 +98,33 @@ const StatusBookART = () => {
 
             <View style={styles.cardItem}>
                 <View style={styles.card3}>
-                    <Text>
-                        Nama
+                    <Text style={styles.cardName}>
+                        Melisa Cahyani
                     </Text>
                 </View>
+                <View style={styles.cardCat}>
+                    <Ionicons name='ellipse' color={'#fff'}/>
+                    <Text style={styles.textCategory}>
+                        Cooking
+                    </Text>
+                </View>
+                <View style={styles.salaryContainer}>
+                    <Text style={styles.textSalary}>
+                        Rp250.000
+                    </Text>
+                    <Text style={styles.Bulan}>
+                        /Bln
+                    </Text>
+                </View>
+                    <Image source={assets.person} style={styles.ImgCard}/>
+                <View style={styles.statusContainer}>
+                    <Text style={{fontWeight: '500'}}>Status :</Text>
+                    <Text style={{marginLeft: 4, color: COLORS.gray}}>Pending</Text>
+                </View>
+
             </View>
 
-        </View>
+        </ImageBackground>
     </View>
   )
 }
@@ -65,14 +134,7 @@ export default StatusBookART
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: '#F5F5F5',
-        backgroundColor:'#e1e1e1'
-    },
-    card1: {
-        backgroundColor: COLORS.primary,
-        height: 200,
-        borderBottomRightRadius: 30,
-        borderBottomLeftRadius: 30,
+        backgroundColor: '#F5F5F5',
     },
     textStyle: {
         marginTop: 35,
@@ -150,13 +212,58 @@ const styles = StyleSheet.create({
         color: '#525252'
     },
     cardItem:{
-        height: 110,
+        height: 140,
         width:'90%',
         backgroundColor: COLORS.white,
         marginTop: 20,
         borderRadius: 15,
-        marginLeft: 20
+        marginLeft: 20,
+        padding: 10
     },
-    card3: {  
-    }
+    cardName: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginLeft: 4
+    },    
+    cardCat: {
+        backgroundColor: '#00C685',
+        marginLeft: 4,
+        width: 90,
+        height: 25,
+        padding: 2,
+        justifyContent:'center',
+        alignItems: 'center',
+        borderRadius: 6,
+        marginTop: 5,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+    },
+    textCategory: {
+        color: '#fff',
+        textAlign: 'center',
+    },
+    salaryContainer: {
+        marginLeft: 4,
+        marginTop: 40,
+        flexDirection: 'row'
+    },
+    textSalary: {
+        fontWeight: '500'
+    },
+    Bulan: {
+        fontSize: 10,
+        marginLeft: 4
+    },
+    statusContainer: {
+        flexDirection: 'row',
+        marginLeft: 205,
+        marginTop: 14
+    },
+    ImgCard: {
+        height: 80,
+        width: 80,
+        marginLeft: 235,
+        borderRadius: 10,
+        marginTop: -110
+    },
 })

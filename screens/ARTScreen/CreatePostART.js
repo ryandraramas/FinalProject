@@ -49,8 +49,31 @@ const CreatePostART = () => {
   };
 
   const handleSubmitButtonPress = () => {
-    // Handle submit button press
-    // For example, submit the selected image and its data
+    // Send data to the server
+    const postData = {
+      category: value,
+      description: text,
+      image: selectedImage
+    };
+  
+    // Perform HTTP request to the server
+    fetch('your_api_endpoint', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postData),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from the server
+        console.log('Success:', data);
+        // Navigate to the desired page
+        navigation.navigate('Home');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   const handleKeyboardDismiss = () => {

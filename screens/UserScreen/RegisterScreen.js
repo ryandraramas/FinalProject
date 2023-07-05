@@ -29,7 +29,6 @@ const RegisterScreen = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [cancelToken, setCancelToken] = useState(null);
   const [value, setValue] = useState();
-  // const apiUrl = 'http://192.168.1.7:3000/api/pelanggan/';
 
   useEffect(() => {
     console.log(value);

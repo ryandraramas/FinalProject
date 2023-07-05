@@ -17,6 +17,7 @@ import ARTViewScreen from './screens/navigators/ARTViewScreen';
 import DevScreen from './screens/DevScreen/DevScreen';
 import LoginDev from './screens/DevScreen/LoginDev';
 import TopUpScreen from './screens/UserScreen/TopUpScreen';
+import BCATopUp from './screens/UserScreen/BCATopUp';
 
 
 const Stack = createNativeStackNavigator();
@@ -47,7 +48,9 @@ function App() {
         <Stack.Screen name="ARTViewScreen" component={ARTViewScreen} />
         <Stack.Screen name="DevScreen" component={DevScreen}/>
         <Stack.Screen name="LoginDev" component={LoginDev}/>
+        <Stack.Screen name="BCATopUp" component={BCATopUp}/>
         <Stack.Screen name="TopUp" component={TopUpScreen}/>
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -14,27 +14,73 @@ export const LoginScreen = () => {
   const handleLogin = () => {
     // Check if email and password are not empty
     if (email.trim() === '' || password.trim() === '') {
-      // Display error message or indicator for empty fields
-      console.log('Please enter email and password');
+      Alert.alert('Error', 'Please enter email and password');
       return;
     }
 
-    // Perform your login logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // Navigasi ke halaman berikutnya setelah login berhasil
-    navigation.navigate('RegisterART');
-  };
+    // Validate email format
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert('Error', 'Please enter a valid email');
+      return;
+    }
 
-  const handleForgetPassword = () => {
-    // Logika untuk reset password
-    console.log('Reset Password:', email);
-    // Navigasi ke halaman reset password
-    navigation.navigate('ResetPassword');
+    // Validate password strength
+    if (password.length < 8 || !/\d/.test(password) || !/[a-zA-Z]/.test(password)) {
+      Alert.alert(
+        'Error',
+        'Password must be at least 8 characters long and contain at least one letter and one number'
+      );
+      return;
+    }
+
+    // Perform API call to verify credentials and obtain token
+    fetch('http://192.168.1.7/api/pelanggan', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the API
+        if (data.success) {
+          // Login successful, verify token
+          const decodedToken = verifyToken(data.token);
+          if (decodedToken) {
+            // Token valid, navigate to the next page
+            navigation.navigate('Home');
+          } else {
+            // Token invalid, display error message
+            Alert.alert('Error', 'Invalid token');
+          }
+        } else {
+          // Login failed, display error message
+          Alert.alert('Error', `Login failed: ${data.error}`);
+        }
+      })
+      .catch((error) => {
+        Alert.alert('Error', `API Error: ${error}`);
+      });
   };
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const verifyToken = (token) => {
+    try {
+      const decodedToken = jwt_decode(token);
+      // Perform additional checks or validations on the decoded token if needed
+      return decodedToken;
+    } catch (error) {
+      console.log('Invalid token:', error);
+      return null;
+    }
   };
 
   return (
@@ -85,13 +131,6 @@ export const LoginScreen = () => {
             />
           </TouchableOpacity>
         </View>
-
-        <TouchableOpacity
-          style={styles.forgetPasswordButton}
-          onPress={handleForgetPassword}
-        >
-          <Text style={styles.forgetPasswordButtonText}>Forgot Password?</Text>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.buttonContainer}>
