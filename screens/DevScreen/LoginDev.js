@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Alert, AsyncStorage } from 'react-native';
 import { COLORS, SIZES, assets } from '../../constants';
 import Ionicons from '@expo/vector-icons/Ionicons';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 export const LoginDev = () => {
@@ -20,13 +21,13 @@ export const LoginDev = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/api/admin/login', {
+      const response = await axios.post('https://ea7b-36-73-173-90.ngrok-free.app/api/admin/login', {
         email: email.toLocaleLowerCase(),
         password: password,
       });
 
       if (response.status === 200) {
-        AsyncStorage.setItem('AsscessToken', result.data.token)
+        // AsyncStorage.setItem('AsscessToken', result.data.token)
         // Login successful
         console.log('Login successful');
         navigation.navigate('DevScreen');

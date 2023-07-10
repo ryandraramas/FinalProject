@@ -5,29 +5,27 @@ import { useNavigation } from '@react-navigation/native';
 import { SubInfo, Salary, ARTTitle } from './SubInfo';
 import { COLORS, SIZES, SHADOWS, assets } from '../constants';
 import { CircleButton, RectButton } from './Button';
+import axios from 'axios';
+
 
 const ArtCard = ({ data }) => {
   const navigation = useNavigation();
-  const [image, setImage] = useState(null);
+  // const [image, setImage] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://randomuser.me/api/');
-        // const response = await fetch('https:');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const json = await response.json();
-        const imageUrl = json.results[0].picture.large;
-        setImage(imageUrl);
-      } catch (error) {
-        console.error('Error fetching image:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get('https://xsgames.co/randomusers/avatar.php?g=female');
+  //       const imageUrl = response.data.results[0].picture.large;
+  //       setImage(imageUrl);
+  //     } catch (error) {
+  //       console.error('Error fetching image:', error);
+  //     }
+  //   };
+  
+  //   fetchData();
+  // }, []);
+  
 
   return (
     <View
@@ -39,9 +37,9 @@ const ArtCard = ({ data }) => {
         ...SHADOWS.dark, }}>
 
         <View style={{ width: '100%', height: 250 }}>
-          {image && (
+      
             <Image
-              source={{ uri: image }}
+              source={data.image}
               resizeMode="cover"
               style={{
                 width: '100%',
@@ -50,7 +48,7 @@ const ArtCard = ({ data }) => {
                 borderTopRightRadius: SIZES.font,
               }}
             />
-          )}
+     
           <CircleButton imgUrl={assets.heart} right={10} top={10} />
         </View>
 

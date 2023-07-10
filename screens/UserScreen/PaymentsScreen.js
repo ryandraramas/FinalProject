@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
-import { COLORS, SIZES } from '../../constants';
+import { COLORS, SIZES, assets } from '../../constants';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 
@@ -9,23 +9,23 @@ const PaymentsScreen = () => {
   const [items, setItems] = useState('');
   const [deliveryLocation, setDeliveryLocation] = useState('');
   const [countryLocation, setCountryLocation] = useState('');
-  const [subtotal, setSubtotal] = useState(0);
-  const [appFee, setAppFee] = useState(0);
+  const [subtotal, setSubtotal] = useState("Rp1.100.000");
+  const [appFee, setAppFee] = useState("Rp7.500");
   const [discount, setDiscount] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [price, setPrice] = useState("250.000");
+  const [total, setTotal] = useState("Rp1.107.500");
+  const [price, setPrice] = useState("1.100.000");
 
-  // useEffect(() => {
-  //   fetch('URL_BACKEND/art')
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setItems(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //       // Handle the error if there's an issue fetching the data
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetch('URL_BACKEND/art')
+      .then((response) => response.json())
+      .then((data) => {
+        setItems(data);
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle the error if there's an issue fetching the data
+      });
+  }, []);
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users')
@@ -41,37 +41,37 @@ const PaymentsScreen = () => {
   }, []);
 
   const handlePayment = () => {
-    // const calculatedTotal = subtotal + appFee - discount;
+    const calculatedTotal = subtotal + appFee - discount;
 
-    // fetch('URL_BACKEND/payment', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     items,
-    //     deliveryLocation,
-    //     subtotal,
-    //     appFee,
-    //     discount,
-    //     total: calculatedTotal,
-    //   }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     navigation.navigate('PaymentsSuccess');
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //     alert('Payment failed. Please try again.');
-    //   });
+    fetch('URL_BACKEND/payment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        items,
+        deliveryLocation,
+        subtotal,
+        appFee,
+        discount,
+        total: calculatedTotal,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        navigation.navigate('PaymentsConfirm');
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Payment failed. Please try again.');
+      });
   };
 
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={{ marginTop: '10%' }}>
+        <View style={{ marginTop: '2%' }}>
           <TouchableOpacity
               style={{
                 position: 'absolute',
@@ -86,21 +86,11 @@ const PaymentsScreen = () => {
 
         <View style={styles.itemWrapper}>
           <Text style={styles.Tittle}>Asisten Rumah Tangga</Text>
-              <Image/>
               <View style={{
                   flexDirection: 'row',
                   marginTop:13,
                }}>
-                  <View style={{
-                    backgroundColor: '#F0F0F0',
-                    width: 40,
-                    height: 40,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 8,
-                  }}>
-                    <Ionicons name="pserson-outline" size={24} color={COLORS.tertiary}  />
-                  </View>
+                  <Image source={assets.person} style={styles.images}/>
                   <View style={{ 
                     marginLeft: 10,
                     marginBottom: 1,
@@ -120,10 +110,10 @@ const PaymentsScreen = () => {
                       }}>3070 Blossom Hill Rd</Text>
 
                         <Text style={{
-                          marginLeft: 198,
+                          marginLeft: 193,
                           fontWeight: '500',
                           bottom: 18
-                        }}>Rp. {price}</Text>
+                        }}>Rp{price}</Text>
                         
                   </View>
               </View>
@@ -155,10 +145,6 @@ const PaymentsScreen = () => {
                       fontSize: 13,
                       fontWeight: 'bold',
                     }}>{deliveryLocation}</Text>
-                    <Text style={{
-                      fontSize: 12,
-                      color: COLORS.darkLight,
-                    }}>St. Charles, UK </Text>
                 </View>
               </View>
         </View>
@@ -219,8 +205,9 @@ const PaymentsScreen = () => {
           </View>
       </View>
 
-      <TouchableOpacity style={styles.button1} onPress={handlePayment}>
-        <Text style={styles.buttonText}>Pay - Rp.{total}</Text>
+      {/* <TouchableOpacity style={styles.button1} onPress={handlePayment}> */}
+      <TouchableOpacity style={styles.button1} onPress={() => navigation.navigate("PaymentsConfirm")}>
+        <Text style={styles.buttonText}>Pay - {total} </Text>
       </TouchableOpacity>
       </ScrollView>
     </View>
@@ -284,4 +271,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.gray
   },
+  images:{
+    height: 45,
+    width: 45,
+    borderRadius: 10
+  }
 });

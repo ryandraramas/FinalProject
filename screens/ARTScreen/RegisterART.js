@@ -41,7 +41,7 @@ const RegisterART = () => {
     setShowDatePicker(true);
   };
 
-  const submit = () => {
+  const submit = async () => {
     if (
       !name ||
       !email ||
@@ -68,17 +68,14 @@ const RegisterART = () => {
       password,
     };
 
-    axios
-      .post('http://192.168.1.7/api/pelanggan/', data)
-      .then((response) => {
-        console.log(response.data);
-        Alert.alert('Success', 'Registration successful!');
-        // Navigate to another screen
-      })
-      .catch((error) => {
-        console.error(error);
-        Alert.alert('Error', 'Registration failed.');
-      });
+    try{
+      const response = await axios.post('https://ea7b-36-73-173-90.ngrok-free.app/api/Mitra/register', {...data});
+      Alert.alert('Success', 'Registration successful!');
+      navigation.navigate('LoginART');
+      console.log(response);
+    } catch (err){
+      console.log(err.message);
+    }
   };
 
   return (

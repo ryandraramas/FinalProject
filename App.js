@@ -18,6 +18,10 @@ import DevScreen from './screens/DevScreen/DevScreen';
 import LoginDev from './screens/DevScreen/LoginDev';
 import TopUpScreen from './screens/UserScreen/TopUpScreen';
 import BCATopUp from './screens/UserScreen/BCATopUp';
+import HistoryScreen from './screens/UserScreen/HistoryScreen';
+import DetailOrderScreen from './screens/UserScreen/DetailOrderScreen';
+import InfoOrderMitra from './screens/ARTScreen/InfoOrderMitra'
+import PaymentsConfirm from './screens/UserScreen/PaymentsConfirm';
 
 
 const Stack = createNativeStackNavigator();
@@ -50,7 +54,10 @@ function App() {
         <Stack.Screen name="LoginDev" component={LoginDev}/>
         <Stack.Screen name="BCATopUp" component={BCATopUp}/>
         <Stack.Screen name="TopUp" component={TopUpScreen}/>
-        
+        <Stack.Screen name="History" component={HistoryScreen}/>
+        <Stack.Screen name="DetailOrder" component={DetailOrderScreen}/>
+        <Stack.Screen name="Info" component={InfoOrderMitra}/>
+        <Stack.Screen name="PaymentsConfirm" component={PaymentsConfirm}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

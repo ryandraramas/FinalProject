@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
 
-import { EthPrice, NFTTitle } from "./SubInfo";
+import { Salary, ARTTitle } from "./SubInfo";
 import { COLORS, SIZES,  } from "../constants";
 
 const DetailsDesc = ({ data }) => {
@@ -16,23 +16,26 @@ const DetailsDesc = ({ data }) => {
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
+          marginTop: -28,
+          marginBottom: 10
         }}
       >
-        <NFTTitle
+        <ARTTitle
           title={data.name}
           subTitle={data.creator}
           titleSize={SIZES.extraLarge}
           subTitleSize={SIZES.font}
         />
 
-        <EthPrice price={data.price} />
+        <Salary salary={data.salary} />
       </View>
 
-      <View style={{ marginVertical: SIZES.extraLarge * 1.5 }}>
+      <View style={{ marginVertical: SIZES.extraLarge * 1.5, marginTop: 5 }}>
         <Text
           style={{
+            fontWeight: 'bold',
             fontSize: SIZES.font,
-            color: COLORS.primary,
+            color: 'black',
           }}
         >
           Description
@@ -44,16 +47,17 @@ const DetailsDesc = ({ data }) => {
         >
           <Text
             style={{
-              color: COLORS.secondary,
+              color: COLORS.darkLight,
               fontSize: SIZES.small,
               lineHeight: SIZES.large,
+              textAlign: 'justify'
             }}
           >
             {text}
             {!readMore && "..."}
             <Text
               style={{
-                color: COLORS.primary,
+                color: COLORS.dark,
                 fontSize: SIZES.small,
               }}
               onPress={() => {

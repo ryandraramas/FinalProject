@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
 
-import { EthPrice } from "./SubInfo";
-import { COLORS, SIZES, FONTS } from "../constants";
+import { Reviewed } from "./SubInfo";
+import { COLORS, SIZES } from "../constants";
 
-const DetailsBid = ({ bid }) => {
+const DetailsBid = ({ reviews }) => {
   return (
     <View
       style={{
@@ -15,10 +15,10 @@ const DetailsBid = ({ bid }) => {
         marginVertical: SIZES.base,
         paddingHorizontal: SIZES.base,
       }}
-      key={bid.id}
+      key={reviews.id}
     >
       <Image
-        source={bid.image}
+        source={reviews.image}
         resizeMode="contain"
         style={{ width: 48, height: 48 }}
       />
@@ -32,25 +32,24 @@ const DetailsBid = ({ bid }) => {
       >
         <Text
           style={{
-            fontFamily: FONTS.semiBold,
             fontSize: SIZES.small,
-            color: COLORS.primary,
+            color: COLORS.dark,
           }}
         >
-          Bid placed by {bid.name}
+          Bid placed by {reviews.name}
         </Text>
         <Text
           style={{
             fontSize: SIZES.small - 2,
-            color: COLORS.secondary,
+            color: COLORS.darkLight,
             marginTop: 3,
           }}
         >
-          {bid.date}
+          {reviews.date}
         </Text>
       </View>
 
-      <EthPrice price={bid.price} />
+      <Reviewed price={reviews.review} />
     </View>
   );
 };

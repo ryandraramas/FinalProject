@@ -26,7 +26,6 @@ export const Started = ({ minWidth, fontSize, navigation, ...props }) => (
           ...props,
         }}
         onPress={() => navigation.navigate("Menu")}
-       // onPress={() => navigation.navigate("BCATopUp")}
       >
         <Text style={{
           fontSize: fontSize,

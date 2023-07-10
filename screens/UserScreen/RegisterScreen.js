@@ -14,7 +14,6 @@ import { useNavigation } from '@react-navigation/native';
 import { COLORS, SIZES } from '../../constants';
 
 import axios from 'axios';
-import decamelize from 'decamelize';
 
 const RegisterScreen = () => {
   const navigation = useNavigation();
@@ -27,12 +26,6 @@ const RegisterScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [cancelToken, setCancelToken] = useState(null);
-  const [value, setValue] = useState();
-
-  useEffect(() => {
-    console.log(value);
-  }, [value]);
 
   const togglePasswordVisibility = () => {
     setHidePassword(!hidePassword);
@@ -40,11 +33,7 @@ const RegisterScreen = () => {
 
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-
-    if (selectedDate !== null) {
-      setShowDatePicker(true);
-    }
-
+    setShowDatePicker(false);
     setDate(currentDate);
   };
 
@@ -52,46 +41,24 @@ const RegisterScreen = () => {
     setShowDatePicker(true);
   };
 
-  useEffect(() => {
-    // Cleanup the cancel token when the component unmounts
-    return () => {
-      if (cancelToken) {
-        cancelToken.cancel('Request canceled');
-      }
-    };
-  }, []);
-
-  const createFormData = (payload) => {
-    const formData = new FormData();
-    Object.entries(payload).forEach(([key, value]) => {
-      if (key === 'date') {
-        const formattedDate = value.toISOString().split('T')[0];
-        formData.append(decamelize(key), formattedDate);
-      } else {
-        formData.append(decamelize(key), value);
-      }
-    });
-    return formData;
-  };
-
-  const submit = () => {
+  const submit = async () => {
     if (
       !name ||
       !email ||
       !address ||
       !phoneNumber ||
       !password ||
-      !confirmPassword 
+      !confirmPassword
     ) {
-      Alert.alert('Error', 'All fields must be filled');
+      Alert.alert('Error', 'Data must be inputted');
       return;
     }
-  
+
     if (password !== confirmPassword) {
       Alert.alert('Error', 'Password and confirmation password do not match.');
       return;
     }
-  
+
     const data = {
       date,
       name,
@@ -100,34 +67,16 @@ const RegisterScreen = () => {
       phoneNumber,
       password,
     };
-  
-    const formData = createFormData(data);
-  
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://192.168.1.7/api/pelanggan/');
-    xhr.setRequestHeader('Content-Type', 'multipart/form-data');
-  
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        console.log(xhr.responseText);
-        Alert.alert('Success', 'Registration successful!');
-        navigation.navigate('Login');
-      } else {
-        console.error(xhr.responseText);
-        Alert.alert('Error', 'Registration failed.');
-      }
-    };
-  
-    xhr.onerror = function () {
-      console.error(xhr.responseText);
-      Alert.alert('Error', 'Registration failed.');
-    };
-  
-    xhr.send(formData);
-  
-    console.log('Data before sent!', data);
-  };
 
+    try{
+      const response = await axios.post('https://aac8-36-68-219-149.ngrok-free.app/api/pelanggan/register', {...data});
+      Alert.alert('Success', 'Registration successful!');
+      navigation.navigate('Login');
+      console.log(response);
+    } catch (err){
+      console.log(err.message);
+    }
+  };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="fixed">

@@ -16,9 +16,16 @@ import img from "../assets/images/image1.jpg"
 import card from "../assets/images/card_visa_bg.png"
 import spectrum from "../assets/images/spectrum.png"
 import logo from "../assets/images/Logo.png";
-import nft07 from "../assets/images/nft07.jpeg";
 import cardBg from "../assets/images/cardBg.jpg";
 import bca_putih from "../assets/images/BCA_Putih.png";
+import nft01 from "../assets/images/a.png";
+import nft02 from "../assets/images/nft02.png";
+import nft03 from "../assets/images/nft03.png";
+import nft04 from "../assets/images/nft04.jpg";
+import nft05 from "../assets/images/nft05.png";
+import nft06 from "../assets/images/nft06.png";
+import nft07 from "../assets/images/nft07.jpeg";
+import lottie from "../assets/images/Lottie.json"
 
 import person from "../assets/images/person.png";
 import person01 from "../assets/images/person01.png";
@@ -39,6 +46,7 @@ export default {
     cardBg,
     bcaCard,
     bca_putih,
+    lottie,
 
     LogoBg,
     alfamart,
@@ -47,6 +55,12 @@ export default {
     logo,
     card,
     spectrum,
+    nft01,
+    nft02,
+    nft03,
+    nft04,
+    nft05,
+    nft06,
     nft07,
 
     person,

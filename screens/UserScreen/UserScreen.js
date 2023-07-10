@@ -11,16 +11,16 @@ const UserScreen = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('http://192.168.1.7/api/pelanggan/');
-        const data = await response.json();
+        const response = await axios.get('https://aac8-36-68-219-149.ngrok-free.app/api/pelanggan');
+        const data = response.data;
         setUserData(data);
       } catch (error) {
         console.log('Error fetching user data:', error);
       }
     };
-
+  
     fetchUserData();
-  }, []);
+  }, []);  
 
   const handleLogout = () => {
     // Implement your logout logic here
@@ -37,13 +37,13 @@ const UserScreen = () => {
           <View style={{ flexDirection: 'row', marginTop: 15 }}>
             <Avatar.Image
               source={{
-                uri: userData?.avatar || 'https://api.adorable.io/avatars/80/abott@adorable.png',
+                uri: userData?.avatar || 'https://xsgames.co/randomusers/avatar.php?g=male',
               }}
               size={80}
             />
             <View style={{ marginLeft: 20 }}>
               <Title style={[styles.title, { marginTop: 15, marginBottom: 5 }]}>
-                {userData?.name || 'John Doe'}
+                {userData?.name || 'Ryandra Rama S'}
               </Title>
               {/* <Caption style={styles.caption}>{userData?.username}</Caption> */}
             </View>

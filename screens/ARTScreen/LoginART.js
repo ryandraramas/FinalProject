@@ -1,9 +1,10 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Alert } from 'react-native';
 import { COLORS, SIZES, assets } from '../../constants';
-import Icon from 'react-native-vector-icons/Ionicons';
+
 import Ionicons from '@expo/vector-icons/Ionicons';
+import axios from 'axios';
 
 export const LoginScreen = () => {
   const navigation = useNavigation();
@@ -11,76 +12,23 @@ export const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = () => {
-    // Check if email and password are not empty
-    if (email.trim() === '' || password.trim() === '') {
-      Alert.alert('Error', 'Please enter email and password');
-      return;
-    }
-
-    // Validate email format
-    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (!emailRegex.test(email)) {
-      Alert.alert('Error', 'Please enter a valid email');
-      return;
-    }
-
-    // Validate password strength
-    if (password.length < 8 || !/\d/.test(password) || !/[a-zA-Z]/.test(password)) {
-      Alert.alert(
-        'Error',
-        'Password must be at least 8 characters long and contain at least one letter and one number'
-      );
-      return;
-    }
-
-    // Perform API call to verify credentials and obtain token
-    fetch('http://192.168.1.7/api/pelanggan', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the API
-        if (data.success) {
-          // Login successful, verify token
-          const decodedToken = verifyToken(data.token);
-          if (decodedToken) {
-            // Token valid, navigate to the next page
-            navigation.navigate('Home');
-          } else {
-            // Token invalid, display error message
-            Alert.alert('Error', 'Invalid token');
-          }
-        } else {
-          // Login failed, display error message
-          Alert.alert('Error', `Login failed: ${data.error}`);
-        }
-      })
-      .catch((error) => {
-        Alert.alert('Error', `API Error: ${error}`);
+  const handleLogin = async () => {
+    try{
+      const response = await axios.post('https://ea7b-36-73-173-90.ngrok-free.app/api/Mitra/login', {
+        email,
+        password
       });
+
+      Alert.alert('Success', 'Login Success');
+      console.log(response.data);
+      return navigation.navigate('ARTViewScreen');
+    } catch (err){
+      return Alert.alert('Error', `Login failed: ${err.message}`);
+    }
   };
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
-  };
-
-  const verifyToken = (token) => {
-    try {
-      const decodedToken = jwt_decode(token);
-      // Perform additional checks or validations on the decoded token if needed
-      return decodedToken;
-    } catch (error) {
-      console.log('Invalid token:', error);
-      return null;
-    }
   };
 
   return (
@@ -134,8 +82,8 @@ export const LoginScreen = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        {/* <TouchableOpacity style={styles.button} onPress={handleLogin} > */}
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ARTViewScreen')} >
+        <TouchableOpacity style={styles.button} onPress={handleLogin} >
+        {/* <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ARTViewScreen')} > */}
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
@@ -180,7 +128,9 @@ const styles = StyleSheet.create({
     marginLeft: -10
   },
   input: {
-    marginLeft: 10
+    marginLeft: 10,
+    flex: 1,
+    backgroundColor: 'transparent'
   },
   passwordToggle: {
     position: 'absolute',
@@ -218,7 +168,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 15,
     borderColor: COLORS.primary,
-    borderWidth: 1,
+    borderWidth: 2,
     padding: SIZES.base,
     minWidth: '79%',
     justifyContent: 'center',

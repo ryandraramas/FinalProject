@@ -96,7 +96,7 @@ const StatusBookART = () => {
                 <Text style={styles.textStatus}>Status Postingan Anda </Text>
             </View>
 
-            <View style={styles.cardItem}>
+            <TouchableOpacity style={styles.cardItem} onPress={() => navigation.navigate("Info")}>
                 <View style={styles.card3}>
                     <Text style={styles.cardName}>
                         Melisa Cahyani
@@ -121,8 +121,7 @@ const StatusBookART = () => {
                     <Text style={{fontWeight: '500'}}>Status :</Text>
                     <Text style={{marginLeft: 4, color: COLORS.gray}}>Pending</Text>
                 </View>
-
-            </View>
+            </TouchableOpacity>
 
         </ImageBackground>
     </View>

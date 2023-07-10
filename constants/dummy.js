@@ -3,31 +3,31 @@ import assets from "./assets";
 const NFTData = [
   {
     id: "NFT-01",
-    name: "Putri Intan",
+    name: "Melisa Cahyani",
     category: "Cleaning Service, ",
-    salary: "250.000",
+    salary: "1.100.000",
     description:
-      "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural.",
-    image: assets.nft01,
-    bids: [
+      "Saya, Melisa Cahyani, adalah seorang individu yang memiliki motivasi tinggi untuk mencari peluang baru dan mengembangkan karir saya. Saya memiliki keterampilan dan pengetahuan yang relevan di bidang minat saya, serta mampu bekerja secara efektif baik secara mandiri maupun dalam tim. Selain itu, saya memiliki kemampuan komunikasi yang baik dan mudah beradaptasi dengan lingkungan kerja yang beragam. Dengan dedikasi dan komitmen yang kuat, saya siap menghadapi tantangan baru dan memberikan kontribusi yang berharga bagi perusahaan yang saya lamar.",
+    image: assets.person,
+    reviews: [
       {
         id: "BID-11",
         name: "Jessica Tan",
-        reviews: 4.25,
+        review: 4.25,
         image: assets.person02,
         date: "December 12, 2019 at 12:10 PM",
       },
       {
         id: "BID-12",
         name: "Jennifer Sia",
-        reviews: 4.5,
+        review: 4.5,
         image: assets.person03,
         date: "December 27, 2019 at 1:50 PM",
       },
       {
         id: "BID-13",
         name: "Rosie Wong",
-        reviews: 4.75,
+        review: 4.75,
         image: assets.person04,
         date: "December 31, 2019 at 3:50 PM",
       },
@@ -37,15 +37,15 @@ const NFTData = [
     id: "NFT-02",
     name: "Siti Nurhaliza",
     category: "Baby Sitting",
-    salary: '450,000',
+    salary: '2.500.000',
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis.",
     image: assets.nft02,
-    bids: [
+    reviews: [
       {
         id: "BID-21",
         name: "Jessica Tan",
-        reviews: 4.5,
+        review: 4.5,
         image: assets.person04,
         date: "December 12, 2019 at 12:10 PM",
       },
@@ -53,24 +53,24 @@ const NFTData = [
   },
   {
     id: "NFT-03",
-    name: "Elisabeth aho",
+    name: "Putri Intan Aho",
     category: "Laundry",
-    salary: "650.000",
+    salary: "750.000",
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis.",
     image: assets.nft03,
-    bids: [
+    reviews: [
       {
         id: "BID-31",
         name: "Jessica Tan",
-        reviews: 4,
+        review: 4,
         image: assets.person02,
         date: "December 12, 2019 at 12:10 PM",
       },
       {
         id: "BID-32",
         name: "Jennifer Sia",
-        reviews: 3.5,
+        review: 3.5,
         image: assets.person03,
         date: "December 27, 2019 at 1:50 PM",
       },
@@ -78,38 +78,38 @@ const NFTData = [
   },
   {
     id: "NFT-04",
-    name: "John Doe",
+    name: "Melisa Putri Nurizah",
     category: "Cooking",
-    salary: '250.000',
+    salary: '2.000.000',
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural.Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur.",
     image: assets.nft04,
-    bids: [
+    reviews: [
       {
         id: "BID-41",
         name: "Jessica Tan",
-        reviews: 4,
+        review: 4,
         image: assets.person02,
         date: "December 12, 2019 at 12:10 PM",
       },
       {
         id: "BID-42",
         name: "Jennifer Sia",
-        reviews: 3,
+        review: 3,
         image: assets.person03,
         date: "December 27, 2019 at 1:50 PM",
       },
       {
         id: "BID-43",
         name: "Rosie Wong",
-        reviews: 2.5,
+        review: 2.5,
         image: assets.person04,
         date: "December 31, 2019 at 3:50 PM",
       },
       {
         id: "BID-44",
         name: "Vincent Swift",
-        reviews: 3,
+        review: 3,
         image: assets.person02,
         date: "December 31, 2019 at 3:50 PM",
       },
@@ -119,15 +119,15 @@ const NFTData = [
     id: "NFT-05",
     name: "David Doe",
     category: "Gardening",
-    salary: '100.000',
+    salary: '1.200.000',
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural.",
     image: assets.nft05,
-    bids: [
+    reviews: [
       {
         id: "BID-51",
         name: "Jessica Tan",
-        reviews: 5,
+        review: 5,
         image: assets.person02,
         date: "December 12, 2019 at 12:10 PM",
       },
@@ -135,45 +135,45 @@ const NFTData = [
   },
   {
     id: "NFT-06",
-    name: "Leo Messi",
+    name: "Indah Ratna Ayu",
     category: "Personal Assistant",
-    salary: '350,000',
+    salary: '800,000',
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis.",
     image: assets.nft06,
-    bids: [
+    reviews: [
       {
         id: "BID-61",
         name: "Jessica Tan",
-        reviews: 5,
+        review: 5,
         image: assets.person02,
         date: "December 12, 2019 at 12:10 PM",
       },
       {
         id: "BID-62",
         name: "Jennifer Sia",
-        reviews: 2,
+        review: 2,
         image: assets.person03,
         date: "December 27, 2019 at 1:50 PM",
       },
       {
         id: "BID-63",
         name: "Rosie Wong",
-        reviews: 3.5,
+        review: 3.5,
         image: assets.person04,
         date: "December 31, 2019 at 3:50 PM",
       },
       {
         id: "BID-64",
         name: "Siti Nurhaliza",
-        reviews: 4,
+        review: 4,
         image: assets.person02,
         date: "December 31, 2019 at 3:50 PM",
       },
       {
         id: "BID-65",
         name: "Kaitlyn Lee",
-        reviews: 4.5,
+        review: 4.5,
         image: assets.person02,
         date: "December 31, 2019 at 3:50 PM",
       },
@@ -181,13 +181,13 @@ const NFTData = [
   },
   {
     id: "NFT-07",
-    name: "Victor de la Cruz",
-    category: "Cleaning Service",
-    salary: '250,000',
+    name: "Siti Dewi Anisa",
+    category: "Baby Sitter",
+    salary: '2.500.000',
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis. Ullamcorper platea penatibus ornare egestas nulla ligula hendrerit nisl suscipit sociosqu maximus, tincidunt aptent habitant purus pharetra ultrices dapibus laoreet nisi lacinia. Porta malesuada netus vel sapien conubia porttitor aliquam ut pretium ante litora molestie senectus magna egestas sociosqu, eget aliquet fames pharetra felis posuere varius fringilla quisque in arcu montes eu ullamcorper.",
     image: assets.nft07,
-    bids: [],
+    reviews: [],
   },
 ];
 

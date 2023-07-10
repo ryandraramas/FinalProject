@@ -65,7 +65,7 @@ export const Salary   = ({ salary }) => {
  )
 }
 
-export const Reviewed   = ({ salary }) => {
+export const Reviewed   = ({ review }) => {
     return(
        <View style= {{ flexDirection: 'row', alignItems: 'center' }}>
            <Image
@@ -76,7 +76,7 @@ export const Reviewed   = ({ salary }) => {
            <Text style={{
                fontSize: SIZES.font,
                color: '#000000',
-           }}>{salary}
+           }}>{review}
            </Text>
        </View>
     )
