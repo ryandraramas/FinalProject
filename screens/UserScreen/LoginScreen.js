@@ -14,7 +14,7 @@ export const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('https://aac8-36-68-219-149.ngrok-free.app/api/pelanggan/login', {
+      const response = await axios.post('/api/pelanggan/login', {
         email,
         password
       });

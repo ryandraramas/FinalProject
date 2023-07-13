@@ -69,7 +69,7 @@ const RegisterScreen = () => {
     };
 
     try{
-      const response = await axios.post('https://aac8-36-68-219-149.ngrok-free.app/api/pelanggan/register', {...data});
+      const response = await axios.post('http://172.16.54.224:3000/api/pelanggan/register', {...data});
       Alert.alert('Success', 'Registration successful!');
       navigation.navigate('Login');
       console.log(response);

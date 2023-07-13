@@ -69,7 +69,7 @@ const RegisterART = () => {
     };
 
     try{
-      const response = await axios.post('https://ea7b-36-73-173-90.ngrok-free.app/api/Mitra/register', {...data});
+      const response = await axios.post('http://172.16.54.224:3000/api/Mitra/register', {...data});
       Alert.alert('Success', 'Registration successful!');
       navigation.navigate('LoginART');
       console.log(response);

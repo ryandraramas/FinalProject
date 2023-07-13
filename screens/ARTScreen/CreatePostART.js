@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Image, View, TouchableOpacity, StyleSheet, Keyboard, Text, TextInput } from 'react-native';
+import { Image, View, TouchableOpacity, StyleSheet, Keyboard, Text, TextInput, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
-import { COLORS, SIZES } from '../../constants';
+import { COLORS, SHADOWS, SIZES } from '../../constants';
 
 const CreatePostART = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategoryPrice, setSelectedCategoryPrice] = useState('');
   const navigation = useNavigation();
   const [open, setOpen] = useState(false);
   const [text, onChangeText] = useState('');
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    { label: 'Cleaning', value: 'Cleaning' },
-    { label: 'Cooking', value: 'Cooking' },
-    { label: 'Baby Sitting', value: 'Baby Sitting' },
-    { label: 'Gardening', value: 'Gardening' },
-    { label: 'Personal Assistant', value: 'Personal Assistant' },
+    { label: 'Cleaning', value: 'Cleaning', price: '1.000.000/bulan' },
+    { label: 'Cooking', value: 'Cooking', price: '1.200.000/bulan' },
+    { label: 'Baby Sitting', value: 'Baby Sitting', price: '2.000.000/bulan' },
+    { label: 'Gardening', value: 'Gardening', price: '1.100.000/bulan' },
+    { label: 'Personal Assistant', value: 'Personal Assistant', price: '1.200.000/bulan' },
   ]);
 
   useEffect(() => {
@@ -41,6 +43,8 @@ const CreatePostART = () => {
 
     if (!result.cancelled) {
       setSelectedImage(result.uri);
+      setSelectedCategory(null); // Reset kategori yang dipilih
+      setSelectedCategoryPrice(''); // Reset harga yang terkait
     }
   };
 
@@ -51,9 +55,10 @@ const CreatePostART = () => {
   const handleSubmitButtonPress = () => {
     // Send data to the server
     const postData = {
-      category: value,
+      category: selectedCategory,
       description: text,
-      image: selectedImage
+      image: selectedImage,
+      price: selectedCategoryPrice
     };
   
     // Perform HTTP request to the server
@@ -75,25 +80,32 @@ const CreatePostART = () => {
         console.error('Error:', error);
       });
   };
+  const handleCategoryChange = (item) => {
+    setSelectedCategory(item.value); // Simpan kategori yang dipilih
+    setSelectedCategoryPrice(item.price);
+  };
 
   const handleKeyboardDismiss = () => {
     Keyboard.dismiss();
   };
 
   return (
+    
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={handleBackButtonPress}>
-        <Ionicons name="chevron-back" size={24} color="black" />
-      </TouchableOpacity>
-
-      <View style={styles.pickerWrapper} zindex={2}>
+      <View style={styles.headers}>
+        <TouchableOpacity style={styles.backButton} onPress={handleBackButtonPress}>
+          <Ionicons name="chevron-back" size={24} color="black" />
+          <Text style={styles.textHeader}>Buat Postingan Anda</Text>
+        </TouchableOpacity>
+      </View>
+      <ScrollView>
+        
+      <View style={styles.pickerWrapper}>
         <DropDownPicker
           multiple={true}
           min={1}
           placeholder='Category Anda'
           max={3}
-          containerStyle={styles.pickerContainer}
-          style={styles.picker}
           mode="BADGE"
           dropDownDirection="AUTO"
           showBadgeDot={true}
@@ -104,7 +116,17 @@ const CreatePostART = () => {
           setOpen={setOpen}
           setValue={setValue}
           setItems={setItems}
-          onChangeValue={setValue}
+          onChangeValue={handleCategoryChange}
+          style={styles.picker}
+          containerStyle={styles.pickerContainer}
+        />
+        <TextInput
+          placeholder="Harga yang Tersedia"
+          style={styles.TextInput}
+          editable={false}
+          selectTextOnFocus={false}
+          value={selectedCategoryPrice} // Update prop value
+          // onChangeText={setTopUpAmount}
         />
       </View>
 
@@ -121,26 +143,30 @@ const CreatePostART = () => {
         />
       </View>
 
-      <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
-        {selectedImage ? (
-          <View style={styles.selectedImageContainer}>
-            <Image
-              source={{ uri: selectedImage }}
-              style={styles.selectedImage}
-              resizeMode="contain"
-            />
-          </View>
-        ) : (
-          <View style={styles.imagePickerContent}>
-            <Ionicons name="image-outline" size={64} style={styles.imagePickerIcon} />
-            <Text style={styles.imagePickerText}>Add Your Image</Text>
-          </View>
-        )}
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmitButtonPress}>
-        <Text style={styles.submitButtonText}>Submit</Text>
-      </TouchableOpacity>
+      <View style={styles.imageContainer}>
+        <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
+          {selectedImage ? (
+            <View style={styles.selectedImageContainer}>
+              <Image
+                source={{ uri: selectedImage }}
+                style={styles.selectedImage}
+                resizeMode="cover"
+              />
+            </View>
+          ) : (
+            <View style={styles.imagePickerContent}>
+              <Ionicons name="image-outline" size={64} style={styles.imagePickerIcon} />
+              <Text style={styles.imagePickerText}>Upload Foto Anda</Text>
+            </View>
+          )}
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
+    <View style={styles.footer}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmitButtonPress}>
+          <Text style={styles.submitButtonText}>Submit</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -148,37 +174,62 @@ const CreatePostART = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    padding: 5,
-    marginBottom: -20
+    backgroundColor: '#EFF3F7',
   },
-  backButton: {
-    position: 'absolute',
-    top: 30,
-    left: 20,
-    zIndex: 1,
-  },
-  pickerWrapper: {
+  headers: {
     flexDirection: 'row',
     alignItems: 'center',
+    height: 70, 
+    backgroundColor: '#fff', 
+    width: '100%',
+    ...SHADOWS.light,
+    borderBottomColor: '#d7d7d7',
+    borderBottomWidth: 1,
   },
-  pickerContainer: {
-    height: 40,
+  textHeader: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginLeft: 14,
+},
+  backButton: {
+    position: 'absolute',
+    zIndex: 1,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    marginLeft: 10,
+  },
+  pickerWrapper: {
+    zIndex: 1,
+    marginTop: 20,
+    marginBottom: 20,
     justifyContent: 'center',
-    width: '88%',
-    zIndex: 1
+    alignItems: 'center'
   },
   picker: {
+    width: '100%',
     borderBottomWidth: 2,
     borderBottomColor: '#9E9E9E',
     borderColor: 'transparent',
-    backgroundColor: 'white',
+  },
+  pickerContainer: {
+    height: 40,
+    width: '88%',
+    zIndex: 1,
+  },
+  TextInput: {
+    backgroundColor: '#fff',
+    height: 40,
+    width: '90%',
+    borderRadius: 10,
+    marginTop: 20,
+    padding: 10,
   },
   inputDescWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: -50,
+    justifyContent: 'center',
     paddingHorizontal: SIZES.font,
     paddingVertical: SIZES.small - 2,
   },
@@ -193,57 +244,67 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlignVertical: 'top',
   },
+  imageContainer : {
+    alignItems: 'center',
+    position: 'fixed',
+  },
   imagePickerButton: {
     borderWidth: 2,
     width: '88%',
-    height: '30%',
-    marginBottom: -50,
+    height: '76%',
     borderStyle: 'dashed',
     borderColor: COLORS.darkLight,
     borderRadius: 8,
-    position: 'fixed',
+    justifyContent: 'center', 
     alignItems: 'center',
+    padding: 20,
+    marginTop: 20
   },
   selectedImageContainer: {
-    width: '100%',
-    height: 205,
+    height: '130%',
     borderRadius: 8,
-    justifyContent: 'center',
     alignItems: 'center',
-    overflow: 'hidden',
+    justifyContent: 'center'
   },
   selectedImage: {
     flex: 1,
-    width: '100%',
-    height: '100%',
     borderRadius: 8,
     aspectRatio: 1,
-    marginTop: 10,
-    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+    marginBottom: 20
   },
   imagePickerContent: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   imagePickerIcon: {
-    textAlign: 'center',
-    top: 70,
+    textAlign: 'center',   
     color: COLORS.darkLight,
   },
   imagePickerText: {
     marginLeft: 8,
-    top: 70,
     fontSize: 16,
     color: COLORS.darkLight,
+  },
+  footer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 60, 
+    marginBottom: 0, 
+    backgroundColor: '#fff', 
+    width: '100%',
+    ...SHADOWS.dark,
+    borderBottomColor: '#d7d7d7',
+    borderBottomWidth: 1,
   },
   submitButton: {
     backgroundColor: COLORS.primary,
     borderRadius: 15,
-    marginBottom: -20,
-    marginTop: 10,
     padding: SIZES.small,
-    minWidth: '90%',
     alignItems: 'center',
+    width: '80%'
   },
   submitButtonText: {
     color: 'white',

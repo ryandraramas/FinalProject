@@ -14,7 +14,7 @@ export const LoginScreen = () => {
 
   const handleLogin = async () => {
     try{
-      const response = await axios.post('https://ea7b-36-73-173-90.ngrok-free.app/api/Mitra/login', {
+      const response = await axios.post('http://172.16.54.224:3000/api/Mitra/login', {
         email,
         password
       });

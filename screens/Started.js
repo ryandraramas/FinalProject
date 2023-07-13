@@ -10,7 +10,6 @@ export const Started = ({ minWidth, fontSize, navigation, ...props }) => (
       resizeMode="cover"
       style={{ flex: 2 }}>
 
-
       <TouchableOpacity
         style={{
           backgroundColor: COLORS.white,
