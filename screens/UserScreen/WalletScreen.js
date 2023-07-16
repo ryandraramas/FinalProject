@@ -159,7 +159,6 @@ const styles = StyleSheet.create({
   },
   historyContent: {
     flexDirection: 'row',
-    alignItems: 'left',
     marginTop: 20,
   },
   historyTextContainer: {

@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Alert } from 'react-native';
 import { COLORS, SIZES, assets } from '../../constants';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const LoginScreen = () => {
   const navigation = useNavigation();
@@ -12,17 +13,34 @@ export const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  useEffect(() => {
+    const checkUserLogin = async () => {
+      try {
+        const mitraData = await AsyncStorage.getItem('mitraData');
+        if(mitraData) {
+          navigation.navigate('ARTViewScreen');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    checkUserLogin();
+  }, []);
+
   const handleLogin = async () => {
-    try{
-      const response = await axios.post('http://172.16.54.224:3000/api/Mitra/login', {
+    try {
+      const response = await axios.post('http://192.168.1.5:3000/api/Mitra/login', {
         email,
         password
       });
 
+      await AsyncStorage.setItem('mitraData', JSON.stringify(response.data));
+
       Alert.alert('Success', 'Login Success');
       console.log(response.data);
       return navigation.navigate('ARTViewScreen');
-    } catch (err){
+    } catch (err) {
       return Alert.alert('Error', `Login failed: ${err.message}`);
     }
   };
@@ -32,7 +50,7 @@ export const LoginScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container}>
       <TouchableOpacity
         style={styles.backButton}
         onPress={() => navigation.goBack()}
@@ -83,7 +101,6 @@ export const LoginScreen = () => {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handleLogin} >
-        {/* <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ARTViewScreen')} > */}
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 

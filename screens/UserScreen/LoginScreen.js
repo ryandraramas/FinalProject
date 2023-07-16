@@ -32,7 +32,7 @@ export const LoginScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container}>
       <TouchableOpacity
         style={styles.backButton}
         onPress={() => navigation.goBack()}

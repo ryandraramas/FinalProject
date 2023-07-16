@@ -40,7 +40,7 @@ const HistoryScreen = () => {
                       Rp1.107.500
                     </Text>
                   </View>
-                  <Text style={{marginTop: 14, fontWeight:'bold', fontSize: 20}}>
+                  <Text style={{marginTop: 14, fontWeight:'bold', fontSize: 20, marginLeft: 10}}>
                     Melisa Cahyani
                   </Text>
 
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     height: 25,
     borderRadius: 6,
     marginTop: 44,
-    marginLeft: -141,
+    marginLeft: -122,
     padding: 1
   },
   textCategory: {
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   ButtonContainer: {
     flexDirection: 'row',
     marginTop: 110,
-    marginLeft: -10
+    marginLeft: -20
   },
   ButtonUlas: {
     height: 30, 

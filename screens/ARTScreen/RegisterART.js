@@ -69,7 +69,7 @@ const RegisterART = () => {
     };
 
     try{
-      const response = await axios.post('http://172.16.54.224:3000/api/Mitra/register', {...data});
+      const response = await axios.post('http://192.168.1.5:3000/api/mitra/register', {...data});
       Alert.alert('Success', 'Registration successful!');
       navigation.navigate('LoginART');
       console.log(response);

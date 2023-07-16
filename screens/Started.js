@@ -54,8 +54,7 @@ export const Started = ({ minWidth, fontSize, navigation, ...props }) => (
       </View>
 
       <View style={{ 
-        alignItems: 'left', 
-        marginTop: 200,  
+        marginTop: 180,  
         marginLeft: '6%',
         marginRight: '6%',}}>
         <Text style={{

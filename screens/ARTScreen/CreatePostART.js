@@ -4,22 +4,23 @@ import { Ionicons } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 import { COLORS, SHADOWS, SIZES } from '../../constants';
 
 const CreatePostART = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedCategoryPrice, setSelectedCategoryPrice] = useState('');
+  const [selectedCategorySalary, setSelectedCategorySalary] = useState('');
   const navigation = useNavigation();
   const [open, setOpen] = useState(false);
   const [text, onChangeText] = useState('');
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    { label: 'Cleaning', value: 'Cleaning', price: '1.000.000/bulan' },
-    { label: 'Cooking', value: 'Cooking', price: '1.200.000/bulan' },
-    { label: 'Baby Sitting', value: 'Baby Sitting', price: '2.000.000/bulan' },
-    { label: 'Gardening', value: 'Gardening', price: '1.100.000/bulan' },
-    { label: 'Personal Assistant', value: 'Personal Assistant', price: '1.200.000/bulan' },
+    { label: 'Cleaning', value: 'Cleaning', salary: '1.000.000/bulan' },
+    { label: 'Cooking', value: 'Cooking', salary: '1.200.000/bulan' },
+    { label: 'Baby Sitting', value: 'Baby Sitting', salary: '2.000.000/bulan' },
+    { label: 'Gardening', value: 'Gardening', salary: '1.100.000/bulan' },
+    { label: 'Personal Assistant', value: 'Personal Assistant', salary: '1.200.000/bulan' },
   ]);
 
   useEffect(() => {
@@ -43,8 +44,8 @@ const CreatePostART = () => {
 
     if (!result.cancelled) {
       setSelectedImage(result.uri);
-      setSelectedCategory(null); // Reset kategori yang dipilih
-      setSelectedCategoryPrice(''); // Reset harga yang terkait
+      setSelectedCategory(null); // Reset selected category
+      setSelectedCategorySalary(''); // Reset associated salary
     }
   };
 
@@ -58,31 +59,24 @@ const CreatePostART = () => {
       category: selectedCategory,
       description: text,
       image: selectedImage,
-      price: selectedCategoryPrice
+      salary: selectedCategorySalary
     };
-  
-    // Perform HTTP request to the server
-    fetch('your_api_endpoint', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(postData),
-    })
-      .then(response => response.json())
-      .then(data => {
+
+    axios.post('http://192.168.1.5:3000/api/mitra/jobPosts', postData)
+      .then(response => {
         // Handle the response from the server
-        console.log('Success:', data);
+        console.log('Success:', response.data);
         // Navigate to the desired page
         navigation.navigate('Home');
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Error:', error);
       });
   };
+
   const handleCategoryChange = (item) => {
-    setSelectedCategory(item.value); // Simpan kategori yang dipilih
-    setSelectedCategoryPrice(item.price);
+    setSelectedCategory(item.value); // Save the selected category
+    setSelectedCategorySalary(item.salary);
   };
 
   const handleKeyboardDismiss = () => {
@@ -90,7 +84,6 @@ const CreatePostART = () => {
   };
 
   return (
-    
     <View style={styles.container}>
       <View style={styles.headers}>
         <TouchableOpacity style={styles.backButton} onPress={handleBackButtonPress}>
@@ -99,70 +92,68 @@ const CreatePostART = () => {
         </TouchableOpacity>
       </View>
       <ScrollView>
-        
-      <View style={styles.pickerWrapper}>
-        <DropDownPicker
-          multiple={true}
-          min={1}
-          placeholder='Category Anda'
-          max={3}
-          mode="BADGE"
-          dropDownDirection="AUTO"
-          showBadgeDot={true}
-          badgeDotColors={['#00C685', '#F9F871', '#30687D']}
-          open={open}
-          value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
-          onChangeValue={handleCategoryChange}
-          style={styles.picker}
-          containerStyle={styles.pickerContainer}
-        />
-        <TextInput
-          placeholder="Harga yang Tersedia"
-          style={styles.TextInput}
-          editable={false}
-          selectTextOnFocus={false}
-          value={selectedCategoryPrice} // Update prop value
-          // onChangeText={setTopUpAmount}
-        />
-      </View>
+        <View style={styles.pickerWrapper}>
+          <DropDownPicker
+            multiple={true}
+            min={1}
+            placeholder='Category Anda'
+            max={3}
+            mode="BADGE"
+            dropDownDirection="AUTO"
+            showBadgeDot={true}
+            badgeDotColors={['#00C685', '#F9F871', '#30687D']}
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            onChangeValue={handleCategoryChange}
+            style={styles.picker}
+            containerStyle={styles.pickerContainer}
+          />
+          <TextInput
+            placeholder="Salary"
+            style={styles.TextInput}
+            editable={false}
+            selectTextOnFocus={false}
+            value={selectedCategorySalary}
+          />
+        </View>
 
-      <View style={styles.inputDescWrapper}>
-        <TextInput
-          style={styles.inputDesc}
-          placeholder="Description"
-          editable={true}
-          multiline={true}
-          numberOfLines={10}
-          onChangeText={onChangeText}
-          value={text}
-          onBlur={handleKeyboardDismiss}
-        />
-      </View>
+        <View style={styles.inputDescWrapper}>
+          <TextInput
+            style={styles.inputDesc}
+            placeholder="Description"
+            editable={true}
+            multiline={true}
+            numberOfLines={10}
+            onChangeText={onChangeText}
+            value={text}
+            onBlur={handleKeyboardDismiss}
+          />
+        </View>
 
-      <View style={styles.imageContainer}>
-        <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
-          {selectedImage ? (
-            <View style={styles.selectedImageContainer}>
-              <Image
-                source={{ uri: selectedImage }}
-                style={styles.selectedImage}
-                resizeMode="cover"
-              />
-            </View>
-          ) : (
-            <View style={styles.imagePickerContent}>
-              <Ionicons name="image-outline" size={64} style={styles.imagePickerIcon} />
-              <Text style={styles.imagePickerText}>Upload Foto Anda</Text>
-            </View>
-          )}
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
-    <View style={styles.footer}>
+        <View style={styles.imageContainer}>
+          <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
+            {selectedImage ? (
+              <View style={styles.selectedImageContainer}>
+                <Image
+                  source={{ uri: selectedImage }}
+                  style={styles.selectedImage}
+                  resizeMode="cover"
+                />
+              </View>
+            ) : (
+              <View style={styles.imagePickerContent}>
+                <Ionicons name="image-outline" size={64} style={styles.imagePickerIcon} />
+                <Text style={styles.imagePickerText}>Upload Foto Anda</Text>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+      <View style={styles.footer}>
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmitButtonPress}>
           <Text style={styles.submitButtonText}>Submit</Text>
         </TouchableOpacity>

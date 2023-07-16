@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Alert, AsyncStorage } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Alert } from 'react-native';
 import { COLORS, SIZES, assets } from '../../constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from '@expo/vector-icons/Ionicons';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 export const LoginDev = () => {
@@ -13,31 +13,18 @@ export const LoginDev = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
-    // Check if email and password are not empty
-    if (email.trim() === '' || password.trim() === '') {
-      // Display error message or indicator for empty fields
-      Alert.alert('Error', 'Please enter email and password');
-      return;
-    }
-
     try {
-      const response = await axios.post('https://ea7b-36-73-173-90.ngrok-free.app/api/admin/login', {
-        email: email.toLocaleLowerCase(),
-        password: password,
+      const response = await axios.post('http://192.168.1.5:3000/api/admin/login', {
+        email,
+        password,
       });
+      await AsyncStorage.setItem('adminData', JSON.stringify(response.data));
 
-      if (response.status === 200) {
-        // AsyncStorage.setItem('AsscessToken', result.data.token)
-        // Login successful
-        console.log('Login successful');
-        navigation.navigate('DevScreen');
-      } else {
-        // Login failed
-        Alert.alert('Error', 'Invalid email or password');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      Alert.alert('Error', 'Something went wrong');
+      Alert.alert('Success', 'Login Success')
+      console.log(response.data)
+      return navigation.navigate('DevScreen');
+    } catch (err) {
+      return Alert.alert('Error', `Something went wrong: ${err.message}`);
     }
   };
 
@@ -46,7 +33,7 @@ export const LoginDev = () => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container}>
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
         <Ionicons name="chevron-back" size={24} color="#2C2C2C" />
       </TouchableOpacity>

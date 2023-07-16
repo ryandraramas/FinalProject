@@ -3,47 +3,54 @@ import { View, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar, Title, Text, TouchableRipple } from 'react-native-paper';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const UserScreen = () => {
+const ProfileART = () => {
   const navigation = useNavigation();
-  const [userData, setUserData] = useState(null);
+  const [mitraData, setMitraData] = useState(null);
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchMitraData = async () => {
       try {
-        const response = await fetch('API_ENDPOINT_URL');
-        const data = await response.json();
-        setUserData(data);
+        const storedMitraData = await AsyncStorage.getItem('mitraData');
+        if (storedMitraData) {
+          setMitraData(JSON.parse(storedMitraData));
+        }
       } catch (error) {
-        console.log('Error fetching user data:', error);
+        console.log('Error fetching mitra data:', error);
       }
     };
 
-    fetchUserData();
+    fetchMitraData();
   }, []);
 
-  const handleLogout = () => {
-    // Implement your logout logic here
-    // For example, clear user data, navigate to login screen, etc.
-    setUserData(null);
-    navigation.navigate('Started');
-    // Additional logout actions if needed
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('mitraData');
+      setMitraData(null);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Started' }],
+      });
+    } catch (error) {
+      console.log('Error logging out:', error);
+    }
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView>
         <View style={styles.userInfoSection}>
           <View style={{ flexDirection: 'row', marginTop: 15 }}>
             <Avatar.Image
               source={{
-                uri: userData?.avatar || 'https://api.adorable.io/avatars/80/abott@adorable.png',
+                uri: mitraData?.foto || 'http://192.168.1.5:3000/api/mitra/jobPosts',
               }}
               size={80}
             />
             <View style={{ marginLeft: 20 }}>
               <Title style={[styles.title, { marginTop: 15, marginBottom: 5 }]}>
-                {userData?.name || 'Melisa Cahyani'}
+                {mitraData?.name || 'Melisa Cahyani'}
               </Title>
             </View>
           </View>
@@ -53,28 +60,27 @@ const UserScreen = () => {
           <View style={styles.row}>
             <Ionicons name="location-outline" color="#777777" size={20} />
             <Text style={{ color: '#777777', marginLeft: 20 }}>
-              {userData?.location || 'Surabaya, Rungkut'}
+              {mitraData?.location || 'Surabaya, Rungkut'}
             </Text>
           </View>
 
           <View style={styles.row}>
             <Ionicons name="call-outline" color="#777777" size={20} />
             <Text style={{ color: '#777777', marginLeft: 20 }}>
-              {userData?.phone || '+62 821 4260 4907'}
+              {mitraData?.phone || '+62 821 4260 4907'}
             </Text>
           </View>
 
           <View style={styles.row}>
             <Ionicons name="mail-outline" color="#777777" size={20} />
             <Text style={{ color: '#777777', marginLeft: 20 }}>
-              {userData?.email || 'Melisa_Cahyani@gmail.com'}
+              {mitraData?.email || 'Melisa_Cahyani@gmail.com'}
             </Text>
           </View>          
         </View>
 
         <View style={styles.menuWrapper}>
-          {/* <TouchableRipple onPress={handleLogout} > */}
-            <TouchableRipple  onPress={() => navigation.navigate("Started")} >
+          <TouchableRipple onPress={handleLogout}>
             <View style={[styles.menuItem, {  }] }>
               <Ionicons name="log-out-outline" color="#f73131" size={20} />
               <Text style={[styles.menuItemText, { color: 'red', fontWeight: '600', }]}>Logout</Text>
@@ -83,15 +89,16 @@ const UserScreen = () => {
 
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
-export default UserScreen;
+export default ProfileART;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 20
   },
   userInfoSection: {
     paddingHorizontal: 30,
