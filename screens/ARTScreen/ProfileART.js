@@ -1,28 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { View, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { Avatar, Title, Text, TouchableRipple } from 'react-native-paper';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { URL_API } from "@env";
 
 const ProfileART = () => {
   const navigation = useNavigation();
   const [mitraData, setMitraData] = useState(null);
-
-  useEffect(() => {
-    const fetchMitraData = async () => {
-      try {
-        const storedMitraData = await AsyncStorage.getItem('mitraData');
-        if (storedMitraData) {
-          setMitraData(JSON.parse(storedMitraData));
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchMitraData = async () => {
+        try {
+          const storedMitraData = await AsyncStorage.getItem('mitraData');
+          if (storedMitraData) {
+            setMitraData(JSON.parse(storedMitraData));
+          }
+        } catch (error) {
+          console.log('Error fetching mitra data:', error);
         }
-      } catch (error) {
-        console.log('Error fetching mitra data:', error);
-      }
-    };
-
-    fetchMitraData();
-  }, []);
+      };
+      fetchMitraData();
+    }, [])
+  );
 
   const handleLogout = async () => {
     try {
@@ -36,20 +37,31 @@ const ProfileART = () => {
       console.log('Error logging out:', error);
     }
   };
+  const handleEditProfile = () => {
+    navigation.navigate('EditProfileScreen', { mitraData });
+  };
+
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <View>
+        <View style={styles.contaierEdit}>
+          <TouchableRipple style={styles.editButton} onPress={handleEditProfile}>
+            <View style={styles.editContainer}>
+              <Text>Edit Profile</Text>
+              <Ionicons name="create-outline" color="#777777" size={18} marginLeft={4}/>
+            </View>
+          </TouchableRipple>
+        </View>
         <View style={styles.userInfoSection}>
           <View style={{ flexDirection: 'row', marginTop: 15 }}>
             <Avatar.Image
               source={{
-                uri: mitraData?.foto || 'http://192.168.1.5:3000/api/mitra/jobPosts',
+                uri: URL_API + mitraData?.foto,
               }}
-              size={80}
-            />
+              size={80}/>
             <View style={{ marginLeft: 20 }}>
-              <Title style={[styles.title, { marginTop: 15, marginBottom: 5 }]}>
+              <Title style={[styles.title, { marginTop: 26, marginBottom: 5 }]}>
                 {mitraData?.name || 'Melisa Cahyani'}
               </Title>
             </View>
@@ -60,14 +72,14 @@ const ProfileART = () => {
           <View style={styles.row}>
             <Ionicons name="location-outline" color="#777777" size={20} />
             <Text style={{ color: '#777777', marginLeft: 20 }}>
-              {mitraData?.location || 'Surabaya, Rungkut'}
+              {mitraData?.address || 'Surabaya, Rungkut'}
             </Text>
           </View>
 
           <View style={styles.row}>
             <Ionicons name="call-outline" color="#777777" size={20} />
             <Text style={{ color: '#777777', marginLeft: 20 }}>
-              {mitraData?.phone || '+62 821 4260 4907'}
+              {mitraData?.phoneNumber || '+62 821 4260 4907'}
             </Text>
           </View>
 
@@ -78,7 +90,6 @@ const ProfileART = () => {
             </Text>
           </View>          
         </View>
-
         <View style={styles.menuWrapper}>
           <TouchableRipple onPress={handleLogout}>
             <View style={[styles.menuItem, {  }] }>
@@ -86,9 +97,8 @@ const ProfileART = () => {
               <Text style={[styles.menuItemText, { color: 'red', fontWeight: '600', }]}>Logout</Text>
             </View>
           </TouchableRipple>
-
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 };
@@ -131,4 +141,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 26,
   },
+  editContainer: {
+    flexDirection: 'row'
+  },
+  editButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
+  contaierEdit: {
+    marginTop: 16,
+    marginBottom:16
+  }
 });

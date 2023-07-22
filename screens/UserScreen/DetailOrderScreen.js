@@ -1,14 +1,16 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, TextInput } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SHADOWS, assets } from '../../constants';
 import { BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet'
+import { URL_API } from "@env";
 import { AirbnbRating } from 'react-native-ratings';
 import 'react-native-gesture-handler'
 
-const DetailOrderScreen = () => {
+const DetailOrderScreen = ({ route }) => {
     const navigation = useNavigation();
+    const { data } = route.params;
     const bottomSheetModalRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
     const [rating, setRating] = useState(0)
@@ -23,20 +25,21 @@ const DetailOrderScreen = () => {
     const handleReviewChange = (text) => {
         setReview(text)
     }
+    
   return (
     <BottomSheetModalProvider>
     <View style={[styles.container]}>
         <View style={styles.header}>
-        <TouchableOpacity
+            <TouchableOpacity
             style={styles.backButton}
             onPress={() => navigation.goBack()} >
             <Ionicons name="chevron-back-outline" size={24} color="#2C2C2C" marginTop={10} />
-        </TouchableOpacity>           
+            </TouchableOpacity>           
             <Text style={styles.textHeader}>
                 Detail Order
             </Text>
         </View>
-        <ScrollView style={{ height: '200%'}}>
+        <ScrollView style={{ }}>
             <View style={styles.invoiceContainer}>
                 <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 18}}>
                     Invoice
@@ -61,20 +64,19 @@ const DetailOrderScreen = () => {
                 <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 18}}>Detail Mitra</Text>
                 <TouchableOpacity style={styles.cardDetail}>
                     <View style={styles.cardContainer}>
-                        <Image source={assets.person} style={styles.Image}/>
-                        <Text style={styles.textName}>Melisa Cahyani</Text>
+                        <Image source={{ uri: URL_API + data?.foto }} style={styles.Image}/>
+                        <Text style={styles.textName}>{data?.name}</Text>
                     </View>
                     <View style={styles.CategoryCard}>
-                        <Ionicons name='ellipse' color={'#fff'} size={10}/>
                         <Text style={styles.textCategory}>
-                        Cooking
+                        {data?.category}
                         </Text>
                     </View>
                     <Text style={{marginTop: 40}}>
                       Total Harga:
                     </Text>
                     <Text style={{fontWeight: 'bold', marginTop: 2}}>
-                        Rp1.107.500
+                      Rp1.107.500
                     </Text>
                     <TouchableOpacity style={styles.ButtonUlas}>
                       <Text style={{color: COLORS.primary, fontWeight: 'bold'}}>Booking Lagi</Text>
@@ -86,19 +88,19 @@ const DetailOrderScreen = () => {
 
                 <View style={{flexDirection:'row', borderBottomWidth: 1, borderBottomColor:'#E1E1E1'}}>
                     <Text>Metode Pembayaran</Text>
-                    <Text style={{ marginLeft: '22%', marginBottom: 10 }}>BCA Virtual Account</Text>
+                    <Text style={{ marginLeft: '26%', marginBottom: 10, fontWeight: 'bold' }}>BCA Virtual Account</Text>
                 </View>
                 <View style={{flexDirection:'row', marginBottom: 10, marginTop: 10 }}>
                     <Text>Total Booking</Text>
-                    <Text style={{ marginLeft: '51%' }}>Rp1.107.500</Text>
+                    <Text style={{ marginLeft: '52%' }}>Rp1.107.500</Text>
                 </View>
                 <View style={{flexDirection:'row'}}>
                     <Text>Aplication Fee</Text>
-                    <Text style={{ marginLeft: '57%', marginBottom: 10 }}>Rp7.500</Text>
+                    <Text style={{ marginLeft: '59%', marginBottom: 10 }}>Rp7.500</Text>
                 </View>
                 <View style={{flexDirection:'row'}}>
                     <Text style={{ fontWeight: 'bold' }}>Total Order</Text>
-                    <Text style={{ marginLeft: '52%', marginBottom: 10, fontWeight: 'bold' }}>Rp1.107.500</Text>
+                    <Text style={{ marginLeft: '56%', marginBottom: 10, fontWeight: 'bold' }}>Rp1.107.500</Text>
                 </View>                
             </View>
         </ScrollView>
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         alignItems: 'center',
-        height: 70, 
+        height: 60, 
         backgroundColor: '#fff', 
         width: '100%',
         ...SHADOWS.light,
@@ -213,15 +215,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#00C685',
-        width: 70,
-        height: 25,
-        borderRadius: 6,
-        marginLeft: 87,
+        marginLeft: -36,
         marginTop: -50
     },
     textCategory: {
-        color: '#fff',
+        color: '#000',
         padding: 2,
         fontSize: 12
     },

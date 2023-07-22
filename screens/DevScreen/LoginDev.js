@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/core';
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Alert } from 'react-native';
 import { COLORS, SIZES, assets } from '../../constants';
+import { URL_API } from "@env";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import axios from 'axios';
@@ -12,9 +13,26 @@ export const LoginDev = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  useEffect(() => {
+    // Cek apakah sudah ada data login tersimpan di AsyncStorage
+    checkAutoLogin();
+  }, []);
+
+  const checkAutoLogin = async () => {
+    try {
+      const adminData = await AsyncStorage.getItem('adminData');
+      if (adminData) {
+        // Data login ditemukan, navigasikan ke halaman berikutnya
+        navigation.navigate('DevScreen');
+      }
+    } catch (error) {
+      console.log('Error retrieving adminData from AsyncStorage:', error);
+    }
+  };
+
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://192.168.1.5:3000/api/admin/login', {
+      const response = await axios.post(URL_API + 'api/admin/login', {
         email,
         password,
       });
@@ -74,6 +92,7 @@ export const LoginDev = () => {
     </KeyboardAvoidingView>
   );
 };
+
 
 export default LoginDev;
 

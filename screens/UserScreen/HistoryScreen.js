@@ -1,70 +1,102 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { ScrollView } from 'react-native-gesture-handler'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
 import { COLORS, SHADOWS, assets } from '../../constants';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+import { URL_API } from '@env';
 
 const HistoryScreen = () => {
   const navigation = useNavigation();
+  const [data, setData] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(URL_API + 'api/mitra');
+      setData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const formatSalary = (value) => {
+    return value.toLocaleString('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    });
+  };
+
   return (
     <View style={styles.container}>
-        <View style={styles.header}>
-            <Text style={styles.textHeader}>History Transaksi</Text>
-        </View>
+      <View style={styles.header}>
+        <Text style={styles.textHeader}>History Transaksi</Text>
+      </View>
 
-        <ScrollView>
-            <TouchableOpacity style={styles.cardHistory} onPress={() => navigation.navigate('DetailOrder')}>
-                <View style={styles.cardContainer}>
-                  <View style={styles.iconContainer}>
-                    <Ionicons name="receipt-outline" size={24} color="#212121" />
-                  </View>
-                  <View style={styles.textWrapper}>
-                    <Text style={{fontWeight: 'bold', color: '#212121'}}>Order Anda</Text>
-                    <Text style={{color: 'grey'}}>16 Mei 2023</Text>
-                  </View>
-                  <View style={styles.textStatus}>
-                    <Text style={{color: '#05AC0C', fontWeight:'bold'}}>Selesai</Text>
-                  </View>
-                  <View style={styles.iconEllips}>
-                    <Ionicons name="ellipsis-vertical" size={24} color="#212121" />
-                  </View>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <View>
-                    <Image source={assets.person} style={styles.Image}/>
-                    <Text style={{marginTop: 10}}>
-                      Total Belanja:
-                    </Text>
-                    <Text style={{fontWeight: 'bold', marginTop: 2}}>
-                      Rp1.107.500
-                    </Text>
-                  </View>
-                  <Text style={{marginTop: 14, fontWeight:'bold', fontSize: 20, marginLeft: 10}}>
-                    Melisa Cahyani
+      <ScrollView style={{marginBtom: 10}} 
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}>
+        {data.map((item, index) => (
+          // Check if the index is not 1 to hide the second data item (index 1)
+          index !== 0 && index !== 1 && (
+          <TouchableOpacity
+            key={item.id}
+            style={styles.cardHistory}
+            onPress={() => navigation.navigate('DetailOrder', { data: item })}
+          >
+            <View style={styles.cardContainer}>
+              <View style={styles.iconContainer}>
+                <Ionicons name="receipt-outline" size={24} color="#212121" />
+              </View>
+              <View style={styles.textWrapper}>
+                <Text style={{ fontWeight: 'bold', color: '#212121' }}>Order Anda</Text>
+                <Text style={{ color: 'grey' }}>16 Mei 2023</Text>
+              </View>
+              <View style={styles.textStatus}>
+                <Text style={{ color: '#05AC0C', fontWeight: 'bold' }}>Selesai</Text>
+              </View>
+              <View style={styles.iconEllips}>
+                <Ionicons name="ellipsis-vertical" size={24} color="#212121" />
+              </View>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <View>
+                <Image source={{ uri: URL_API + item?.foto }} style={styles.Image} />
+                <Text style={{ marginTop: 10 }}>Total Belanja:</Text>
+                <Text style={{ fontWeight: 'bold', marginTop: 2 }}>{formatSalary(item.salary)}</Text>
+              </View>
+              
+              <View>
+              <View style={styles.CategoryCard}>
+                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+                  {item.name}
+                </Text>
+                <Text style={styles.textCategory}>
+                  {item.category}
                   </Text>
+              </View>
 
-                  <View style={styles.CategoryCard}>
-                    <Ionicons name='ellipse' color={'#fff'} size={10}/>
-                    <Text style={styles.textCategory}>
-                      Cooking
-                    </Text>
-                  </View>
-                  
-                  <View style={styles.ButtonContainer}>
-                    <TouchableOpacity style={styles.ButtonUlas}>
-                      <Text style={{color: COLORS.white, fontWeight: 'bold'}}>Ulas</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.ButtonBooking}>
-                      <Text style={{color: COLORS.primary, fontWeight: 'bold'}}>Book Lagi</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-            </TouchableOpacity>
-        </ScrollView>
+              <View style={styles.ButtonContainer}>
+                <TouchableOpacity style={styles.ButtonUlas}>
+                  <Text style={{color: COLORS.white, fontWeight: 'bold'}}>Ulas</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.ButtonBooking}>
+                  <Text style={{color: COLORS.primary, fontWeight: 'bold'}}>Book Lagi</Text>
+                </TouchableOpacity>
+              </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+          )
+        ))}
+      </ScrollView>
     </View>
-  )
-}
+  );
+};
 
 export default HistoryScreen
 
@@ -76,13 +108,14 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
-    height: 64,
+    backgroundColor: COLORS.primary,
+    ...SHADOWS.light,
+    height: 50,
   },
   textHeader: {
     fontWeight: 'bold',
     fontSize: 18,
-    marginTop: 14
+    color: '#fff'
   },
   cardContainer: {
     flexDirection: 'row',
@@ -97,7 +130,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 21,
     ...SHADOWS.light,
-    padding: 14
+    padding: 14,
+    marginBottom: 12
   },
   iconContainer: {
     width: 40,
@@ -132,26 +166,18 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   CategoryCard: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    backgroundColor: '#00C685',
-    width: 70,
-    height: 25,
-    borderRadius: 6,
-    marginTop: 44,
-    marginLeft: -122,
-    padding: 1
+    marginLeft: 8,
+    marginTop: 10
   },
   textCategory: {
-    color: '#fff',
-    padding: 2,
-    fontSize: 12
+    color: COLORS.dark,
+    fontSize: 12,
+    marginTop: 2
   },
   ButtonContainer: {
     flexDirection: 'row',
-    marginTop: 110,
-    marginLeft: -20
+    marginLeft: 56,
+    marginTop: 60
   },
   ButtonUlas: {
     height: 30, 

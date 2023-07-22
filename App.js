@@ -22,6 +22,7 @@ import HistoryScreen from './screens/UserScreen/HistoryScreen';
 import DetailOrderScreen from './screens/UserScreen/DetailOrderScreen';
 import InfoOrderMitra from './screens/ARTScreen/InfoOrderMitra'
 import PaymentsConfirm from './screens/UserScreen/PaymentsConfirm';
+import EditProfileScreen from './screens/ARTScreen/EditProfileScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -58,6 +59,7 @@ function App() {
         <Stack.Screen name="DetailOrder" component={DetailOrderScreen}/>
         <Stack.Screen name="Info" component={InfoOrderMitra}/>
         <Stack.Screen name="PaymentsConfirm" component={PaymentsConfirm}/>
+        <Stack.Screen name="EditProfileScreen" component={EditProfileScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

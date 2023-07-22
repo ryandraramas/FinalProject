@@ -1,5 +1,4 @@
 {
-  "proxy": "http://192.168.1.5:3000",
   "name": "maidmatch",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
@@ -10,6 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@dicebear/collection": "^6.0.4",
+    "@dicebear/core": "^6.0.4",
     "@expo/webpack-config": "^18.0.1",
     "@gorhom/bottom-sheet": "^4.4.7",
     "@react-native-async-storage/async-storage": "1.17.11",
@@ -26,6 +27,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "expo": "^48.0.0",
+    "expo-camera": "~13.2.1",
     "expo-device": "~5.2.1",
     "expo-font": "~11.1.1",
     "expo-image-picker": "~14.1.1",
@@ -42,6 +44,7 @@
     "react-datepicker": "^4.10.0",
     "react-modern-drawer": "^1.2.0",
     "react-native": "0.71.8",
+    "react-native-action-sheet": "^2.2.0",
     "react-native-bcrypt": "^2.4.0",
     "react-native-date-picker": "^4.2.13",
     "react-native-dropdown-picker": "^5.4.6",
@@ -56,12 +59,15 @@
     "react-native-share": "^8.2.2",
     "react-native-star-rating": "^1.1.0",
     "react-native-tailwindcss": "^1.1.11",
+    "react-native-uuid": "^2.0.1",
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.11",
-    "react-simple-star-rating": "^5.1.7"
+    "react-simple-star-rating": "^5.1.7",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "react-native-dotenv": "^3.4.9"
   },
   "private": true
 }

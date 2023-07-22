@@ -1,10 +1,13 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { COLORS, SHADOWS } from '../../constants';
+import { URL_API } from "@env";
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 
 const HomeScreenDev = () => {
+  const navigation = useNavigation(); // Initialize useNavigation hook
   const [selectedButton, setSelectedButton] = useState(null);
   const [data, setData] = useState(null);
   const [adminData, setAdminData] = useState(null);
@@ -35,9 +38,9 @@ const HomeScreenDev = () => {
   const fetchData = async () => {
     let url = '';
     if (selectedButton === 'Mitra') {
-      url = 'http://192.168.1.5:3000/api/mitra';
+      url = URL_API + 'api/mitra';
     } else if (selectedButton === 'Pelanggan') {
-      url = 'http://192.168.1.5:3000/api/pelanggan';
+      url = URL_API + 'api/pelanggan';
     } else {
       return;
     }
@@ -49,6 +52,14 @@ const HomeScreenDev = () => {
       console.log(error);
     }
   };
+
+  const formatSalary = (value) => {
+    return value?.toLocaleString('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    }) || ''; 
+  };
+  
 
   return (
     <View style={styles.container}>
@@ -76,37 +87,47 @@ const HomeScreenDev = () => {
           </Text>
         </TouchableOpacity>
       </View>
-
-      {selectedButton === 'Mitra' && (
-        <View style={styles.dataContainer}>
-          {data &&
-            data.map((item) => (
-              <View key={item.id} style={styles.dataItem}>
-                <Image source={{ uri: item.foto }} style={styles.image} />
-                <Text style={styles.dataTextName}>{item.name}</Text>
-                <Text style={styles.dataText}>{item.email}</Text>
-                <Text style={styles.dataText}>{item.phoneNumber}</Text>
-                <Text style={styles.dataText}>{item.address}</Text>
-                <Text style={styles.dataDesc}>{item.deskripsi}</Text>
-                <Text style={styles.dataSalary}>Rp{item.salary}</Text>
-              </View>
-            ))}
-        </View>
-      )}
-
-      {selectedButton === 'Pelanggan' && (
-        <View style={styles.dataContainer}>
-          {data &&
-            data.map((item) => (
-              <View key={item.id} style={styles.dataItem}>
-                <Text style={styles.dataTextName}>{item.name}</Text>
-                <Text style={styles.dataText}>{item.email}</Text>
-                <Text style={styles.dataText}>{item.phoneNumber}</Text>
-                <Text style={styles.dataText}>{item.address}</Text>
-              </View>
-            ))}
-        </View>
-      )}
+        {selectedButton === 'Mitra' && (
+          <ScrollView style={styles.ScrollView}>
+            {data &&
+              data.map((item) => (
+                <TouchableOpacity
+                  key={item.id}
+                  style={styles.dataItem}
+                  onPress={() => {
+                    navigation.navigate('DetailsScreen', { item });
+                  }}
+                >
+                  <Image source={{ uri: URL_API + item.foto }} style={styles.image} resizeMode='cover'/>
+                  <Text style={styles.dataTextName}>{item.name}</Text>
+                  <Text style={styles.dataText}>{item.email}</Text>
+                  <Text style={styles.dataText}>{item.status}</Text>
+                  <Text style={styles.dataText}>{item.category}</Text>
+                  <Text style={styles.dataSalary}>{formatSalary(item.salary)}</Text>
+                </TouchableOpacity>
+              ))}
+          </ScrollView>
+        )}
+        
+        {selectedButton === 'Pelanggan' && (
+          <View style={styles.dataContainer}>
+            {data &&
+              data.map((item) => (
+                <TouchableOpacity
+                  key={item.id} 
+                  style={styles.dataItem}
+                  onPress={() => {
+                    navigation.navigate('DetailsScreen', { item });
+                  }}
+                >
+                  <Text style={styles.dataTextName}>{item.name}</Text>
+                  <Text style={styles.dataText}>{item.email}</Text>
+                  <Text style={styles.dataText}>{item.phoneNumber}</Text>
+                  <Text style={styles.dataText}>{item.address}</Text>
+                </TouchableOpacity>
+              ))}
+          </View>
+        )}
     </View>
   );
 };
@@ -116,6 +137,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     backgroundColor: '#F5F5F5',
+    height: '100%'
   },
   button: {
     margin: 10,
@@ -129,6 +151,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: COLORS.primary,
     marginBottom: 4
+  },
+  ScrollView: {
   },
   dataContainer: {
     margin: 10,
@@ -152,10 +176,8 @@ const styles = StyleSheet.create({
     marginTop: 14,
   },
   image: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 10,
+    width: '100%',
+    height: '60%',
     ...SHADOWS.light
   },
   dataDesc: {

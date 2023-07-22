@@ -1,12 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 
 import { Salary, ARTTitle } from "./SubInfo";
-import { COLORS, SIZES,  } from "../constants";
+import { COLORS, SIZES } from "../constants";
 
 const DetailsDesc = ({ data }) => {
-  const [text, setText] = useState(data.description.slice(0, 100));
+  const [text, setText] = useState('');
   const [readMore, setReadMore] = useState(false);
+  const [category, setCategory] = useState('');
+  const [salary, setSalary] = useState('');
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    setName(data?.name); 
+    setCategory(data?.category); 
+    setSalary(data?.salary);
+  };
+
+  useEffect(() => {
+    setText(data?.deskripsi?.slice(0, 100));
+  }, [data]);
+
+  const handleReadMoreToggle = () => {
+    if (!readMore) {
+      setText(data?.deskripsi);
+      setReadMore(true);
+    } else {
+      setText(data?.deskripsi?.slice(0, 100));
+      setReadMore(false);
+    }
+  };
+  const formatSalary = (value) => {
+    return value.toLocaleString('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    });
+  };
 
   return (
     <>
@@ -16,18 +49,18 @@ const DetailsDesc = ({ data }) => {
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
-          marginTop: -28,
-          marginBottom: 10
+          marginTop: -34,
+          marginBottom: 16
         }}
       >
         <ARTTitle
-          title={data.name}
-          subTitle={data.creator}
+          title={data?.name}
+          subTitle={data?.category} 
           titleSize={SIZES.extraLarge}
           subTitleSize={SIZES.font}
         />
 
-        <Salary salary={data.salary} />
+       <Salary salary={formatSalary(salary)} />
       </View>
 
       <View style={{ marginVertical: SIZES.extraLarge * 1.5, marginTop: 5 }}>
@@ -60,15 +93,7 @@ const DetailsDesc = ({ data }) => {
                 color: COLORS.dark,
                 fontSize: SIZES.small,
               }}
-              onPress={() => {
-                if (!readMore) {
-                  setText(data.description);
-                  setReadMore(true);
-                } else {
-                  setText(data.description.slice(0, 100));
-                  setReadMore(false);
-                }
-              }}
+              onPress={handleReadMoreToggle}
             >
               {readMore ? " Show Less" : " Read More"}
             </Text>

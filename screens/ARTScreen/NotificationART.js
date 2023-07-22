@@ -15,13 +15,32 @@ const NotificationART = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch notifications from the backend API
+    // Simulating fetching notifications from the backend API
     const fetchNotifications = async () => {
       try {
-        // Make a fetch request to your backend API to get the notifications data
-        const response = await fetch('YOUR_BACKEND_API_ENDPOINT');
-        const data = await response.json();
-        setNotifications(data);
+        // Simulate an API request delay
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        // Dummy notifications data
+        const dummyNotifications = [
+          {
+            id: 1,
+            title: 'Login Success',
+            message: 'You have successfully logged in.',
+          },
+          {
+            id: 2,
+            title: 'New Message',
+            message: 'You have a new message from a user.',
+          },
+          {
+            id: 3,
+            title: 'Reminder',
+            message: 'Don\'t forget to complete your profile.',
+          },
+        ];
+
+        setNotifications(dummyNotifications);
         setLoading(false);
       } catch (error) {
         console.log('Error fetching notifications:', error);
@@ -55,6 +74,7 @@ const NotificationART = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 18
   },
   loadingContainer: {
     flex: 1,

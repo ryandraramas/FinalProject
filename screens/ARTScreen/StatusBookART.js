@@ -4,6 +4,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS, assets } from '../../constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { URL_API } from "@env";
 
 const StatusBookART = () => {
   const navigation = useNavigation();
@@ -28,6 +29,12 @@ const StatusBookART = () => {
     navigation.navigate('CreatePostART');
   };
 
+  const formatSalary = (value) => {
+    if (typeof value === 'number') {
+      return value.toLocaleString('id-ID');
+    }
+    return '';
+  };
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -71,20 +78,20 @@ const StatusBookART = () => {
 
         <TouchableOpacity style={styles.cardItem} onPress={() => navigation.navigate("Info")}>
           <View style={styles.card3}>
-            <Text style={styles.cardName}>Melisa Cahyani</Text>
+            <Text style={styles.cardName}>{mitraData?.name}</Text>
           </View>
           <View style={styles.cardCat}>
             <Ionicons name='ellipse' color={'#fff'} />
-            <Text style={styles.textCategory}>Cooking</Text>
+            <Text style={styles.textCategory}>{mitraData?.category}</Text>
           </View>
           <View style={styles.salaryContainer}>
-            <Text style={styles.textSalary}>Rp250.000</Text>
+            <Text style={styles.textSalary}>Rp.{formatSalary(mitraData?.salary)}</Text>
             <Text style={styles.Bulan}>/Bln</Text>
           </View>
-          <Image source={assets.person} style={styles.ImgCard} />
+          <Image source={{uri: URL_API + mitraData?.foto}} style={styles.ImgCard} />
           <View style={styles.statusContainer}>
             <Text style={{ fontWeight: '500' }}>Status :</Text>
-            <Text style={{ marginLeft: 4, color: COLORS.gray }}>Pending</Text>
+            <Text style={{ marginLeft: 4, color: COLORS.gray }}>{mitraData?.status}</Text>
           </View>
         </TouchableOpacity>
       </ImageBackground>

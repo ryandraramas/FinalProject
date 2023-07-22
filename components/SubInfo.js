@@ -61,6 +61,7 @@ export const Salary   = ({ salary }) => {
             color: '#000000',
         }}>{salary}
         </Text>
+        <Text style={{fontSize: 10, marginLeft: 4}}>/Bln</Text>
     </View>
  )
 }

@@ -12,6 +12,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS, SIZES } from '../../constants';
+import { URL_API } from "@env";
 
 import axios from 'axios';
 
@@ -69,7 +70,7 @@ const RegisterScreen = () => {
     };
 
     try{
-      const response = await axios.post('http://172.16.54.224:3000/api/pelanggan/register', {...data});
+      const response = await axios.post(URL_API +'api/pelanggan/register', {...data});
       Alert.alert('Success', 'Registration successful!');
       navigation.navigate('Login');
       console.log(response);

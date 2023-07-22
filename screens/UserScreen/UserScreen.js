@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar, Title, Text, TouchableRipple } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const UserScreen = () => {
@@ -11,41 +12,45 @@ const UserScreen = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('https://aac8-36-68-219-149.ngrok-free.app/api/pelanggan');
-        const data = response.data;
-        setUserData(data);
+        // Get the user data from AsyncStorage
+        const userDataString = await AsyncStorage.getItem('userData');
+        if (userDataString) {
+          const userData = JSON.parse(userDataString);
+          setUserData(userData);
+        }
       } catch (error) {
         console.log('Error fetching user data:', error);
       }
     };
-  
-    fetchUserData();
-  }, []);  
 
-  const handleLogout = () => {
-    // Implement your logout logic here
-    // For example, clear user data, navigate to login screen, etc.
-    setUserData(null);
-    navigation.navigate('Started');
-    // Additional logout actions if needed
+    fetchUserData();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('userData');
+      setUserData(null);
+      navigation.navigate('Started');
+    } catch (error) {
+      console.log('Error while logging out:', error);
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.userInfoSection}>
-          <View style={{ flexDirection: 'row', marginTop: 15 }}>
+          <View style={{ flexDirection: 'row', marginTop: 15,  }}>
             <Avatar.Image
               source={{
                 uri: userData?.avatar || 'https://xsgames.co/randomusers/avatar.php?g=male',
               }}
               size={80}
             />
-            <View style={{ marginLeft: 20 }}>
+            <View style={{ marginLeft: 16, marginTop: 10 }}>
               <Title style={[styles.title, { marginTop: 15, marginBottom: 5 }]}>
-                {userData?.name || 'Ryandra Rama S'}
+                {userData?.name || 'Anda Belum Login'}
               </Title>
-              {/* <Caption style={styles.caption}>{userData?.username}</Caption> */}
             </View>
           </View>
         </View>
@@ -54,23 +59,23 @@ const UserScreen = () => {
           <View style={styles.row}>
             <Ionicons name="location-outline" color="#777777" size={20} />
             <Text style={{ color: '#777777', marginLeft: 20 }}>
-              {userData?.location || 'Surabaya, Rungkut'}
+              {userData?.address || 'Anda Belum Login'}
             </Text>
           </View>
 
           <View style={styles.row}>
             <Ionicons name="call-outline" color="#777777" size={20} />
             <Text style={{ color: '#777777', marginLeft: 20 }}>
-              {userData?.phone || '+62 821 4260 4907'}
+            {userData?.phoneNumber ? '+62 ' + userData.phoneNumber : '+62 821 4260 4907'}
             </Text>
           </View>
 
           <View style={styles.row}>
             <Ionicons name="mail-outline" color="#777777" size={20} />
             <Text style={{ color: '#777777', marginLeft: 20 }}>
-              {userData?.email || 'john_doe@email.com'}
+              {userData?.email || 'Anda Belum Login'}
             </Text>
-          </View>          
+          </View>
         </View>
 
         <View style={styles.menuWrapper}>
@@ -81,14 +86,12 @@ const UserScreen = () => {
             </View>
           </TouchableRipple>
 
-          <TouchableRipple onPress={handleLogout} >
-            {/* <TouchableRipple  onPress={() => navigation.navigate("Started")} > */}
-            <View style={[styles.menuItem, {  }] }>
+          <TouchableRipple onPress={handleLogout}>
+            <View style={[styles.menuItem, { }]}>
               <Ionicons name="log-out-outline" color="#f73131" size={20} />
-              <Text style={[styles.menuItemText, { color: 'red', fontWeight: '600', }]}>Logout</Text>
+              <Text style={[styles.menuItemText, { color: 'red', fontWeight: '600' }]}>Logout</Text>
             </View>
           </TouchableRipple>
-
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -102,11 +105,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   userInfoSection: {
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     marginBottom: 25,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   caption: {
@@ -119,7 +122,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   menuWrapper: {
-    marginTop: -28
+    marginTop: -28,
+    marginLeft: -10
   },
   menuItem: {
     flexDirection: 'row',

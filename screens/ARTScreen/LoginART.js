@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/core';
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Alert } from 'react-native';
 import { COLORS, SIZES, assets } from '../../constants';
+import { URL_API } from "@env";
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 import axios from 'axios';
@@ -30,7 +31,7 @@ export const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://192.168.1.5:3000/api/Mitra/login', {
+      const response = await axios.post(URL_API + 'api/Mitra/login', {
         email,
         password
       });

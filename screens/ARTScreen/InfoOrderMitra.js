@@ -2,12 +2,15 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, Alert } fr
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS, SHADOWS, assets } from '../../constants';
+import { COLORS, SHADOWS } from '../../constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { URL_API } from "@env";
 import 'react-native-gesture-handler'
 
 const InfoOrderMitra = () => {
   const navigation = useNavigation();  
   const [invoiceNumber, setInvoiceNumber] = useState('');
+  const [mitraData, setMitraData] = useState(null);
 
   const generateInvoiceNumber = () => {
     const currentDate = new Date();
@@ -22,6 +25,21 @@ const InfoOrderMitra = () => {
 
   useEffect(() => {
     generateInvoiceNumber();
+  }, []);
+
+  useEffect(() => {
+    const fetchMitraData = async () => {
+      try {
+        const storedMitraData = await AsyncStorage.getItem('mitraData');
+        if (storedMitraData) {
+          setMitraData(JSON.parse(storedMitraData));
+        }
+      } catch (error) {
+        console.log('Error fetching mitra data:', error);
+      }
+    };
+
+    fetchMitraData();
   }, []);
 
   const handleCancelContract = () => {
@@ -54,6 +72,12 @@ const InfoOrderMitra = () => {
       { cancelable: false }
     );
   }
+  const formatSalary = (value) => {
+    if (typeof value === 'number') {
+      return value.toLocaleString('id-ID');
+    }
+    return '';
+  };
   
 return (
   <View style={[styles.container]}>
@@ -92,20 +116,20 @@ return (
               <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 18}}>Detail Mitra</Text>
               <TouchableOpacity style={styles.cardDetail}>
                   <View style={styles.cardContainer}>
-                      <Image source={assets.person} style={styles.Image}/>
-                      <Text style={styles.textName}>Melisa Cahyani</Text>
+                      <Image source={{uri: URL_API + mitraData?.foto}} style={styles.Image}/>
+                      <Text style={styles.textName}>{mitraData?.name}</Text>
                   </View>
                   <View style={styles.CategoryCard}>
                       <Ionicons name='ellipse' color={'#fff'} size={10}/>
                       <Text style={styles.textCategory}>
-                      Cooking
+                      {mitraData?.category}
                       </Text>
                   </View>
                   <Text style={{marginTop: 40}}>
                     Total Harga:
                   </Text>
                   <Text style={{fontWeight: 'bold', marginTop: 2}}>
-                      Rp250.000
+                      Rp{formatSalary(mitraData?.salary)}
                   </Text>
                   <View style={styles.statusContainer}>
                     <Text style={{fontWeight: '500'}}>Status :</Text>
@@ -118,19 +142,19 @@ return (
 
               <View style={{flexDirection:'row', borderBottomWidth: 1, borderBottomColor:'#E1E1E1'}}>
                   <Text>Metode Pembayaran</Text>
-                  <Text style={{ marginLeft: '22%', marginBottom: 10 }}>BCA Virtual Account</Text>
+                  <Text style={{ marginLeft: '27%', marginBottom: 10 }}>BCA Virtual Account</Text>
               </View>
               <View style={{flexDirection:'row', marginBottom: 10, marginTop: 10 }}>
                   <Text>Total Booking</Text>
-                  <Text style={{ marginLeft: '52.5%' }}>Rp250.000</Text>
+                  <Text style={{ marginLeft: '52.5%' }}>Rp{formatSalary(mitraData?.salary)}</Text>
               </View>
               <View style={{flexDirection:'row'}}>
                   <Text>Aplication Fee</Text>
-                  <Text style={{ marginLeft: '57%', marginBottom: 10 }}>Rp7.500</Text>
+                  <Text style={{ marginLeft: '59%', marginBottom: 10 }}>Rp7.500</Text>
               </View>
               <View style={{flexDirection:'row'}}>
                   <Text style={{ fontWeight: 'bold' }}>Total Order</Text>
-                  <Text style={{ marginLeft: '54%', marginBottom: 10, fontWeight: 'bold' }}>Rp257.500</Text>
+                  <Text style={{ marginLeft: '56%', marginBottom: 10, fontWeight: 'bold' }}>Rp{formatSalary(mitraData?.salary)}</Text>
               </View>                
           </View>
       </ScrollView>
@@ -215,7 +239,7 @@ CategoryCard: {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#00C685',
-    width: 70,
+    width: 90,
     height: 25,
     borderRadius: 6,
     marginLeft: 87,

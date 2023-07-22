@@ -5,7 +5,6 @@ import { COLORS, SIZES, assets } from '../constants';
 export const Started = ({ minWidth, fontSize, navigation, ...props }) => (
   <View style={{ flex: 1 }}>
     <ImageBackground
-      // source={assets.image1}
       source={require("../assets/images/image1.jpg")}
       resizeMode="cover"
       style={{ flex: 2 }}>

@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Alert } from 'react-native';
 import { COLORS, SIZES, assets } from '../../constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { URL_API } from "@env";
 
 import axios from 'axios';
 
@@ -12,13 +14,31 @@ export const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  useEffect(() => {
+    const checkAutoLogin = async () => {
+      try {
+        const userData = await AsyncStorage.getItem('userData');
+        if (userData) {
+          navigation.navigate('TabNavigator'); // Navigasi ke layar beranda atau layar yang sesuai
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    checkAutoLogin();
+  }, []);  
+
   const handleLogin = async () => {
     try {
-      const response = await axios.post('/api/pelanggan/login', {
+      const response = await axios.post(URL_API + 'api/pelanggan/login', {
         email,
-        password
+        password,
       });
-
+  
+      // Simpan data pengguna ke dalam AsyncStorage
+      await AsyncStorage.setItem('userData', JSON.stringify(response.data));
+  
       Alert.alert('Success', 'Login Success');
       console.log(response.data);
       return navigation.navigate('TabNavigator');
@@ -26,6 +46,7 @@ export const LoginScreen = () => {
       return Alert.alert('Error', `Login failed: ${err.message}`);
     }
   };
+  
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -82,8 +103,8 @@ export const LoginScreen = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        {/* <TouchableOpacity style={styles.button} onPress={handleLogin}> */}
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TabNavigator')}> 
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        {/* <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TabNavigator')}>  */}
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
