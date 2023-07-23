@@ -51,11 +51,6 @@ export const NFTTitle  = ({ title, subTitle, titleSize, subTitleSize }) => {
 export const Salary   = ({ salary }) => {
  return(
     <View style= {{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image
-        source={assets.rp}
-        resizeMode='contain'
-        style={{ width: 20, height: 20, marginRight: 2 }}
-        />
         <Text style={{
             fontSize: SIZES.font,
             color: '#000000',

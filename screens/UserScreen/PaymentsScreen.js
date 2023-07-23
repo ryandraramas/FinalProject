@@ -22,6 +22,7 @@ const PaymentsScreen = ({ route }) => {
   const [address, setAddress] = useState('');
   const [imageURL, setImageURL] = useState('');
   const [userData, setUserData] = useState(null);
+  const [foto, setFoto] = useState(null);
   const [salary, setSalary] = useState(0);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -38,13 +39,9 @@ const PaymentsScreen = ({ route }) => {
     fetch(URL_API + 'api/mitra')
       .then((response) => response.json())
       .then((data) => {
-        setItems(data);
         const deliveryLocation = data[0]?.address?.street;
         setDeliveryLocation(deliveryLocation);
         const item = data[0];
-        setName(item?.name);
-        setCategory(item?.category);
-        setAddress(item?.address);
         setSalary(item?.salary);
         if (item?.foto) {
           setImageURL(URL_API + item?.foto);
@@ -83,16 +80,15 @@ const PaymentsScreen = ({ route }) => {
   }, [subtotal, appFee, discount]);
 
   const formatSalary = (value) => {
-    if (value) {
-      return value.toLocaleString('id-ID');
-    }
-    return '';
+    return value.toLocaleString('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    });
   };
 
   const handleImagePicker = async () => {
     try {
       const mediaLibraryPermissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
       if (!mediaLibraryPermissionResult.granted) {
         alert('Permission to access media library is required!');
         return;
@@ -109,22 +105,37 @@ const PaymentsScreen = ({ route }) => {
         return;
       }
 
-      const randomString = Math.floor(Math.random() * 900000) + 100000;
-      const fileName = `Image - ${randomString}`;
-      setSelectedFileName(fileName);
-      console.log('Image picked:', imagePickerResult.uri);
+      const selectedImage = {
+        uri: imagePickerResult.uri,
+        type: 'image/jpeg',
+        name: imagePickerResult.uri.split('/').pop(),
+      };
+
+      setSelectedFileName(selectedImage.name);
+      setFoto(selectedImage);
+      console.log('Image picked:', selectedImage.uri);
     } catch (error) {
       console.error('Error picking image:', error);
     }
   };
 
   const handlePayment = () => {
-    if (value && selectedFileName) {
+    if (value && foto) {
+      // Create FormData to handle file upload
+      const formData = new FormData();
+      formData.append('totalHarga', data?.salary + appFee);
+      formData.append('durasi', value); // Make sure the name matches the API server's expectation
+      formData.append('buktiTransfer', {
+        uri: foto.uri, // Use the selected image data from the 'foto' state
+        type: 'image/jpeg', // Make sure to provide the correct MIME type for the image
+        name: foto.uri.split('/').pop(),
+      });
+  
       axios
-        .post(URL_API + 'api/payments', {
-          total: total,
-          durasi: value,
-          buktiTransfer: selectedFileName,
+        .post(URL_API + 'api/payments', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         })
         .then((response) => {
           console.log(response.data);
@@ -188,7 +199,7 @@ const PaymentsScreen = ({ route }) => {
                 marginLeft: 193,
                 fontWeight: '500',
                 bottom: 18
-              }}>Rp{formatSalary(data?.salary)}</Text>
+              }}>{formatSalary(data?.salary)}</Text>
             </View>
           </View>
         </View>
@@ -242,7 +253,7 @@ const PaymentsScreen = ({ route }) => {
               <Text style={{
                 fontSize: 13,
                 fontWeight: 'bold',
-              }}>Selected File:</Text>
+              }}>Upload Bukti Transfer:</Text>
               <Text style={{
                 fontSize: 12,
                 color: COLORS.darkLight,
@@ -272,7 +283,7 @@ const PaymentsScreen = ({ route }) => {
           <View style={{ marginTop: 10 }}>
             <View style={styles.summaryItem}>
               <Text style={styles.summaryLabel}>Subtotal:</Text>
-              <Text style={[styles.summaryValue, { textAlign: 'right' }]}>Rp{formatSalary(data?.salary)}</Text>
+              <Text style={[styles.summaryValue, { textAlign: 'right' }]}>{formatSalary(data?.salary)}</Text>
             </View>
             <View style={styles.summaryItem}>
               <Text style={styles.summaryLabel}>App Fee:</Text>
@@ -283,8 +294,8 @@ const PaymentsScreen = ({ route }) => {
               <Text style={[styles.summaryValue, { textAlign: 'right' }]}>{value}</Text>
             </View>
             <View style={styles.summaryItem}>
-              <Text style={styles.summaryLabel}>Total:</Text>
-              <Text style={[styles.summaryValue, { textAlign: 'right', fontWeight: 'bold', color: '#000' }]}>Rp{formatSalary(data?.salary + appFee)}</Text>
+              <Text style={[styles.summaryLabel, {fontWeight:'bold'}]}>Total:</Text>
+              <Text style={[styles.summaryValue, { textAlign: 'right', fontWeight: 'bold', color: '#000' }]}>{formatSalary(data?.salary + appFee)}</Text>
             </View>
           </View>
         </View>
@@ -292,7 +303,10 @@ const PaymentsScreen = ({ route }) => {
 
       <View style={styles.footer}>
           <TouchableOpacity style={styles.button1} onPress={handlePayment}>
-            <Text style={styles.buttonText}>Pay - Rp{formatSalary(data?.salary + appFee)}</Text>
+            <View style={{flexDirection:'row'}}>
+              <Text style={[styles.buttonText, {fontWeight: 'bold'}]}>Pay </Text>
+              <Text style={styles.buttonText}>{formatSalary(data?.salary + appFee)}</Text>
+            </View>
           </TouchableOpacity>
       </View>  
     </View>
@@ -310,7 +324,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 60, 
+    height: 50, 
     backgroundColor: '#fff', 
     width: '100%',
     ...SHADOWS.light,

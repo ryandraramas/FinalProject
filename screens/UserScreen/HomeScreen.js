@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, SafeAreaView, FlatList } from 'react-native';
+import { View, SafeAreaView, FlatList, RefreshControl } from 'react-native';
 import axios from 'axios';
 import { URL_API } from "@env";
 
@@ -9,6 +9,7 @@ import { HomeHeader, FocusedStatusBar, ArtCard } from '../../components';
 const HomeScreen = () => {
   const [mitraData, setMitraData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
     fetchMitraData();
@@ -16,7 +17,8 @@ const HomeScreen = () => {
 
   const fetchMitraData = async () => {
     try {
-      const response = await axios.get(URL_API + 'api/mitra');
+      const timestamp = new Date().getTime(); // Get the current timestamp
+      const response = await axios.get(`${URL_API}api/mitra?timestamp=${timestamp}`);
       setMitraData(response.data);
       setFilteredData(response.data);
     } catch (error) {
@@ -35,10 +37,19 @@ const HomeScreen = () => {
       item.name.toLowerCase().includes(value.toLowerCase())
     );
 
-    setFilteredData(filtered);
+    // Filter out items with status 'Unavailable'
+    const filteredAvailableData = filtered.filter((item) => item.status !== 'Unavailable');
+
+    setFilteredData(filteredAvailableData);
   };
 
   const keyExtractor = (item) => item._id.toString();
+
+  const onRefresh = async () => {
+    setIsRefreshing(true);
+    await fetchMitraData();
+    setIsRefreshing(false);
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -52,6 +63,9 @@ const HomeScreen = () => {
             keyExtractor={keyExtractor}
             showVerticalScrollIndicator={false}
             ListHeaderComponent={<HomeHeader onSearch={handleSearch} />}
+            refreshControl={
+              <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+            }
           />
         </View>
 

@@ -18,7 +18,6 @@ import spectrum from "../assets/images/spectrum.png"
 import logo from "../assets/images/Logo.png";
 import cardBg from "../assets/images/cardBg.jpg";
 import bca_putih from "../assets/images/BCA_Putih.png";
-import nft01 from "../assets/images/a.png";
 import nft02 from "../assets/images/nft02.png";
 import nft03 from "../assets/images/nft03.png";
 import nft04 from "../assets/images/nft04.jpg";
@@ -55,7 +54,6 @@ export default {
     logo,
     card,
     spectrum,
-    nft01,
     nft02,
     nft03,
     nft04,
