@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, Text, Image, TextInput, TouchableOpacity } from 'react-native';
-import { COLORS, SIZES, SHADOWS } from '../../constants';
+import { View, StyleSheet, ScrollView, Text, Image, TouchableOpacity, Alert } from 'react-native';
+import { COLORS, SIZES, SHADOWS, assets } from '../../constants';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
+import Clipboard from '@react-native-clipboard/clipboard';
 import axios from 'axios';
 import { URL_API } from "@env";
 
@@ -77,14 +78,7 @@ const PaymentsScreen = ({ route }) => {
   useEffect(() => {
     const calculatedTotal = subtotal + appFee - discount;
     setTotal(calculatedTotal);
-  }, [subtotal, appFee, discount]);
-
-  const formatSalary = (value) => {
-    return value.toLocaleString('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-    });
-  };
+  }, [subtotal, appFee, discount]);  
 
   const handleImagePicker = async () => {
     try {
@@ -149,8 +143,19 @@ const PaymentsScreen = ({ route }) => {
       alert('Please select duration and upload payment proof.');
     }
   };
-  
 
+  const formatSalary = (value) => {
+    return value.toLocaleString('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    });
+  };
+  
+  const copyToClipboard = (text) => {
+    Clipboard.setString(text);
+    Alert.alert('Copied to Clipboard', 'The BCA Virtual Account number has been copied to the clipboard.');
+  };
+  
   const handleCategoryChange = (item) => {
   };
   
@@ -220,7 +225,7 @@ const PaymentsScreen = ({ route }) => {
               <Ionicons name="location-outline" size={24} color={COLORS.white} />
             </View>
             <View style={{ marginLeft: 10, marginTop: 2, justifyContent: 'center' }}>
-              <Text style={{ fontSize: 13, fontWeight: 'bold' }}>{userData?.address || 'Anda Belum Login'}</Text>
+              <Text style={{ fontSize: 13, fontWeight: '500' }}>{userData?.address || 'Anda Belum Login'}</Text>
             </View>
           </View>
         </View>
@@ -251,13 +256,34 @@ const PaymentsScreen = ({ route }) => {
               justifyContent: 'center',
             }}>
               <Text style={{
-                fontSize: 13,
-                fontWeight: 'bold',
+                fontSize: 14,
+                fontWeight: '500',
               }}>Upload Bukti Transfer:</Text>
               <Text style={{
                 fontSize: 12,
                 color: COLORS.darkLight,
               }}>{selectedFileName}</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.itemWrapper}>
+          <Text style={styles.Tittle}>BCA Virtual Account</Text>
+          <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+            <View
+              style={{
+                backgroundColor: COLORS.white,
+                width: 56,
+                height: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 8,
+              }}
+            >
+              <Image source={assets.bca} style={styles.bca}/>
+            </View>
+            <View style={{ marginLeft: 10, marginTop: 2, justifyContent: 'center' }}>
+              <Text style={{ fontSize: 14, fontWeight: '500' }}>3901{userData?.phoneNumber || 'Anda Belum Login'}</Text>
             </View>
           </View>
         </View>
@@ -365,13 +391,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  picker: {
+
+  },
   pickerWrapper: {
     zIndex: 1,
     marginTop: 20,
     marginBottom: 20,
     height: 30,
     width: '74%',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   buttonText: {
     fontSize: 16,
@@ -406,5 +435,9 @@ const styles = StyleSheet.create({
     ...SHADOWS.dark,
     borderBottomColor: '#d7d7d7',
     borderBottomWidth: 1,
+  },
+  bca: {
+    height: 30,
+    width: 60
   }
 });
