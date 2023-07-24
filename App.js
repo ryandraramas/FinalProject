@@ -26,6 +26,7 @@ import EditProfileScreen from './screens/ARTScreen/EditProfileScreen';
 import ValidationScreen from './screens/DevScreen/ValidationScreen'
 import NotifScreen from './screens/DevScreen/NotifScreen';
 import CreateNotif from './screens/DevScreen/CreateNotif';
+import DetilNotif from './screens/UserScreen/DetilNotif';
 
 
 const Stack = createNativeStackNavigator();
@@ -66,6 +67,7 @@ function App() {
         <Stack.Screen name="Validation" component={ValidationScreen}/>
         <Stack.Screen name="NotifScreen" component={NotifScreen}/>
         <Stack.Screen name="CreateNotif" component={CreateNotif}/>
+        <Stack.Screen name="DetilNotif" component={DetilNotif}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

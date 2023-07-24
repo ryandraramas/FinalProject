@@ -5,12 +5,12 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { COLORS } from '../../constants';
 
 import HomeScreen from '../UserScreen/HomeScreen';
-// import WalletScreen from '../UserScreen/WalletScreen'
+import NotifikasiScreen from '../UserScreen/NotifikasiScreen'
 import HistoryScreen from '../UserScreen/HistoryScreen';
 import UserScreen from '../UserScreen/UserScreen';
 
 const homeName = 'Home';
-// const walletName = 'Wallet';
+const notifName = 'Notifikasi';
 const userName = 'Profile';
 const historyName = 'History';
 
@@ -26,8 +26,10 @@ function TabNavigator() {
 
           if (route.name === homeName) {
             iconName = focused ? 'home' : 'home-outline';
-          }  else if (route.name === historyName) {
+          } else if (route.name === historyName) {
             iconName = focused ? 'time' : 'time-outline';
+          } else if (route.name === notifName) {
+            iconName = focused ? 'time' : 'notifications-outline';
           } else if (route.name === userName) {
             iconName = focused ? 'person' : 'person-outline';
           } 
@@ -41,7 +43,7 @@ function TabNavigator() {
       })}
     >
       <Tab.Screen name={homeName} component={HomeScreen} />
-      {/* <Tab.Screen name={walletName} component={WalletScreen} /> */}
+      <Tab.Screen name={notifName} component={NotifikasiScreen} />
       <Tab.Screen name={historyName} component={HistoryScreen} />
       <Tab.Screen name={userName} component={UserScreen} />
     </Tab.Navigator>
