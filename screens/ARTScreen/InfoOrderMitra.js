@@ -8,10 +8,11 @@ import { URL_API } from "@env";
 import 'react-native-gesture-handler'
 
 const InfoOrderMitra = () => {
-  const navigation = useNavigation();  
+  const navigation = useNavigation();
   const [invoiceNumber, setInvoiceNumber] = useState('');
   const [mitraData, setMitraData] = useState(null);
-
+  const [appFee, setAppFee] = useState('Rp10.000');
+  const totalOrder = mitraData?.salary + parseFloat(appFee.replace('Rp', '').replace('.', ''));
   const generateInvoiceNumber = () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear().toString().slice(-2);
@@ -74,98 +75,98 @@ const InfoOrderMitra = () => {
   }
   const formatSalary = (value) => {
     if (typeof value === 'number') {
-      return value.toLocaleString('id-ID');
+      return value.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
     }
     return '';
   };
-  
-return (
-  <View style={[styles.container]}>
+
+  return (
+    <View style={[styles.container]}>
       <View style={styles.header}>
-      <TouchableOpacity
+        <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()} >
           <Ionicons name="chevron-back-outline" size={24} color="#2C2C2C" />
-      </TouchableOpacity>           
-          <Text style={styles.textHeader}>
-              Detail Order
-          </Text>
+        </TouchableOpacity>
+        <Text style={styles.textHeader}>
+          Detail Order
+        </Text>
       </View>
-      <ScrollView style={{ height: '200%'}}>
-          <View style={styles.invoiceContainer}>
-              <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 18}}>
-                  Invoice
-              </Text>
-                  <View style={styles.invoiceS}>
-                  <Text style={{fontSize: 12, color: COLORS.darkLight,}}>
-                  {invoiceNumber}
-                  </Text>
-                  <Ionicons name="newspaper-outline" color={COLORS.darkLight} marginLeft={10} size={16}/>
-                  </View>
-              <View style={styles.tanggalOrder}>
-                  <Text style={{fontSize: 12, color: COLORS.darkLight,}}>
-                      Tanggal Order
-                  </Text>
-                  <Text style={{fontSize: 12, color: COLORS.black, marginLeft: 120}}>
-                     18 Mei 2023, 20:42 WIB
-                  </Text>
-              </View>
+      <ScrollView style={{ height: '200%' }}>
+        <View style={styles.invoiceContainer}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 18 }}>
+            Invoice
+          </Text>
+          <View style={styles.invoiceS}>
+            <Text style={{ fontSize: 12, color: COLORS.darkLight, }}>
+              {invoiceNumber}
+            </Text>
+            <Ionicons name="newspaper-outline" color={COLORS.darkLight} marginLeft={10} size={16} />
           </View>
+          <View style={styles.tanggalOrder}>
+            <Text style={{ fontSize: 12, color: COLORS.darkLight, }}>
+              Tanggal Order
+            </Text>
+            <Text style={{ fontSize: 12, color: COLORS.black, marginLeft: 120 }}>
+              24 Mei 2023, 14:42 WIB
+            </Text>
+          </View>
+        </View>
 
-          <View style={styles.detailProduk}>
-              <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 18}}>Detail Mitra</Text>
-              <TouchableOpacity style={styles.cardDetail}>
-                  <View style={styles.cardContainer}>
-                      <Image source={{uri: URL_API + mitraData?.foto}} style={styles.Image}/>
-                      <Text style={styles.textName}>{mitraData?.name}</Text>
-                  </View>
-                  <View style={styles.CategoryCard}>
-                      <Ionicons name='ellipse' color={'#fff'} size={10}/>
-                      <Text style={styles.textCategory}>
-                      {mitraData?.category}
-                      </Text>
-                  </View>
-                  <Text style={{marginTop: 40}}>
-                    Total Harga:
-                  </Text>
-                  <Text style={{fontWeight: 'bold', marginTop: 2}}>
-                      Rp{formatSalary(mitraData?.salary)}
-                  </Text>
-                  <View style={styles.statusContainer}>
+        <View style={styles.detailProduk}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 18 }}>Detail Mitra</Text>
+          <TouchableOpacity style={styles.cardDetail}>
+            <View style={styles.cardContainer}>
+              <Image source={{ uri: URL_API + mitraData?.foto }} style={styles.Image} />
+              <Text style={styles.textName}>{mitraData?.name}</Text>
+            </View>
+            <View style={styles.CategoryCard}>
+              <Ionicons name='ellipse' color={'#fff'} size={10} />
+              <Text style={styles.textCategory}>
+                {mitraData?.category}
+              </Text>
+            </View>
+            <Text style={{ marginTop: 40 }}>
+              Total Harga:
+            </Text>
+            <Text style={{ fontWeight: 'bold', marginTop: 2 }}>
+              Rp{formatSalary(mitraData?.salary)}
+            </Text>
+            {/* <View style={styles.statusContainer}>
                     <Text style={{fontWeight: '500'}}>Status :</Text>
                     <Text style={{marginLeft: 4, color: COLORS.gray}}>Pending</Text>
-                </View>
-              </TouchableOpacity>
-          </View>
-          <View style={styles.detailProduk}>
-              <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 18}}>Rincian Pembayaran</Text>
+                </View> */}
+          </TouchableOpacity>
+        </View>
+        <View style={styles.detailProduk}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 18 }}>Rincian Pembayaran</Text>
 
-              <View style={{flexDirection:'row', borderBottomWidth: 1, borderBottomColor:'#E1E1E1'}}>
-                  <Text>Metode Pembayaran</Text>
-                  <Text style={{ marginLeft: '27%', marginBottom: 10 }}>BCA Virtual Account</Text>
-              </View>
-              <View style={{flexDirection:'row', marginBottom: 10, marginTop: 10 }}>
-                  <Text>Total Booking</Text>
-                  <Text style={{ marginLeft: '52.5%' }}>Rp{formatSalary(mitraData?.salary)}</Text>
-              </View>
-              <View style={{flexDirection:'row'}}>
-                  <Text>Aplication Fee</Text>
-                  <Text style={{ marginLeft: '59%', marginBottom: 10 }}>Rp7.500</Text>
-              </View>
-              <View style={{flexDirection:'row'}}>
-                  <Text style={{ fontWeight: 'bold' }}>Total Order</Text>
-                  <Text style={{ marginLeft: '56%', marginBottom: 10, fontWeight: 'bold' }}>Rp{formatSalary(mitraData?.salary)}</Text>
-              </View>                
+          <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#E1E1E1' }}>
+            <Text>Metode Pembayaran</Text>
+            <Text style={{ marginLeft: '27%', marginBottom: 10 }}>BCA Virtual Account</Text>
           </View>
+          <View style={{ flexDirection: 'row', marginBottom: 10, marginTop: 10 }}>
+            <Text>Total Booking</Text>
+            <Text style={{ marginLeft: '52.5%' }}>{formatSalary(mitraData?.salary)}</Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <Text>Aplication Fee</Text>
+            <Text style={{ marginLeft: '59%', marginBottom: 10 }}>{appFee}</Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={{ fontWeight: 'bold' }}>Total Order</Text>
+            <Text style={{ marginLeft: '56%', marginBottom: 10, fontWeight: 'bold' }}>{formatSalary(totalOrder)}</Text>
+          </View>
+        </View>
       </ScrollView>
 
       <View style={styles.footer}>
-      <TouchableOpacity style={styles.Cancellisation} onPress={handleCancelContract}>
-          <Text style={{color: COLORS.white}}>Batalkan Kontrak</Text>
-      </TouchableOpacity>      
+        <TouchableOpacity style={styles.Cancellisation} onPress={handleCancelContract}>
+          <Text style={{ color: COLORS.white }}>Batalkan Kontrak</Text>
+        </TouchableOpacity>
       </View>
-  </View>
-)
+    </View>
+  )
 }
 
 export default InfoOrderMitra
@@ -175,44 +176,44 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#EFF3F7',
   },
-header: {
+  header: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 60, 
-    backgroundColor: '#fff', 
+    height: 60,
+    backgroundColor: '#fff',
     width: '100%',
     ...SHADOWS.light,
     borderBottomColor: '#d7d7d7',
     borderBottomWidth: 1,
   },
-backButton: {
+  backButton: {
     marginLeft: 10,
   },
-textHeader: {
+  textHeader: {
     fontWeight: 'bold',
     fontSize: 20,
     marginLeft: 16
   },
-invoiceContainer: {
+  invoiceContainer: {
     backgroundColor: '#fff',
     width: '100%',
     ...SHADOWS.light,
     padding: 20
   },
-invoiceS: {
+  invoiceS: {
     flexDirection: 'row',
     marginTop: 10,
   },
-tanggalOrder: {
+  tanggalOrder: {
     marginTop: 12,
     flexDirection: 'row'
   },
-detailProduk: {
+  detailProduk: {
     padding: 20,
     backgroundColor: '#fff',
     marginTop: 10
   },
-cardDetail: {
+  cardDetail: {
     height: 165,
     width: '100%',
     backgroundColor: '#fff',
@@ -220,21 +221,21 @@ cardDetail: {
     borderRadius: 10,
     padding: 16
   },
-Image: {
+  Image: {
     height: 80,
     width: 80,
     borderRadius: 10,
     borderRadius: 6,
   },
-cardContainer: {
+  cardContainer: {
     flexDirection: 'row'
   },
-textName: {
+  textName: {
     fontWeight: 'bold',
     fontSize: 20,
     marginLeft: 6
-  }, 
-CategoryCard: {
+  },
+  CategoryCard: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -245,13 +246,13 @@ CategoryCard: {
     marginLeft: 87,
     marginTop: -50
   },
-textCategory: {
+  textCategory: {
     color: '#fff',
     padding: 2,
     fontSize: 12
   },
-ButtonUlas: {
-    height: 30, 
+  ButtonUlas: {
+    height: 30,
     width: 110,
     alignItems: 'center',
     justifyContent: 'center',
@@ -261,17 +262,17 @@ ButtonUlas: {
     marginLeft: '64%',
     marginTop: -28
   },
-footer: {
+  footer: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 60, 
-    backgroundColor: '#fff', 
+    height: 60,
+    backgroundColor: '#fff',
     width: '100%',
     ...SHADOWS.dark,
     borderBottomColor: '#d7d7d7',
     borderBottomWidth: 1,
   },
-Cancellisation: {
+  Cancellisation: {
     backgroundColor: COLORS.primary,
     height: 40,
     width: '60%',
@@ -279,9 +280,9 @@ Cancellisation: {
     alignItems: 'center',
     borderRadius: 10
   },
-statusContainer: {
+  statusContainer: {
     flexDirection: 'row',
     marginLeft: 190,
     marginTop: -16
-},
+  },
 })

@@ -15,7 +15,7 @@ const PaymentsScreen = ({ route }) => {
   const navigation = useNavigation();
   const [items, setItems] = useState('');
   const [subtotal, setSubtotal] = useState(0);
-  const [appFee, setAppFee] = useState(7500);
+  const [appFee, setAppFee] = useState('Rp10.000');
   const [discount, setDiscount] = useState(0);
   const [total, setTotal] = useState(0);
   const [name, setName] = useState('');
@@ -30,10 +30,10 @@ const PaymentsScreen = ({ route }) => {
   const [deliveryLocation, setDeliveryLocation] = useState('');
   const [selectedFileName, setSelectedFileName] = useState('');
   const [date, setDate] = useState([
-    { label: '1 Bulan (30 Hari)', value: '1 Bulan (30 Hari)'},
-    { label: '3 Bulan (90 Hari)', value: '3 Bulan (90 Hari)'},
-    { label: '6 Bulan (180 Hari)', value: '6 Bulan (180 Hari)'},
-    { label: '1 Tahun (365 Hari)', value: '1 Tahun (365 Hari)'},
+    { label: '1 Bulan (30 Hari)', value: '1 Bulan (30 Hari)' },
+    { label: '3 Bulan (90 Hari)', value: '3 Bulan (90 Hari)' },
+    { label: '6 Bulan (180 Hari)', value: '6 Bulan (180 Hari)' },
+    { label: '1 Tahun (365 Hari)', value: '1 Tahun (365 Hari)' },
   ]);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const PaymentsScreen = ({ route }) => {
   useEffect(() => {
     const calculatedTotal = subtotal + appFee - discount;
     setTotal(calculatedTotal);
-  }, [subtotal, appFee, discount]);  
+  }, [subtotal, appFee, discount]);
 
   const handleImagePicker = async () => {
     try {
@@ -124,7 +124,7 @@ const PaymentsScreen = ({ route }) => {
         type: 'image/jpeg', // Make sure to provide the correct MIME type for the image
         name: foto.uri.split('/').pop(),
       });
-  
+
       axios
         .post(URL_API + 'api/payments', formData, {
           headers: {
@@ -150,40 +150,40 @@ const PaymentsScreen = ({ route }) => {
       currency: 'IDR',
     });
   };
-  
+
   const copyToClipboard = (text) => {
     Clipboard.setString(text);
     Alert.alert('Copied to Clipboard', 'The BCA Virtual Account number has been copied to the clipboard.');
   };
-  
+
   const handleCategoryChange = (item) => {
   };
-  
+
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-          <TouchableOpacity
-            style={{
-              marginLeft: 10
-            }}
-            onPress={() => navigation.goBack()}
-          >
-            <Ionicons name="chevron-back-outline" size={24} color='black'  />
-          </TouchableOpacity>
-          <Text style={styles.titleScreen}>Checkout</Text>
-        </View>
+        <TouchableOpacity
+          style={{
+            marginLeft: 10
+          }}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="chevron-back-outline" size={24} color='black' />
+        </TouchableOpacity>
+        <Text style={styles.titleScreen}>Checkout</Text>
+      </View>
 
-      <ScrollView style={{padding: 10, }}
-      showsVerticalScrollIndicator={false}
-      showsHorizontalScrollIndicator={false}>
+      <ScrollView style={{ padding: 10, }}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}>
         <View style={styles.itemWrapper}>
           <Text style={styles.Tittle}>Asisten Rumah Tangga</Text>
           <View style={{
             flexDirection: 'row',
             marginTop: 13,
           }}>
-            <Image source={{ uri: URL_API+ data?.foto }} style={styles.images}/>
+            <Image source={{ uri: URL_API + data?.foto }} style={styles.images} />
             <View style={{
               marginLeft: 10,
               marginBottom: 1,
@@ -248,7 +248,7 @@ const PaymentsScreen = ({ route }) => {
               }}
               onPress={handleImagePicker}
             >
-              <Ionicons name="image-outline" size={24} color={COLORS.tertiary}  />
+              <Ionicons name="image-outline" size={24} color={COLORS.tertiary} />
             </TouchableOpacity>
             <View style={{
               marginLeft: 10,
@@ -268,7 +268,7 @@ const PaymentsScreen = ({ route }) => {
         </View>
 
         <View style={styles.itemWrapper}>
-          <Text style={styles.Tittle}>BCA Virtual Account</Text>
+          <Text style={styles.Tittle}>BCA Account</Text>
           <View style={{ flexDirection: 'row', marginBottom: 10 }}>
             <View
               style={{
@@ -280,28 +280,28 @@ const PaymentsScreen = ({ route }) => {
                 borderRadius: 8,
               }}
             >
-              <Image source={assets.bca} style={styles.bca}/>
+              <Image source={assets.bca} style={styles.bca} />
             </View>
             <View style={{ marginLeft: 10, marginTop: 2, justifyContent: 'center' }}>
-              <Text style={{ fontSize: 14, fontWeight: '500' }}>3901{userData?.phoneNumber || 'Anda Belum Login'}</Text>
+              <Text style={{ fontSize: 14, fontWeight: '500' }}>3901{data?.phoneNumber || 'Anda Belum Login'}</Text>
             </View>
           </View>
         </View>
 
         <View style={styles.pickerWrapper}>
-        <DropDownPicker
-          placeholder='Pilih Durasi'
-          dropDownDirection="AUTO"
-          open={open}
-          value={value}
-          items={date}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setDate}
-          style={styles.picker}
-          containerStyle={styles.pickerContainer}
-          onChangeValue={handleCategoryChange}
-        />
+          <DropDownPicker
+            placeholder='Pilih Durasi'
+            dropDownDirection="AUTO"
+            open={open}
+            value={value}
+            items={date}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setDate}
+            style={styles.picker}
+            containerStyle={styles.pickerContainer}
+            onChangeValue={handleCategoryChange}
+          />
         </View>
 
         <View style={{ marginTop: 40, marginBottom: 30 }}>
@@ -320,7 +320,7 @@ const PaymentsScreen = ({ route }) => {
               <Text style={[styles.summaryValue, { textAlign: 'right' }]}>{value}</Text>
             </View>
             <View style={styles.summaryItem}>
-              <Text style={[styles.summaryLabel, {fontWeight:'bold'}]}>Total:</Text>
+              <Text style={[styles.summaryLabel, { fontWeight: 'bold' }]}>Total:</Text>
               <Text style={[styles.summaryValue, { textAlign: 'right', fontWeight: 'bold', color: '#000' }]}>{formatSalary(data?.salary + appFee)}</Text>
             </View>
           </View>
@@ -328,13 +328,13 @@ const PaymentsScreen = ({ route }) => {
       </ScrollView>
 
       <View style={styles.footer}>
-          <TouchableOpacity style={styles.button1} onPress={handlePayment}>
-            <View style={{flexDirection:'row'}}>
-              <Text style={[styles.buttonText, {fontWeight: 'bold'}]}>Pay </Text>
-              <Text style={styles.buttonText}>{formatSalary(data?.salary + appFee)}</Text>
-            </View>
-          </TouchableOpacity>
-      </View>  
+        <TouchableOpacity style={styles.button1} onPress={handlePayment}>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={[styles.buttonText, { fontWeight: 'bold' }]}>Pay </Text>
+            <Text style={styles.buttonText}>{formatSalary(data?.salary + appFee)}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -350,8 +350,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 50, 
-    backgroundColor: '#fff', 
+    height: 50,
+    backgroundColor: '#fff',
     width: '100%',
     ...SHADOWS.light,
     borderBottomColor: '#d7d7d7',
@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
     color: COLORS.gray,
     marginRight: 110
   },
-  images:{
+  images: {
     height: 45,
     width: 45,
     borderRadius: 10
@@ -429,8 +429,8 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 60, 
-    backgroundColor: '#fff', 
+    height: 60,
+    backgroundColor: '#fff',
     width: '100%',
     ...SHADOWS.dark,
     borderBottomColor: '#d7d7d7',

@@ -38,22 +38,22 @@ const StatusBookART = () => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        style={{ height: 200 }}
+        style={{ height: 160 }}
         source={assets.cardBg}
         resizeMode="cover"
         borderBottomLeftRadius={20}
         borderBottomRightRadius={20}
       >
         <View style={styles.textStyle}>
-          <Text style={styles.Name}>Hi {mitraData ? mitraData.name : 'User'}!</Text>
-          <Text style={styles.Name1}>Welcome to Maid Match</Text>
+          <Text style={styles.Name}>Halo {mitraData ? mitraData.name : 'User'}!</Text>
+          <Text style={styles.Name1}>Selamat datang di Maid Match</Text>
           <View style={styles.inform}>
-            <Text style={styles.saldo}>Saldo Anda :</Text>
+            <Text style={styles.saldo}>Saldo Anda: </Text>
             <Text style={styles.saldo1}>Rp650.000</Text>
           </View>
         </View>
 
-        <View style={styles.card2}>
+        {/* <View style={styles.card2}>
           <View style={styles.iconCard}>
             <TouchableOpacity style={styles.addButton} onPress={handleAddButtonPress}>
               <Ionicons name="add" size={28} style={styles.plusIcon} />
@@ -64,13 +64,12 @@ const StatusBookART = () => {
               <Ionicons name="download-outline" size={26} style={styles.plusIcon} />
               <Text style={styles.title1}>Tarik Tunai</Text>
             </TouchableOpacity>
-
             <TouchableOpacity style={styles.addButton}>
               <Ionicons name="time-outline" size={25} style={styles.plusIcon} />
               <Text style={styles.title2}>History</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </View> */}
 
         <View style={styles.statusBook}>
           <Text style={styles.textStatus}>Status Postingan Anda </Text>
@@ -88,11 +87,11 @@ const StatusBookART = () => {
             <Text style={styles.textSalary}>Rp.{formatSalary(mitraData?.salary)}</Text>
             <Text style={styles.Bulan}>/Bln</Text>
           </View>
-          <Image source={{uri: URL_API + mitraData?.foto}} style={styles.ImgCard} />
-          <View style={styles.statusContainer}>
-            <Text style={{ fontWeight: '500' }}>Status :</Text>
+          <Image source={{ uri: URL_API + mitraData?.foto }} style={styles.ImgCard} />
+          {/* <View style={styles.statusContainer}>
+            <Text style={{ fontWeight: '500' }}>Status : {mitraData?.status}</Text>
             <Text style={{ marginLeft: 4, color: COLORS.gray }}>{mitraData?.status}</Text>
-          </View>
+          </View> */}
         </TouchableOpacity>
       </ImageBackground>
     </View>
@@ -173,7 +172,7 @@ const styles = StyleSheet.create({
   },
   statusBook: {
     marginLeft: 16,
-    marginTop: 14
+    marginTop: 50
   },
   textStatus: {
     fontWeight: 'bold',
