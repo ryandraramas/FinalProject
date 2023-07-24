@@ -115,13 +115,12 @@ const PaymentsScreen = ({ route }) => {
 
   const handlePayment = () => {
     if (value && foto) {
-      // Create FormData to handle file upload
       const formData = new FormData();
       formData.append('totalHarga', data?.salary + appFee);
-      formData.append('durasi', value); // Make sure the name matches the API server's expectation
+      formData.append('durasi', value); 
       formData.append('buktiTransfer', {
-        uri: foto.uri, // Use the selected image data from the 'foto' state
-        type: 'image/jpeg', // Make sure to provide the correct MIME type for the image
+        uri: foto.uri, 
+        type: 'image/jpeg', 
         name: foto.uri.split('/').pop(),
       });
 

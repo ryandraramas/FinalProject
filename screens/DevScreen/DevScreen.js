@@ -10,7 +10,7 @@ import AccountDev from './AccountDev';
 
 
 const HomeScreenDevName = 'Home';
-const NotificationDevName = 'Notif';
+const NotificationDevName = 'Notification';
 const AccountDevName = 'Account'
 
 const Tab = createBottomTabNavigator();

@@ -24,6 +24,8 @@ import InfoOrderMitra from './screens/ARTScreen/InfoOrderMitra'
 import PaymentsConfirm from './screens/UserScreen/PaymentsConfirm';
 import EditProfileScreen from './screens/ARTScreen/EditProfileScreen';
 import ValidationScreen from './screens/DevScreen/ValidationScreen'
+import NotifScreen from './screens/DevScreen/NotifScreen';
+import CreateNotif from './screens/DevScreen/CreateNotif';
 
 
 const Stack = createNativeStackNavigator();
@@ -62,6 +64,8 @@ function App() {
         <Stack.Screen name="PaymentsConfirm" component={PaymentsConfirm}/>
         <Stack.Screen name="EditProfileScreen" component={EditProfileScreen}/>
         <Stack.Screen name="Validation" component={ValidationScreen}/>
+        <Stack.Screen name="NotifScreen" component={NotifScreen}/>
+        <Stack.Screen name="CreateNotif" component={CreateNotif}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

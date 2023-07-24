@@ -192,6 +192,7 @@ const styles = StyleSheet.create({
   button: {
     margin: 10,
     backgroundColor: 'transparent',
+    top: 20
   },
   selectedButton: {
     borderBottomWidth: 1,
@@ -232,7 +233,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginTop: 16,
+    backgroundColor: '#fff',
+    height: 50
   },
   statusCard: {
     backgroundColor: '#D6FFDD',
