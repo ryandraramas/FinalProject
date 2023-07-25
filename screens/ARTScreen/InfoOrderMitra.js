@@ -130,7 +130,7 @@ const InfoOrderMitra = () => {
               Total Harga:
             </Text>
             <Text style={{ fontWeight: 'bold', marginTop: 2 }}>
-              Rp{formatSalary(mitraData?.salary)}
+              {formatSalary(totalOrder)}
             </Text>
             {/* <View style={styles.statusContainer}>
                     <Text style={{fontWeight: '500'}}>Status :</Text>
@@ -149,9 +149,9 @@ const InfoOrderMitra = () => {
             <Text>Total Booking</Text>
             <Text style={{ marginLeft: '52.5%' }}>{formatSalary(mitraData?.salary)}</Text>
           </View>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text>Aplication Fee</Text>
-            <Text style={{ marginLeft: '59%', marginBottom: 10 }}>{appFee}</Text>
+            <Text style={{ marginLeft: '57%', marginBottom: 10 }}>{appFee}</Text>
           </View>
           <View style={{ flexDirection: 'row' }}>
             <Text style={{ fontWeight: 'bold' }}>Total Order</Text>

@@ -15,7 +15,7 @@ const PaymentsScreen = ({ route }) => {
   const navigation = useNavigation();
   const [items, setItems] = useState('');
   const [subtotal, setSubtotal] = useState(0);
-  const [appFee, setAppFee] = useState('Rp10.000');
+  const [appFee, setAppFee] = useState(10000);
   const [discount, setDiscount] = useState(0);
   const [total, setTotal] = useState(0);
   const [name, setName] = useState('');
@@ -117,10 +117,10 @@ const PaymentsScreen = ({ route }) => {
     if (value && foto) {
       const formData = new FormData();
       formData.append('totalHarga', data?.salary + appFee);
-      formData.append('durasi', value); 
+      formData.append('durasi', value);
       formData.append('buktiTransfer', {
-        uri: foto.uri, 
-        type: 'image/jpeg', 
+        uri: foto.uri,
+        type: 'image/jpeg',
         name: foto.uri.split('/').pop(),
       });
 

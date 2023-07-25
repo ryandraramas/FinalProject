@@ -25,9 +25,9 @@ export const LoginScreen = () => {
         console.error(error);
       }
     };
-  
+
     checkAutoLogin();
-  }, []);  
+  }, []);
 
   const handleLogin = async () => {
     try {
@@ -35,10 +35,10 @@ export const LoginScreen = () => {
         email,
         password,
       });
-  
+
       // Simpan data pengguna ke dalam AsyncStorage
       await AsyncStorage.setItem('userData', JSON.stringify(response.data));
-  
+
       Alert.alert('Success', 'Login Success');
       console.log(response.data);
       return navigation.navigate('TabNavigator');
@@ -46,7 +46,7 @@ export const LoginScreen = () => {
       return Alert.alert('Error', `Login failed: ${err.message}`);
     }
   };
-  
+
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -70,7 +70,7 @@ export const LoginScreen = () => {
             height: 100
           }}
         >
-          Login Pengguna
+          Login Pelanggan
         </Text>
 
         <View style={styles.inputWrapper}>
@@ -104,7 +104,7 @@ export const LoginScreen = () => {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        {/* <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TabNavigator')}>  */}
+          {/* <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TabNavigator')}>  */}
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 

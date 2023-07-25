@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { COLORS, SHADOWS } from '../../constants';
 import { URL_API } from '@env';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import axios from 'axios'; 
+import axios from 'axios';
 
 const NotificationDev = () => {
   const navigation = useNavigation();
@@ -13,7 +13,7 @@ const NotificationDev = () => {
 
   useEffect(() => {
     axios
-      .get(URL_API + 'api/notifications') 
+      .get(URL_API + 'api/notifications')
       .then(response => {
         setNotifications(response.data);
         setLoading(false);
@@ -25,33 +25,34 @@ const NotificationDev = () => {
   }, []);
 
   const renderNotificationItem = ({ item }) => (
-    <TouchableOpacity style={styles.notificationItem} onPress={() => { navigation.navigate('NotifScreen', { selectedItem: item });
+    <TouchableOpacity style={styles.notificationItem} onPress={() => {
+      navigation.navigate('NotifScreen', { selectedItem: item });
     }}>
-      <Image source={{ uri: URL_API + item.gambar }} style={styles.image} resizeMode='cover'/>
+      <Image source={{ uri: URL_API + item.gambar }} style={styles.image} resizeMode='cover' />
     </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
-     <View>
-     <View style={styles.header}>
-        <Text style={styles.textHeader}>Notifikasi</Text>
+      <View>
+        <View style={styles.header}>
+          <Text style={styles.textHeader}>Notifikasi</Text>
+        </View>
+        {loading ? (
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        ) : (
+          <FlatList
+            data={notifications}
+            renderItem={renderNotificationItem}
+            contentContainerStyle={styles.notificationList}
+          />
+        )}
       </View>
-      {loading ? (
-        <ActivityIndicator size="large" color={COLORS.primary} />
-      ) : (
-        <FlatList
-          data={notifications}
-          renderItem={renderNotificationItem}
-          contentContainerStyle={styles.notificationList}
-        />
-      )}
-     </View>
-     <View style={styles.addButtonContainer}>
-        <TouchableOpacity style={styles.addButton}>
+      <View style={styles.addButtonContainer}>
+        {/* <TouchableOpacity style={styles.addButton}>
           <Ionicons name="add" size={34} style={styles.plusIcon} />
-        </TouchableOpacity>
-     </View>
+        </TouchableOpacity> */}
+      </View>
     </View>
   );
 }
@@ -59,7 +60,7 @@ const NotificationDev = () => {
 export default NotificationDev
 
 const styles = StyleSheet.create({
-  container:{    
+  container: {
     flexGrow: 1,
     backgroundColor: '#F5F5F5',
   },
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ddd',
     marginBottom: 14,
     marginTop: 20
-  }, 
+  },
   image: {
     width: '100%',
     height: 100,
