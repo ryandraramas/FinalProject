@@ -32,15 +32,18 @@ const HomeScreen = () => {
       setFilteredData(mitraData);
       return;
     }
-
-    const filtered = mitraData.filter((item) =>
-      item.name.toLowerCase().includes(value.toLowerCase())
-    );
-
-    // Filter out items with status 'Unavailable'
-    const filteredAvailableData = filtered.filter((item) => item.status !== 'Unavailable');
-
-    setFilteredData(filteredAvailableData);
+  
+    const filtered = mitraData.filter((item) => {
+      const nameMatches = item.name.toLowerCase().includes(value.toLowerCase());
+      const categoryMatches = item.category.toLowerCase().includes(value.toLowerCase());
+      const salaryMatches = item.salary.toString().includes(value);
+  
+      const isAvailable = item.status !== 'Unavailable';
+  
+      return (nameMatches || categoryMatches || salaryMatches) && isAvailable;
+    });
+  
+    setFilteredData(filtered);
   };
 
   const keyExtractor = (item) => item._id.toString();

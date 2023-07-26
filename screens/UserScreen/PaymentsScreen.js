@@ -1,6 +1,8 @@
+import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, Text, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, StyleSheet, ScrollView, Text, Image, TouchableOpacity, Alert, TextInput } from 'react-native';
 import { COLORS, SIZES, SHADOWS, assets } from '../../constants';
+import { addMonths } from 'date-fns';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,14 +15,13 @@ import { URL_API } from "@env";
 const PaymentsScreen = ({ route }) => {
   const { data } = route.params;
   const navigation = useNavigation();
-  const [items, setItems] = useState('');
   const [subtotal, setSubtotal] = useState(0);
   const [appFee, setAppFee] = useState(10000);
   const [discount, setDiscount] = useState(0);
   const [total, setTotal] = useState(0);
-  const [name, setName] = useState('');
-  const [category, setCategory] = useState('');
-  const [address, setAddress] = useState('');
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [tanggalMulai, setTanggalMulai] = useState(new Date());
+  const [tanggalSelesai, setTanggalSelesai] = useState();
   const [imageURL, setImageURL] = useState('');
   const [userData, setUserData] = useState(null);
   const [foto, setFoto] = useState(null);
@@ -116,8 +117,23 @@ const PaymentsScreen = ({ route }) => {
   const handlePayment = () => {
     if (value && foto) {
       const formData = new FormData();
-      formData.append('totalHarga', data?.salary + appFee);
+      formData.append('namaPelanggan', userData?.name );
+      formData.append('namaMitra', data?.name );
+
+      formData.append('alamatPelanggan', userData?.address );
+      formData.append('alamatMitra', data?.address );
+
+      formData.append('startedAt', );
+      formData.append('endedAt',  );
+
       formData.append('durasi', value);
+      formData.append('totalHarga', data?.salary + appFee);
+
+      formData.append('fotoMitra', {
+        uri: URL_API + data?.foto,
+        type: 'image/jpeg',
+        name: URL_API + data?.foto.split('/').pop()
+      });
       formData.append('buktiTransfer', {
         uri: foto.uri,
         type: 'image/jpeg',
@@ -158,6 +174,23 @@ const PaymentsScreen = ({ route }) => {
   const handleCategoryChange = (item) => {
   };
 
+  const handleDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || tanggalMulai;
+    setShowDatePicker(false);
+    setTanggalMulai(currentDate);
+  
+    // Calculate the "tanggalSelesai" based on the selected duration
+    if (value && selectedDate) { // Check if "selectedDate" is not null
+      const durationInMonths = parseInt(value); // Convert "value" to an integer
+      const endDateTime = addMonths(currentDate, durationInMonths);
+      setTanggalSelesai(endDateTime);
+    }
+  };
+  
+
+  const showDatePickerModal = () => {
+    setShowDatePicker(true);
+  };
 
   return (
     <View style={styles.container}>
@@ -286,6 +319,29 @@ const PaymentsScreen = ({ route }) => {
             </View>
           </View>
         </View>
+
+        <View style={styles.textInputContainer}>
+          <View style={styles.datePickerStartContainer}>
+            <TouchableOpacity onPress={showDatePickerModal} style={styles.inputWrapper}>
+              <Ionicons name="calendar" size={20} color="#9E9E9E" style={styles.inputIcon} />
+              <Text style={{}}>
+                {tanggalMulai ? tanggalMulai.toDateString() : 'Select a start date'}
+              </Text>
+            </TouchableOpacity>
+
+            {showDatePicker && (
+              <DateTimePicker value={tanggalMulai} mode="date" display="default" onChange={handleDateChange} />
+            )}
+
+            <Text> Ke </Text>
+            <View>
+              <Text style={styles.inputDate}>
+                {tanggalSelesai ? tanggalSelesai.toDateString() : 'Select a end date'}
+              </Text>
+            </View>
+          </View>
+        </View>
+
 
         <View style={styles.pickerWrapper}>
           <DropDownPicker
@@ -438,5 +494,37 @@ const styles = StyleSheet.create({
   bca: {
     height: 30,
     width: 60
+  },
+  textInputContainer: {
+    justifyContent: 'center'
+  },
+  datePickerStartContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: '24%',
+    marginTop: 12
+  },
+  inputDate: {
+    backgroundColor: '#fff',
+    borderColor: '#000',
+    textAlign: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    height: 34,
+    width: 140,
+    borderRadius: 10
+  },
+  inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#000',
+    height: 34,
+    width: '40%',
+    borderRadius: 10
+  },
+  inputIcon: {
+    marginRight: 4
   }
 });

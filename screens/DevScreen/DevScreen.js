@@ -7,11 +7,12 @@ import { COLORS } from '../../constants';
 import HomeScreenDev from './HomeScreenDev';
 import NotificationDev from './NotificationDev'
 import AccountDev from './AccountDev';
-
+import PaymentsLog from './PaymentsLog';
 
 const HomeScreenDevName = 'Home';
 const NotificationDevName = 'Notification';
 const AccountDevName = 'Account'
+const PaymentsLogName = 'Payments Log'
 
 const Tab = createBottomTabNavigator();
 
@@ -25,6 +26,8 @@ function TabNavigator() {
 
           if (route.name === HomeScreenDevName) {
             iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === PaymentsLogName) {
+            iconName = focused ? 'time' : 'time-outline';
           } else if (route.name === NotificationDevName) {
             iconName = focused ? 'notifications' : 'notifications-outline';
           } else if (route.name == AccountDevName) {
@@ -42,6 +45,7 @@ function TabNavigator() {
     >
       <Tab.Screen name={HomeScreenDevName} component={HomeScreenDev} />
       <Tab.Screen name={NotificationDevName} component={NotificationDev} />
+      <Tab.Screen name={PaymentsLogName} component={PaymentsLog}/>
       <Tab.Screen name={AccountDevName} component={AccountDev}/>
     </Tab.Navigator>
   )
