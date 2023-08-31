@@ -23,7 +23,7 @@ export const SIZES = {
 
 export const SHADOWS = {
   light: {
-    shadowColor: COLORS.gray,
+    shadowColor: '#e3e4e6',
     shadowOffset: {
       width: 0,
       height: 1,

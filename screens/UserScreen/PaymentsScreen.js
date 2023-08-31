@@ -124,7 +124,6 @@ const PaymentsScreen = ({ route }) => {
       formData.append('alamatMitra', data?.address );
 
       formData.append('startedAt', );
-      formData.append('endedAt',  );
 
       formData.append('durasi', value);
       formData.append('totalHarga', data?.salary + appFee);
@@ -193,7 +192,7 @@ const PaymentsScreen = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container1}>
       <View style={styles.header}>
         <TouchableOpacity
           style={{
@@ -201,12 +200,13 @@ const PaymentsScreen = ({ route }) => {
           }}
           onPress={() => navigation.goBack()}
         >
-          <Ionicons name="chevron-back-outline" size={24} color='black' />
+          <Ionicons name="chevron-back-outline" size={20} color='black' />
         </TouchableOpacity>
         <Text style={styles.titleScreen}>Checkout</Text>
       </View>
 
-      <ScrollView style={{ padding: 10, }}
+      <View style={styles.container2}>
+      <ScrollView style={{  }}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}>
         <View style={styles.itemWrapper}>
@@ -263,7 +263,7 @@ const PaymentsScreen = ({ route }) => {
         </View>
 
         <View style={styles.itemWrapper}>
-          <Text style={styles.Tittle}>Payment Method</Text>
+          <Text style={styles.Tittle}>Upload Pembayaran</Text>
           <View style={{
             flexDirection: 'row',
             marginTop: 13,
@@ -320,7 +320,8 @@ const PaymentsScreen = ({ route }) => {
           </View>
         </View>
 
-        <View style={styles.textInputContainer}>
+        <View style={[styles.itemWrapper, {borderBottomWidth: 0}]}>
+        <Text style={styles.Tittle}>Tanggal Mulai Bekerja</Text>
           <View style={styles.datePickerStartContainer}>
             <TouchableOpacity onPress={showDatePickerModal} style={styles.inputWrapper}>
               <Ionicons name="calendar" size={20} color="#9E9E9E" style={styles.inputIcon} />
@@ -332,18 +333,20 @@ const PaymentsScreen = ({ route }) => {
             {showDatePicker && (
               <DateTimePicker value={tanggalMulai} mode="date" display="default" onChange={handleDateChange} />
             )}
-
-            <Text> Ke </Text>
-            <View>
-              <Text style={styles.inputDate}>
-                {tanggalSelesai ? tanggalSelesai.toDateString() : 'Select a end date'}
-              </Text>
-            </View>
           </View>
         </View>
 
 
-        <View style={styles.pickerWrapper}>
+        <View style={[styles.itemWrapper, 
+        { 
+          zIndex: 1,
+          marginTop: 44,
+          marginBottom: 10,
+          height: 30,
+          width: '74%',
+          justifyContent: 'center',
+        }]}>
+        <Text style={[styles.Tittle, {marginBottom: 10}]}>Durasi Bekerja</Text>
           <DropDownPicker
             placeholder='Pilih Durasi'
             dropDownDirection="AUTO"
@@ -381,6 +384,7 @@ const PaymentsScreen = ({ route }) => {
           </View>
         </View>
       </ScrollView>
+      </View>
 
       <View style={styles.footer}>
         <TouchableOpacity style={styles.button1} onPress={handlePayment}>
@@ -397,15 +401,22 @@ const PaymentsScreen = ({ route }) => {
 export default PaymentsScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  container1: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  container2: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingRight: 10,
+    paddingLeft: 10
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 50,
+    height: 44,
     backgroundColor: '#fff',
     width: '100%',
     ...SHADOWS.light,
@@ -422,15 +433,15 @@ const styles = StyleSheet.create({
   },
   Tittle: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 16,
     marginTop: -25,
   },
   titleScreen: {
-    fontSize: SIZES.extraLarge,
+    fontSize: 20,
     fontWeight: '500',
     color: COLORS.dark,
     textAlign: 'center',
-    marginLeft: 104
+    marginLeft: 112
   },
   input: {
     height: 40,
@@ -438,16 +449,13 @@ const styles = StyleSheet.create({
   },
   button1: {
     backgroundColor: '#0E8995',
-    borderRadius: 15,
+    borderRadius: 10,
     marginTop: 30,
     marginBottom: 30,
     width: '70%',
-    height: 40,
+    height: 34,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  picker: {
-
   },
   pickerWrapper: {
     zIndex: 1,
@@ -474,7 +482,7 @@ const styles = StyleSheet.create({
   summaryValue: {
     fontSize: 14,
     color: COLORS.gray,
-    marginRight: 110
+    marginRight: 112
   },
   images: {
     height: 45,
@@ -484,16 +492,19 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 60,
+    height: 46,
     backgroundColor: '#fff',
     width: '100%',
-    ...SHADOWS.dark,
+    ...SHADOWS.light,
     borderBottomColor: '#d7d7d7',
     borderBottomWidth: 1,
   },
   bca: {
     height: 30,
     width: 60
+  },
+  picker: {
+    borderColor: COLORS.darkLight
   },
   textInputContainer: {
     justifyContent: 'center'
@@ -504,24 +515,14 @@ const styles = StyleSheet.create({
     marginRight: '24%',
     marginTop: 12
   },
-  inputDate: {
-    backgroundColor: '#fff',
-    borderColor: '#000',
-    textAlign: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    height: 34,
-    width: 140,
-    borderRadius: 10
-  },
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    padding: 10,
     borderWidth: 1,
-    borderColor: '#000',
-    height: 34,
-    width: '40%',
+    borderColor: COLORS.darkLight,
+    height: 50,
+    width: '97.5%',
     borderRadius: 10
   },
   inputIcon: {

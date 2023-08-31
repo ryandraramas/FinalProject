@@ -11,6 +11,8 @@ import { COLORS, SHADOWS } from '../../constants';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import { URL_API } from "@env";
+import axios from 'axios';
 
 const HomeScreenDev = () => {
   const navigation = useNavigation();

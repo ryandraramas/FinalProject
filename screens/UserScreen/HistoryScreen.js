@@ -13,7 +13,7 @@ const HistoryScreen = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(URL_API + 'api/mitra');
+      const response = await axios.get(URL_API + 'api/payments');
       setData(response.data);
     } catch (error) {
       console.error(error);
@@ -57,7 +57,7 @@ const HistoryScreen = () => {
                 <Text style={{ color: 'grey' }}>16 Mei 2023</Text>
               </View>
               <View style={styles.textStatus}>
-                <Text style={{ color: '#05AC0C', fontWeight: 'bold' }}>Selesai</Text>
+                <Text style={{ color: '#05AC0C', fontWeight: 'bold' }}>{item.status}</Text>
               </View>
               <View style={styles.iconEllips}>
                 <Ionicons name="ellipsis-vertical" size={24} color="#212121" />
@@ -65,15 +65,15 @@ const HistoryScreen = () => {
             </View>
             <View style={{ flexDirection: 'row' }}>
               <View>
-                <Image source={{ uri: URL_API + item?.foto }} style={styles.Image} />
+                <Image source={{ uri: URL_API + item?.fotoMitra}} style={styles.Image} />
                 <Text style={{ marginTop: 10 }}>Total Belanja:</Text>
-                <Text style={{ fontWeight: 'bold', marginTop: 2 }}>{formatSalary(item.salary)}</Text>
+                <Text style={{ fontWeight: 'bold', marginTop: 2 }}>{formatSalary(item.totalHarga)}</Text>
               </View>
               
               <View>
               <View style={styles.CategoryCard}>
                 <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
-                  {item.name}
+                  {item.namaMitra}
                 </Text>
                 <Text style={styles.textCategory}>
                   {item.category}
